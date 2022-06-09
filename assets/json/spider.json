@@ -1,0 +1,19 @@
+[
+  {
+    "name": "天域小说网",
+    "url": "https://m.zmccx.com/",
+    "type": "m.zmccx.com",
+    "category": {
+      "url": "xclass/0/1.html",
+      "bookName": "//*[@id=\"main\"]/*[@class=\"hot_sale\"]/a/*[@class=\"title\"]//text()",
+      "author": "//*[@id=\"main\"]/*[@class=\"hot_sale\"]/a/*[@class=\"author\"]//text()",
+      "content": "//*[@id=\"main\"]/*[@class=\"hot_sale\"]/*[@class=\"review\"]//text()",
+      "logo": "//*[@id=\"main\"]/*[@class=\"hot_sale\"]/a/img/@data-original",
+      "id": "//*[@id=\"main\"]/*[@class=\"hot_sale\"]/a/@href",
+      "categoryName": "//nav/a//text()",
+      "categoryId": "//nav/a//@href",
+      "nextId": "//*[@class=\"page\"]/a/@href",
+      "lastId": "//*[@class=\"page\"]/a/@href"
+    }
+  }
+]
