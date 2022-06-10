@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/pages//index/index_ctr.dart';
+import 'package:fun_novel/pages/category/category_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class IndexDesktopBody extends GetWidget<IndexCtr>{
+class CategoryDesktopPage extends GetWidget<CategoryCtr>{
   @override
   Widget build(BuildContext context) {
     return Container(

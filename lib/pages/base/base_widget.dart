@@ -13,18 +13,13 @@ abstract class BaseWidget<S extends GetLifeCycleBase> extends GetWidget<S>{
 
   const BaseWidget({Key? key}) : super(key: key);
 
-  PreferredSizeWidget appBar();
+  Widget phonePage();
 
-  Widget phoneBody();
-
-  Widget desktopBody();
+  Widget desktopPage();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(),
-      body: Platform.isFuchsia || Platform.isLinux || Platform.isMacOS || Platform.isWindows ? desktopBody() : phoneBody(),
-    );
+    return Platform.isAndroid || Platform.isIOS ? phonePage() : desktopPage();
   }
 }
 

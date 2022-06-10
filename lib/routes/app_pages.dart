@@ -1,6 +1,12 @@
+import 'package:fun_novel/pages/category/category_connect.dart';
+import 'package:fun_novel/pages/category/category_ctr.dart';
+import 'package:fun_novel/pages/category/category_page.dart';
 import 'package:fun_novel/pages/index/index_connect.dart';
 import 'package:fun_novel/pages/index/index_ctr.dart';
 import 'package:fun_novel/pages/index/index_page.dart';
+import 'package:fun_novel/pages/search/search_connect.dart';
+import 'package:fun_novel/pages/search/search_ctr.dart';
+import 'package:fun_novel/pages/search/search_page.dart';
 import 'package:fun_novel/pages/welcome/welcome_ctr.dart';
 import 'package:fun_novel/pages/welcome/welcome_page.dart';
 import 'package:get/get.dart';
@@ -29,6 +35,22 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut<IndexConnect>(() => IndexConnect());
         Get.lazyPut(() => IndexCtr(connect: Get.find()));
+      }),
+    ),
+    GetPage(
+      name: Routes.CATRGORY,
+      page: () => CategoryPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<CategoryConnect>(() => CategoryConnect());
+        Get.lazyPut(() => CategoryCtr(connect: Get.find()));
+      }),
+    ),
+    GetPage(
+      name: Routes.SEARCH,
+      page: () => SearchPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<SearchConnect>(() => SearchConnect());
+        Get.lazyPut(() => SearchCtr(connect: Get.find()));
       }),
     ),
   ];

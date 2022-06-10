@@ -27,3 +27,4 @@ flutter:
 
   assets:
     - assets/json/spider.json
+    - assets/images/
