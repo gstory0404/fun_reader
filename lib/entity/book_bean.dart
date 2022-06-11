@@ -3,16 +3,16 @@
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class SearchBookEntity {
+class BookBean {
   String title = "";
   String author = "";
   String content = "";
   String logo = "";
   String id = "";
 
-  SearchBookEntity({required this.title,required this.author,required this.content,required this.logo,required this.id});
+  BookBean({required this.title,required this.author,required this.content,required this.logo,required this.id});
 
-  SearchBookEntity.fromJson(Map<String, dynamic> json) {
+  BookBean.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     author = json['author'];
     content = json['content'];

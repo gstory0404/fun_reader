@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -19,7 +16,7 @@ abstract class BaseWidget<S extends GetLifeCycleBase> extends GetWidget<S>{
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isAndroid || Platform.isIOS ? phonePage() : desktopPage();
+    return context.isPhone ? phonePage() : desktopPage();
   }
 }
 

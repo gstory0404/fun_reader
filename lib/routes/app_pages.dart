@@ -1,9 +1,15 @@
+import 'package:fun_novel/pages/book/book_connect.dart';
+import 'package:fun_novel/pages/book/book_ctr.dart';
+import 'package:fun_novel/pages/book/book_page.dart';
 import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:fun_novel/pages/category/category_ctr.dart';
 import 'package:fun_novel/pages/category/category_page.dart';
 import 'package:fun_novel/pages/index/index_connect.dart';
 import 'package:fun_novel/pages/index/index_ctr.dart';
 import 'package:fun_novel/pages/index/index_page.dart';
+import 'package:fun_novel/pages/read/read_connect.dart';
+import 'package:fun_novel/pages/read/read_ctr.dart';
+import 'package:fun_novel/pages/read/read_page.dart';
 import 'package:fun_novel/pages/search/search_connect.dart';
 import 'package:fun_novel/pages/search/search_ctr.dart';
 import 'package:fun_novel/pages/search/search_page.dart';
@@ -51,6 +57,22 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut<SearchConnect>(() => SearchConnect());
         Get.lazyPut(() => SearchCtr(connect: Get.find()));
+      }),
+    ),
+    GetPage(
+      name: Routes.BOOK,
+      page: () => BookPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<BookConnect>(() => BookConnect());
+        Get.lazyPut(() => BookCtr(connect: Get.find()));
+      }),
+    ),
+    GetPage(
+      name: Routes.READ,
+      page: () => ReadPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<ReadConnect>(() => ReadConnect());
+        Get.lazyPut(() => ReadCtr(connect: Get.find()));
       }),
     ),
   ];

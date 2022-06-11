@@ -8,6 +8,8 @@ class SpiderBean {
   final String? type;
   final Category? category;
   final Search? search;
+  final Book? book;
+  final Chapter? chapter;
 
   SpiderBean({
     this.name,
@@ -15,6 +17,8 @@ class SpiderBean {
     this.type,
     this.category,
     this.search,
+    this.book,
+    this.chapter,
   });
 
   SpiderBean.fromJson(Map<String, dynamic> json)
@@ -26,6 +30,12 @@ class SpiderBean {
             : null,
         search = (json['search'] as Map<String, dynamic>?) != null
             ? Search.fromJson(json['search'] as Map<String, dynamic>)
+            : null,
+        book = (json['book'] as Map<String, dynamic>?) != null
+            ? Book.fromJson(json['book'] as Map<String, dynamic>)
+            : null,
+        chapter = (json['chapter'] as Map<String, dynamic>?) != null
+            ? Chapter.fromJson(json['chapter'] as Map<String, dynamic>)
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -33,7 +43,9 @@ class SpiderBean {
         'url': url,
         'type': type,
         'category': category?.toJson(),
-        'search': search?.toJson()
+        'search': search?.toJson(),
+        'book': book?.toJson(),
+        'chapter': chapter?.toJson()
       };
 }
 
@@ -137,4 +149,79 @@ class Search {
         'logo': logo,
         'id': id
       };
+}
+
+class Book {
+  String? bookName;
+  String? author;
+  String? content;
+  String? logo;
+  String? category;
+  String? status;
+  String? updateTime;
+  String? lastChapter;
+  String? readId;
+  String? allChapterUrl;
+
+  Book(
+      {this.bookName,
+      this.author,
+      this.content,
+      this.logo,
+      this.category,
+      this.status,
+      this.updateTime,
+      this.lastChapter,
+      this.readId,
+      this.allChapterUrl});
+
+  Book.fromJson(Map<String, dynamic> json) {
+    bookName = json['bookName'];
+    author = json['author'];
+    content = json['content'];
+    logo = json['logo'];
+    category = json['category'];
+    status = json['status'];
+    updateTime = json['updateTime'];
+    lastChapter = json['lastChapter'];
+    readId = json['readId'];
+    allChapterUrl = json['allChapterUrl'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['bookName'] = this.bookName;
+    data['author'] = this.author;
+    data['content'] = this.content;
+    data['logo'] = this.logo;
+    data['category'] = this.category;
+    data['status'] = this.status;
+    data['updateTime'] = this.updateTime;
+    data['lastChapter'] = this.lastChapter;
+    data['readId'] = this.readId;
+    data['allChapterUrl'] = this.allChapterUrl;
+    return data;
+  }
+}
+
+class Chapter {
+  String? chapters;
+  String? name;
+  String? id;
+
+  Chapter({this.chapters, this.name, this.id});
+
+  Chapter.fromJson(Map<String, dynamic> json) {
+    chapters = json['chapters'];
+    name = json['name'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['chapters'] = this.chapters;
+    data['name'] = this.name;
+    data['id'] = this.id;
+    return data;
+  }
 }

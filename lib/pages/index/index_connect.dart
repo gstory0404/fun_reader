@@ -16,7 +16,9 @@ class IndexConnect extends GetConnect{
   }
 
   Future<String> getData(String path) async{
-    httpClient.baseUrl = spiderManager.spiderBean?.url;
+    if(!path.startsWith("http")){
+      httpClient.baseUrl = spiderManager.spiderBean?.url;
+    }
     Response<String> response = await get(path);
     return response.body ?? "";
   }

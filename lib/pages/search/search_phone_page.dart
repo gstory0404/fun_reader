@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/entity/search_book_entity.dart';
+import 'package:fun_novel/entity/book_bean.dart';
 import 'package:fun_novel/pages/search/search_connect.dart';
 import 'package:fun_novel/pages/search/search_ctr.dart';
+import 'package:fun_novel/pages/widgets/book_item.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -45,7 +45,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return FutureBuilder<List<SearchBookEntity>>(
+    return FutureBuilder<List<BookBean>>(
         future: searchCtr.searchBook(query),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -67,75 +67,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
                 return ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 16),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom:
-                            BorderSide(width: 1, color: Colors.black12),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            list[index].logo.isEmpty
-                                ? Image.asset(
-                              "assets/images/icon_book_logo.png",
-                              width: 80,
-                              height: 100,
-                              fit: BoxFit.fill,
-                            )
-                                : Image.network(
-                              list[index].logo,
-                              width: 80,
-                              height: 100,
-                              fit: BoxFit.fill,
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                margin: const EdgeInsets.only(left: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      list[index].title
-                                          .replaceAll(" ", ""),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      list[index].author,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      list[index].content,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    return BookItem(bookBean:  list[index],);
                   },
                 );
               }

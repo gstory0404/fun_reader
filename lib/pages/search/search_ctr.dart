@@ -1,4 +1,4 @@
-import 'package:fun_novel/entity/search_book_entity.dart';
+import 'package:fun_novel/entity/book_bean.dart';
 import 'package:fun_novel/pages/search/search_connect.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
@@ -12,7 +12,7 @@ class SearchCtr extends GetxController {
   SearchConnect connect;
 
   //分类书籍列表
-  var bookList = <SearchBookEntity>[].obs;
+  var bookList = <BookBean>[].obs;
 
   SearchCtr({required this.connect});
 
@@ -26,7 +26,7 @@ class SearchCtr extends GetxController {
     super.onReady();
   }
 
-  Future<List<SearchBookEntity>> searchBook(String key) async {
+  Future<List<BookBean>> searchBook(String key) async {
     var html =
         await connect.searchBook("/search.php?searchkey=", key);
     var books = XPath.html(html).query("//*[@class=\"hot_sale\"]").nodes;
@@ -48,7 +48,7 @@ class SearchCtr extends GetxController {
       var id = element
           .queryXPath(connect.spiderManager.spiderBean!.search!.id!)
           .attr;
-      bookList.add(SearchBookEntity(
+      bookList.add(BookBean(
           title: title
               ?.replaceAll(" ", "")
               .replaceAll("\n", "")

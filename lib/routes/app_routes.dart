@@ -10,5 +10,7 @@ abstract class Routes {
   static const INDEX = '/';
   static const CATRGORY = '/category';
   static const SEARCH = '/search';
+  static const BOOK = '/book';
+  static const READ = '/read';
 }
 

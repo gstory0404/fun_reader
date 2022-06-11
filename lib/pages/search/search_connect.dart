@@ -12,7 +12,9 @@ class SearchConnect extends GetConnect{
 
 
   Future<String> searchBook(String path,String searchKey,{String postKey = ""}) async{
-    httpClient.baseUrl = spiderManager.spiderBean?.url;
+    if(!path.startsWith("http")){
+      httpClient.baseUrl = spiderManager.spiderBean?.url;
+    }
     Response<String> response;
     if(postKey.isEmpty){
       response = await get("$path$searchKey");

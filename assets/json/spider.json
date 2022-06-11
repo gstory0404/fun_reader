@@ -26,6 +26,23 @@
       "content": "/*[@class=\"review\"]//text()",
       "logo": "/a/img/@data-original",
       "id": "/a/@href"
+    },
+    "book": {
+      "bookName": "//header/span/text()",
+      "author": "//*[@class=\"synopsisArea_detail\"]/p[1]/text()",
+      "content": "//*[@class=\"synopsisArea\"]/*[@class=\"review\"]}/text()",
+      "logo": "//*[@class=\"synopsisArea_detail\"]/img/@src",
+      "category": "//*[@class=\"synopsisArea_detail\"]/p[2]/text()",
+      "status": "//*[@class=\"synopsisArea_detail\"]/p[3]/text()",
+      "updateTime": "//*[@class=\"synopsisArea_detail\"]/p[5]/text()",
+      "readId": "//*[@class=\"recommend\"]/*[@class=\"directoryArea\"]}/p[1]/a/@href",
+      "lastChapter": "//*[@class=\"recommend\"]/*[@class=\"directoryArea\"]}/p[1]/text()",
+      "allChapterUrl": "//*[@class=\"recommend\"]/h2[2]/a/@href"
+    },
+    "chapter": {
+      "chapters": "//*[@id=\"chapterlist\"]//p[position()>1]//a",
+      "name": "/text()",
+      "id": "/@href"
     }
   }
 ]

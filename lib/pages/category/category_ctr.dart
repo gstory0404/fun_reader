@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/category_book_entity.dart';
+import 'package:fun_novel/entity/book_bean.dart';
 import 'package:fun_novel/entity/category_entity.dart';
 import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:get/get.dart';
@@ -18,7 +18,7 @@ class CategoryCtr extends GetxController{
   var categoryList = <CategoryEntity>[].obs;
 
   //分类书籍列表
-  var categoryBookList = <CategoryBookEntity>[].obs;
+  var categoryBookList = <BookBean>[].obs;
 
   //下一页
   String? nextPage;
@@ -78,7 +78,7 @@ class CategoryCtr extends GetxController{
       var id = element
           .queryXPath(connect.spiderManager.spiderBean!.category!.id!)
           .attr;
-      categoryBookList.add(CategoryBookEntity(
+      categoryBookList.add(BookBean(
           title: title
               ?.replaceAll(" ", "")
               .replaceAll("\n", "")

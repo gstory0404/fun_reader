@@ -28,11 +28,14 @@ class IndexPhonePage extends GetWidget<IndexCtr> {
           // 菜单
           PopupMenuButton<String>(
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+              _selectView(Icons.book, '书源', 'book'),
               _selectView(Icons.settings, '设置', 'setting'),
             ],
             onSelected: (String action) {
               switch (action) {
                 case 'setting':
+                  break;
+                case 'book':
                   break;
               }
             },

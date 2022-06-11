@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/category_book_entity.dart';
+import 'package:fun_novel/entity/book_bean.dart';
 import 'package:fun_novel/entity/category_entity.dart';
 import 'package:fun_novel/pages/index/index_connect.dart';
 import 'package:get/get.dart';
