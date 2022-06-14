@@ -11,12 +11,12 @@ import 'package:fun_novel/pages/read/read_phone_page.dart';
 class ReadPage extends BaseWidget<ReadConnect>{
 
   @override
-  Widget desktopPage() {
+  Widget desktopPage(BuildContext context) {
     return Container();
   }
 
   @override
-  Widget phonePage() {
+  Widget phonePage(BuildContext context) {
     return ReadPhonePage();
   }
 }

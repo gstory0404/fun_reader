@@ -12,12 +12,12 @@ import 'package:get/get.dart';
 class BookshelfPage extends BaseWidget<BookshelfCtr>{
 
   @override
-  Widget desktopPage() {
+  Widget desktopPage(BuildContext context) {
     return Container();
   }
 
   @override
-  Widget phonePage() {
+  Widget phonePage(BuildContext context) {
     return Container();
   }
 }

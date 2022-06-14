@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/book_bean.dart';
 import 'package:fun_novel/entity/category_entity.dart';
+import 'package:fun_novel/manager/my_connect.dart';
 import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
@@ -8,115 +9,88 @@ import 'package:xpath_selector/xpath_selector.dart';
 /// @Author: gstory
 /// @CreateDate: 2022/6/10 15:26
 /// @Email gstory0404@gmail.com
-/// @Description: dart类作用描述 
+/// @Description: dart类作用描述
 
-class CategoryCtr extends GetxController{
-  CategoryConnect connect;
-  var data = "".obs;
-
-  //分类列表
-  var categoryList = <CategoryEntity>[].obs;
+class CategoryCtr extends GetxController {
+  MyConnect connect = Get.find();
 
   //分类书籍列表
   var categoryBookList = <BookBean>[].obs;
 
-  //下一页
-  String? nextPage;
+  var sourceUrl = "";
+  var path = "";
+  var name = "".obs;
 
-  //当前选中
-  var chooseIndex = 0.obs;
+  //下一页
+  int page = 1;
+
+  var isLoading = false.obs;
 
   ScrollController booksController = ScrollController();
-
-  CategoryCtr({required this.connect});
 
   @override
   void onInit() {
     super.onInit();
+    name.value = Get.arguments["name"];
+    sourceUrl = Get.arguments["sourceUrl"];
+    path = Get.arguments["path"];
     booksController.addListener(() {
       if (booksController.position.pixels ==
           booksController.position.maxScrollExtent) {
-        if (nextPage?.isNotEmpty ?? false) {
-          getCategoryData(nextPage!, isNew: false);
-        }
+        loadMore();
       }
     });
   }
 
   @override
   void onReady() {
-    if (connect.spiderManager.spiderBean != null) {
-      chooseIndex.value = 0;
-      getCategoryData(connect.spiderManager.spiderBean!.category!.url!);
-    }
+    refreshData();
   }
 
-  //获取分类列表
-  Future<void> getCategoryData(String url, {bool isNew = true}) async {
-    var html = await connect.getData(url);
-    var books = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.category!.books!)
-        .nodes;
-    categoryList.clear();
+  //刷新
+  void refreshData() {
+    page = 1;
+    getCategoryBooks(path.replaceAll("&page&", "$page"));
+  }
+
+  //加载更多
+  Future<void> loadMore() async {
+    isLoading.value = true;
+    page++;
+    getCategoryBooks(path.replaceAll("&page&", "$page"), isNew: false);
+  }
+
+  //获取分类书籍列表
+  Future<void> getCategoryBooks(String path, {bool isNew = true}) async {
+    print(path);
+    var html = await connect.getData(sourceUrl, path);
+    print(html);
+    //规则
+    var rule = connect.spiderManager.getRule(sourceUrl);
+    var books = XPath.html(html).query(rule.recommendBooks!.books!).nodes;
     if (isNew) {
       categoryBookList.clear();
     }
+    isLoading.value = false;
     //书籍
     for (var element in books) {
-      var title = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.bookName!)
-          .attr;
-      var author = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.author!)
-          .attr;
-      var content = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.content!)
-          .attr;
-      var logo = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.logo!)
-          .attr;
-      var id = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.id!)
-          .attr;
+      var bookUrl = element.queryXPath(rule.recommendBooks!.bookUrl!).attr;
+      var name = element.queryXPath(rule.recommendBooks!.name!).attr;
+      var author = element.queryXPath(rule.recommendBooks!.author!).attr;
+      var intro = element.queryXPath(rule.recommendBooks!.intro!).attr;
+      var cover = element.queryXPath(rule.recommendBooks!.cover!).attr;
+      var category = element.queryXPath(rule.recommendBooks!.category!).attrs;
+      var lastChapter =
+          element.queryXPath(rule.recommendBooks!.lastChapter!).attr;
       categoryBookList.add(BookBean(
-          title: title
-              ?.replaceAll(" ", "")
-              .replaceAll("\n", "")
-              .replaceAll("\r;", "") ??
-              "",
-          author: author
-              ?.replaceAll(" ", "")
-              .replaceAll("\n", "")
-              .replaceAll("\r;", "") ??
-              "",
-          content: content
-              ?.replaceAll(" ", "")
-              .replaceAll("\n", "")
-              .replaceAll("\r;", "") ??
-              "",
-          logo: logo ?? "",
-          id: id ?? ""));
+          bookUrl: bookUrl,
+          name: name ?? "",
+          author: author ?? "",
+          intro: intro ?? "",
+          cover: cover ?? "",
+          category: category,
+          lastChapter: lastChapter ?? ""));
     }
-    print("${categoryBookList.length}");
-    //分类
-    var categorys = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.category!.categorys!)
-        .nodes;
-    for (var element in categorys) {
-      var categoryName = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.categoryName!)
-          .attr;
-      var categoryId = element
-          .queryXPath(connect.spiderManager.spiderBean!.category!.categoryId!)
-          .attr;
-      categoryList.add(CategoryEntity(
-          id: categoryId ?? "", name: categoryName?.replaceAll(" ", "") ?? ""));
-    }
-    //下一页
-    var pages = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.category!.nextId!)
-        .attrs;
-    nextPage = pages.last;
   }
 
   @override
@@ -125,4 +99,3 @@ class CategoryCtr extends GetxController{
     super.dispose();
   }
 }
-

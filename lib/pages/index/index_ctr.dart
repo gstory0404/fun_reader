@@ -15,6 +15,13 @@ class IndexCtr extends GetxController with GetTickerProviderStateMixin{
 
    TabController? tabController;
 
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+
+  var chooseIndex = 0.obs;
+
   IndexCtr({required this.connect});
 
   @override

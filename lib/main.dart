@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fun_novel/manager/my_connect.dart';
 import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_novel/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -10,6 +12,8 @@ void main() {
   if(Platform.isFuchsia || Platform.isLinux || Platform.isMacOS || Platform.isWindows){
     initWindow();
   }
+  Get.put(MyConnect(),permanent: true);
+  LogUtil.init(isDebug: true);
   runApp(const MyApp());
 }
 

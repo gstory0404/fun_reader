@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:fun_novel/entity/rule_bean.dart';
 import 'package:fun_novel/entity/spider_bean.dart';
 
 /// @Author: gstory
@@ -16,30 +17,21 @@ class SpiderManager {
   static final SpiderManager _instance = SpiderManager._internal();
 
   //所有小说爬取规则
-  List<SpiderBean> spiderList = [];
+  List<RuleBean> ruleList = [];
   SpiderBean? spiderBean;
-
 
   void init(){
     rootBundle.loadString("assets/json/spider.json").then((value) {
       List list = json.decode(value);
       for (var element in list) {
-        spiderList.add(SpiderBean.fromJson(element));
+        ruleList.add(RuleBean.fromJson(element));
       }
-      if(spiderList.isNotEmpty){
-        chooseSpider(spiderList[0].type ?? "");
-      }
-
     });
   }
 
-  //切换数据源
-  void chooseSpider(String type){
-    for (var element in spiderList) {
-      if(element.type == type){
-        spiderBean = element;
-      }
-    }
+  //获取解析规则
+  RuleBean getRule(String sourceUrl){
+   return ruleList.firstWhere((element) => element.sourceUrl == sourceUrl);
   }
 }
 

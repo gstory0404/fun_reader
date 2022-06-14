@@ -1,5 +1,8 @@
 import 'package:fun_novel/entity/chapter_bean.dart';
+import 'package:fun_novel/entity/rule_bean.dart';
+import 'package:fun_novel/manager/my_connect.dart';
 import 'package:fun_novel/pages/book/book_connect.dart';
+import 'package:fun_novel/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
 
@@ -9,116 +12,95 @@ import 'package:xpath_selector/xpath_selector.dart';
 /// @Description: dart类作用描述
 
 class BookCtr extends GetxController {
-  BookConnect connect;
-  var bookId = "";
+  MyConnect connect = Get.find();
+  var sourceUrl = "";
+  var bookUrl = "";
+  var chapterIndex = 0;
+  RuleBean? rule;
+
   //书籍相关参数
   var bookName = "".obs;
-  var logo = "".obs;
+  var cover = "".obs;
   var author = "".obs;
-  var category = "".obs;
-  var status = "".obs;
+  var category = [].obs;
   var updateTime = "".obs;
-  var content = "".obs;
+  var intro = "".obs;
   var lastChapter = "".obs;
-  var readId = "";
-  var allChapterUrl = "";
   List<ChapterBean> chapterList = [];
 
-  BookCtr({required this.connect});
+  BookCtr({this.sourceUrl = "",this.bookUrl = ""});
 
   @override
   void onReady() {
-    bookId = Get.arguments['bookId'];
-    getBookDetail(bookId);
+    sourceUrl = Get.arguments['sourceUrl'];
+    bookUrl = Get.arguments['bookUrl'];
+    if(sourceUrl.isNotEmpty && bookUrl.isNotEmpty){
+      getBookDetail();
+    }
   }
 
-  Future<void> getBookDetail(String id) async {
-    var html = await connect.getBookDetail(id);
-
-    bookName.value = XPath.html(html)
-            .query(connect.spiderManager.spiderBean!.book!.bookName!)
-            .attr
-            ?.replaceAll(" ", "")
-            .replaceAll("\n", "")
-            .replaceAll("\r;", "") ??
-        "";
-    logo.value = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.book!.logo!)
-        .attr ?? "";
-    author.value = XPath.html(html)
-            .query(connect.spiderManager.spiderBean!.book!.author!)
-            .attr
-            ?.replaceAll(" ", "")
-            .replaceAll("\n", "")
-            .replaceAll("\r;", "") ??
-        "";
-    category.value = XPath.html(html)
-            .query(connect.spiderManager.spiderBean!.book!.category!)
-            .attr
-            ?.replaceAll(" ", "")
-            .replaceAll("\n", "")
-            .replaceAll("\r;", "") ??
-        "";
-    status.value = XPath.html(html)
-            .query(connect.spiderManager.spiderBean!.book!.status!)
-            .attr
-            ?.replaceAll(" ", "")
-            .replaceAll("\n", "")
-            .replaceAll("\r;", "") ??
-        "";
-    updateTime.value = XPath.html(html)
-            .query(connect.spiderManager.spiderBean!.book!.updateTime!)
-            .attr
-            ?.replaceAll(" ", "")
-            .replaceAll("\n", "")
-            .replaceAll("\r;", "") ??
-        "";
-    content.value = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.book!.content!)
-        .attr
-        ?.replaceAll(" ", "")
-        .replaceAll("\n", "")
-        .replaceAll("\r;", "") ??
-        "";
-    lastChapter.value = XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.book!.lastChapter!)
-        .attr
-        ?.replaceAll(" ", "")
-        .replaceAll("\n", "")
-        .replaceAll("\r;", "") ??
-        "";
-    readId =  XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.book!.readId!)
-        .attr ?? "";
-    allChapterUrl =  XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.book!.allChapterUrl!)
-        .attr ?? "";
-    print("$readId====$allChapterUrl");
-    getBookChapterList(allChapterUrl);
+  //获取书籍详情
+  Future<void> getBookDetail() async {
+    //解析规则
+    rule = connect.spiderManager.getRule(sourceUrl);
+    var html = await connect.getData(sourceUrl, bookUrl);
+    bookName.value =
+        XPath.html(html).query(rule?.bookInfo!.name ?? "").attr ?? "";
+    cover.value =
+        XPath.html(html).query(rule?.bookInfo!.cover ?? "").attr ?? "";
+    author.value =
+        XPath.html(html).query(rule?.bookInfo!.author ?? "").attr ?? "";
+    category.value =
+        XPath.html(html).query(rule?.bookInfo!.category ?? "").attrs;
+    updateTime.value =
+        XPath.html(html).query(rule?.bookInfo!.updateTime ?? "").attr ?? "";
+    intro.value =
+        XPath.html(html).query(rule?.bookInfo!.intro ?? "").attr ?? "";
+    lastChapter.value =
+        XPath.html(html).query(rule?.bookInfo!.intro ?? "").attr ?? "";
+    //如果章节列表 规则为空则在当前页面解析 章节列表
+    if (rule?.bookInfo!.chapterUrl == null) {
+      var chapters =
+          XPath.html(html).query(rule?.chapter?.chapterList ?? "").nodes;
+      for (var element in chapters) {
+        var chapterName =
+            element.queryXPath(rule?.chapter?.chapterName ?? "").attr ?? "";
+        var chapterUrl =
+            element.queryXPath(rule?.chapter?.chapterUrl ?? "").attr ?? "";
+        chapterList
+            .add(ChapterBean(chapterName: chapterName, chapterUrl: chapterUrl));
+      }
+    } else {
+      var chapterAllUrl =
+          XPath.html(html).query(rule?.bookInfo!.chapterUrl ?? "").attr ?? "";
+      getBookChapterList(chapterAllUrl);
+    }
   }
 
   //获取章节列表
-  Future<List<ChapterBean>> getBookChapterList(String path) async {
-    if(chapterList.isNotEmpty){
-      return chapterList;
+  Future<void> getBookChapterList(String chapterAllUrl,
+      {bool isNew = false}) async {
+    LogUtil.d(chapterAllUrl);
+    var html = await connect.getData(sourceUrl, chapterAllUrl);
+    var chapters = XPath.html(html).query(rule?.chapter?.chapterList ?? "").nodes;
+    LogUtil.d( XPath.html(html).query(rule?.chapter?.chapterList ?? "").nodes);
+    if (isNew) {
+      chapterList.clear();
     }
-    var html = await connect.getBookChapterList(path);
-    var chapters =  XPath.html(html)
-        .query(connect.spiderManager.spiderBean!.chapter!.chapters!)
-        .nodes;
-    chapterList.clear();
     for (var element in chapters) {
-      var name = element
-          .queryXPath(connect.spiderManager.spiderBean!.chapter!.name!)
-          .attr?.replaceAll(" ", "")
-          .replaceAll("\n", "")
-          .replaceAll("\r;", "") ??
-          "";
-      var id = element
-          .queryXPath(connect.spiderManager.spiderBean!.chapter!.id!)
-          .attr;
-      chapterList.add(ChapterBean(name: name,id: id));
+      var chapterName =
+          element.queryXPath(rule!.chapter!.chapterName!).attr ?? "";
+      var chapterUrl = element.queryXPath(rule!.chapter!.chapterUrl!).attr;
+      chapterList
+          .add(ChapterBean(chapterName: chapterName, chapterUrl: chapterUrl));
     }
-    return chapterList;
+    //如果存在下一页 就继续加载
+    if (rule?.chapter?.nextPage == null) {
+      var nextPage = XPath.html(html).query(rule!.chapter!.nextPage!).attr;
+      if (nextPage != null) {
+        getBookChapterList(nextPage);
+      }
+    }
+    LogUtil.d(chapterList);
   }
 }

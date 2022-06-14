@@ -4,20 +4,20 @@
 /// @Description: dart类作用描述 
 
 class ChapterBean{
-  String? name;
-  String? id;
+  String? chapterName;
+  String? chapterUrl;
 
-  ChapterBean({this.name, this.id});
+  ChapterBean({this.chapterName, this.chapterUrl});
 
   ChapterBean.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    id = json['id'];
+    chapterName = json['chapterName'];
+    chapterUrl = json['chapterUrl'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['id'] = id;
+    data['chapterName'] = chapterName;
+    data['chapterUrl'] = chapterUrl;
     return data;
   }
 }

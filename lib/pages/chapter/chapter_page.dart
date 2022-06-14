@@ -11,10 +11,14 @@ import 'package:vs_scrollbar/vs_scrollbar.dart';
 
 class ChapterPage extends StatefulWidget {
   List<ChapterBean> chapterList;
-  String? chapterId;
-  String bookId;
+  int? index;
+  String sourceUrl;
 
-  ChapterPage({Key? key,required this.bookId, required this.chapterList, this.chapterId = ""})
+  ChapterPage(
+      {Key? key,
+      required this.sourceUrl,
+      required this.chapterList,
+      this.index = 0})
       : super(key: key);
 
   @override
@@ -22,16 +26,16 @@ class ChapterPage extends StatefulWidget {
 }
 
 class _ChapterPageState extends State<ChapterPage> {
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController;
 
   @override
   void initState() {
-    for (int i = 0; i < widget.chapterList.length; i++) {
-      if (widget.chapterList[i].id == widget.chapterId) {
-        _scrollController.animateTo(i * 30,
-            duration: const Duration(milliseconds: 100), curve: Curves.ease);
-      }
-    }
+    super.initState();
+    _scrollController = ScrollController();
+    Future.delayed(const Duration(milliseconds: 500), (){
+      _scrollController.animateTo(widget.index! * 30,
+          duration: const Duration(milliseconds: 100), curve: Curves.ease);
+    });
   }
 
   @override
@@ -45,7 +49,7 @@ class _ChapterPageState extends State<ChapterPage> {
               padding: const EdgeInsets.only(
                   left: 16, right: 16, top: 50, bottom: 20),
               color: Colors.black12,
-              child: Text(
+              child: const Text(
                 "章节列表",
                 style: TextStyle(fontSize: 20),
               ),
@@ -67,8 +71,11 @@ class _ChapterPageState extends State<ChapterPage> {
                   itemExtent: 50,
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
-                      onTap: (){
-                        Get.toNamed(Routes.READ, arguments: {"bookId": widget.bookId,"chapterId":widget.chapterList[index].id});
+                      onTap: () {
+                        Get.toNamed(Routes.READ, arguments: {
+                          "sourceUrl": widget.sourceUrl,
+                          "chapterId": widget.chapterList[index].chapterUrl
+                        });
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,
@@ -79,14 +86,11 @@ class _ChapterPageState extends State<ChapterPage> {
                           ),
                         ),
                         child: Text(
-                          widget.chapterList[index].name!,
+                          widget.chapterList[index].chapterName!,
                           style: TextStyle(
                               fontSize: 15,
-                              color: widget.chapterId!.isNotEmpty
-                                  ? (widget.chapterId ==
-                                          widget.chapterList[index].id
-                                      ? Colors.red
-                                      : Colors.black)
+                              color: widget.index == index
+                                  ? Colors.red
                                   : Colors.black),
                         ),
                       ),

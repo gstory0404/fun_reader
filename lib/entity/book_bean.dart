@@ -1,35 +1,40 @@
-/// @Author: gstory
-/// @CreateDate: 2022/6/9 15:44
-/// @Email gstory0404@gmail.com
-/// @Description: dart类作用描述 
-
 class BookBean {
-  String title = "";
-  String author = "";
-  String content = "";
-  String logo = "";
-  String id = "";
+  String? name;
+  String? author;
+  String? cover;
+  String? intro;
+  List<String?>? category;
+  String? lastChapter;
+  String? bookUrl;
 
-  BookBean({required this.title,required this.author,required this.content,required this.logo,required this.id});
+  BookBean(
+      {this.name,
+        this.author,
+        this.cover,
+        this.intro,
+        this.category,
+        this.lastChapter,
+        this.bookUrl});
 
   BookBean.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    name = json['name'];
     author = json['author'];
-    content = json['content'];
-    logo = json['logo'];
-    id = json['id'];
+    cover = json['cover'];
+    intro = json['intro'];
+    category = json['category'].cast<String>();
+    lastChapter = json['lastChapter'];
+    bookUrl = json['bookUrl'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['title'] = title;
+    data['name'] = name;
     data['author'] = author;
-    data['content'] = content;
-    data['logo'] = logo;
-    data['id'] = id;
+    data['cover'] = cover;
+    data['intro'] = intro;
+    data['category'] = category;
+    data['lastChapter'] = lastChapter;
+    data['bookUrl'] = bookUrl;
     return data;
   }
 }
-
-
-

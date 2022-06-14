@@ -2,10 +2,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fun_novel/pages/base/base_widget.dart';
 import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:fun_novel/pages/category/category_ctr.dart';
-import 'package:fun_novel/pages/category/category_desktop_page.dart';
-import 'package:fun_novel/pages/category/category_phone_page.dart';
-import 'package:fun_novel/pages/index/index_desktop_page.dart';
-import 'package:fun_novel/pages/index/index_phone_page.dart';
+import 'package:fun_novel/pages/category/desktop/category_desktop_page.dart';
+import 'package:fun_novel/pages/category/phone/category_phone_page.dart';
+import 'package:fun_novel/pages/index/desktop/index_desktop_page.dart';
+import 'package:fun_novel/pages/index/phone/index_phone_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -15,17 +15,14 @@ import 'package:get/get.dart';
 
 class CategoryPage extends BaseWidget<CategoryCtr>{
 
-  CategoryCtr ctr = Get.put(CategoryCtr(connect: Get.put(CategoryConnect())));
-
   @override
-  Widget desktopPage() {
+  Widget desktopPage(BuildContext context) {
     return CategoryDesktopPage();
   }
 
   @override
-  Widget phonePage() {
+  Widget phonePage(BuildContext context) {
     return CategoryPhonePage();
   }
-
 }
 

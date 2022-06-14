@@ -9,15 +9,18 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class BookItem extends StatelessWidget {
+  String sourceUrl;
   BookBean bookBean;
 
-  BookItem({Key? key, required this.bookBean}) : super(key: key);
+  BookItem({Key? key, required this.sourceUrl, required this.bookBean})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.BOOK, arguments: {"bookId": bookBean.id});
+        Get.toNamed(Routes.BOOK,
+            arguments: {"sourceUrl": sourceUrl, "bookUrl": bookBean.bookUrl});
       },
       child: Container(
         alignment: Alignment.centerLeft,
@@ -29,19 +32,23 @@ class BookItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            bookBean.logo.isEmpty
-                ? Image.asset(
-                    "assets/images/icon_book_logo.png",
-                    width: 80,
-                    height: 100,
-                    fit: BoxFit.fill,
-                  )
-                : Image.network(
-                    bookBean.logo,
-                    width: 80,
-                    height: 100,
-                    fit: BoxFit.fill,
-                  ),
+            FadeInImage(
+              width: 80,
+              height: 100,
+              fit: BoxFit.fill,
+              placeholder: const AssetImage(
+                "assets/images/icon_book_logo.png",
+              ),
+              image: NetworkImage(bookBean.cover ?? ""),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  "assets/images/icon_book_logo.png",
+                  width: 80,
+                  height: 100,
+                  fit: BoxFit.fill,
+                );
+              },
+            ),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
@@ -51,7 +58,7 @@ class BookItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      bookBean.title.replaceAll(" ", ""),
+                      bookBean.name ?? "",
                       style: const TextStyle(
                         fontSize: 16,
                       ),
@@ -59,7 +66,7 @@ class BookItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      bookBean.author,
+                      bookBean.author ?? "",
                       style: const TextStyle(
                         fontSize: 14,
                       ),
@@ -67,13 +74,40 @@ class BookItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      bookBean.content,
+                      bookBean.intro ?? "",
                       style: const TextStyle(
-                        fontSize: 13,
+                        fontSize: 12,
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                    )
+                    ),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 4.0,
+                      alignment: WrapAlignment.start,
+                      children: bookBean.category
+                              ?.map((e) => Container(
+                                    margin: const EdgeInsets.only(top: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      //设置四周边框
+                                      border: Border.all(
+                                          width: 1, color: Colors.black45),
+                                    ),
+                                    child: Text(
+                                      e ?? "",
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ))
+                              .toList() ??
+                          [],
+                    ),
                   ],
                 ),
               ),

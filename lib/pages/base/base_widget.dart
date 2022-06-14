@@ -6,17 +6,17 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-abstract class BaseWidget<S extends GetLifeCycleBase> extends GetWidget<S>{
+abstract class BaseWidget<S extends GetLifeCycleBase> extends GetView<S>{
 
   const BaseWidget({Key? key}) : super(key: key);
 
-  Widget phonePage();
+  Widget phonePage(BuildContext context);
 
-  Widget desktopPage();
+  Widget desktopPage(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
-    return context.isPhone ? phonePage() : desktopPage();
+    return context.isPhone ? phonePage(context) : desktopPage(context);
   }
 }
 
