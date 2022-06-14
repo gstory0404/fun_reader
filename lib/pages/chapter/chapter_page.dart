@@ -60,9 +60,9 @@ class _ChapterPageState extends State<ChapterPage> {
                 isAlwaysShown: true,
                 showTrackOnHover: true,
                 style: const VsScrollbarStyle(
-                  hoverThickness: 20.0, // default 12.0
-                  radius: Radius.circular(10), // default Radius.circular(8.0)
-                  thickness: 16.0, // [ default 8.0 ]
+                  hoverThickness: 20.0,
+                  radius: Radius.circular(10),
+                  thickness: 8.0,
                   color: Colors.red, // default ColorScheme Theme
                 ),
                 child: ListView.builder(
@@ -79,6 +79,7 @@ class _ChapterPageState extends State<ChapterPage> {
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,
+                        height: 50,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: const BoxDecoration(
                           border: Border(
