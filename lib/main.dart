@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fun_novel/manager/my_connect.dart';
 import 'package:fun_novel/routes/app_pages.dart';
 import 'package:fun_novel/utils/log_util.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      builder: EasyLoading.init(),
     );
   }
 }

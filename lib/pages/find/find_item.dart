@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/routes/app_pages.dart';
-import 'package:get/get.dart';
+import 'package:fun_novel/pages/category/category_page.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/13 16:27
@@ -80,11 +79,7 @@ class _FindItemState extends State<FindItem> {
   Widget _getRecommendItem(Recommend recommend) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.CATRGORY, arguments: {
-          "name": recommend.recommendName,
-          "sourceUrl": widget.ruleBean.sourceUrl,
-          "path": recommend.recommendUrl
-        });
+        CategoryPage.go(name: recommend.recommendName, sourceUrl: widget.ruleBean.sourceUrl, path: recommend.recommendUrl);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),

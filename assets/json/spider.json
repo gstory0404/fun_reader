@@ -118,7 +118,7 @@
       "contentType": "application/x-www-form-urlencoded"
     },
     "searchBooks": {
-      "books": "/*[@class=\"library\"]//li",
+      "books": "//*[@class=\"library\"]//li",
       "name": "/a[2]/text()",
       "author": "/p[1]/a[1]/text()",
       "cover": "/a[1]/img/@src",
@@ -138,15 +138,15 @@
       "chapterUrl": "//*[@class=\"detail\"]/*[@class=\"action\"]/a[1]/@href"
     },
     "chapter": {
-      "chapterList": "//*[@class=\"read\"]/dl[2]//dd",
+      "chapterList": "//*[@class=\"read\"]//dl[position()>0]//dd",
       "chapterName": "/a/text()",
       "chapterUrl": "/a/@href",
       "nextPage": ""
     },
     "chapterContent": {
-      "content": "//*[@class=\"read\"]/dl[2]//dd",
+      "content": "//*[@id=\"content\"]//p[position()>0]/text()",
       "nextPage": "/a/text()",
-      "replaceReg": "/a/@href"
+      "replaceReg": "九桃小说 老域名(9txs.com)被墙，请您牢记本站最新域名(9taoxs.com)"
     }
   }
 ]

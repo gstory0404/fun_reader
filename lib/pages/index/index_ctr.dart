@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/book_bean.dart';
-import 'package:fun_novel/entity/category_entity.dart';
 import 'package:fun_novel/pages/index/index_connect.dart';
 import 'package:get/get.dart';
-import 'package:xpath_selector/xpath_selector.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/8 14:12

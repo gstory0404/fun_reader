@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/find/find_ctr.dart';
 import 'package:fun_novel/pages/find/find_body.dart';
-import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_novel/pages/find/find_ctr.dart';
+import 'package:fun_novel/pages/search/search_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -10,7 +10,8 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class FindPage extends BaseWidget {
+class FindPage extends BaseWidget<FindCtr> {
+
   FindCtr ctr = Get.put(FindCtr());
 
   @override
@@ -30,7 +31,7 @@ class FindPage extends BaseWidget {
           IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                Get.toNamed(Routes.SEARCH);
+                SearchPage.go();
               }),
         ],
       ),

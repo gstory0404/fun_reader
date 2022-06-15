@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/chapter_bean.dart';
-import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_novel/pages/read/read_page.dart';
 import 'package:get/get.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 
@@ -13,11 +13,13 @@ class ChapterPage extends StatefulWidget {
   List<ChapterBean> chapterList;
   int? index;
   String sourceUrl;
+  String bookUrl;
 
   ChapterPage(
       {Key? key,
       required this.sourceUrl,
       required this.chapterList,
+      required this.bookUrl,
       this.index = 0})
       : super(key: key);
 
@@ -32,7 +34,7 @@ class _ChapterPageState extends State<ChapterPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    Future.delayed(const Duration(milliseconds: 500), (){
+    Future.delayed(const Duration(milliseconds: 500), () {
       _scrollController.animateTo(widget.index! * 30,
           duration: const Duration(milliseconds: 100), curve: Curves.ease);
     });
@@ -49,9 +51,20 @@ class _ChapterPageState extends State<ChapterPage> {
               padding: const EdgeInsets.only(
                   left: 16, right: 16, top: 50, bottom: 20),
               color: Colors.black12,
-              child: const Text(
-                "章节列表",
-                style: TextStyle(fontSize: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "章节列表",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const Icon(Icons.close),
+                  )
+                ],
               ),
             ),
             Expanded(
@@ -72,10 +85,10 @@ class _ChapterPageState extends State<ChapterPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.READ, arguments: {
-                          "sourceUrl": widget.sourceUrl,
-                          "chapterId": widget.chapterList[index].chapterUrl
-                        });
+                        ReadPage.go(
+                            sourceUrl: widget.sourceUrl,
+                            bookUrl: widget.bookUrl,
+                            chapterIndex: index);
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,

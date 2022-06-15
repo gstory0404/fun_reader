@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages//index/index_ctr.dart';
 import 'package:fun_novel/pages/category/category_ctr.dart';
 import 'package:get/get.dart';
 

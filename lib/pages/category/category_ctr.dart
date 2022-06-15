@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/book_bean.dart';
-import 'package:fun_novel/entity/category_entity.dart';
+import 'package:fun_novel/entity/rule_bean.dart';
 import 'package:fun_novel/manager/my_connect.dart';
-import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:get/get.dart';
-import 'package:xpath_selector/xpath_selector.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/10 15:26
@@ -16,6 +14,8 @@ class CategoryCtr extends GetxController {
 
   //分类书籍列表
   var categoryBookList = <BookBean>[].obs;
+
+  RuleBean? rule;
 
   var sourceUrl = "";
   var path = "";
@@ -34,6 +34,8 @@ class CategoryCtr extends GetxController {
     name.value = Get.arguments["name"];
     sourceUrl = Get.arguments["sourceUrl"];
     path = Get.arguments["path"];
+    //解析规则
+    rule = connect.spiderManager.getRule(sourceUrl);
     booksController.addListener(() {
       if (booksController.position.pixels ==
           booksController.position.maxScrollExtent) {
@@ -48,49 +50,25 @@ class CategoryCtr extends GetxController {
   }
 
   //刷新
-  void refreshData() {
+  Future<void> refreshData() async {
+    if(rule == null){
+      return;
+    }
+    isLoading.value = false;
     page = 1;
-    getCategoryBooks(path.replaceAll("&page&", "$page"));
+    categoryBookList.clear();
+    categoryBookList.addAll(await connect.getCategoryBooks(rule!,path.replaceAll("&page&", "$page")));
   }
 
   //加载更多
   Future<void> loadMore() async {
+    if(rule == null){
+      return;
+    }
     isLoading.value = true;
     page++;
-    getCategoryBooks(path.replaceAll("&page&", "$page"), isNew: false);
-  }
-
-  //获取分类书籍列表
-  Future<void> getCategoryBooks(String path, {bool isNew = true}) async {
-    print(path);
-    var html = await connect.getData(sourceUrl, path);
-    print(html);
-    //规则
-    var rule = connect.spiderManager.getRule(sourceUrl);
-    var books = XPath.html(html).query(rule.recommendBooks!.books!).nodes;
-    if (isNew) {
-      categoryBookList.clear();
-    }
+    categoryBookList.addAll(await connect.getCategoryBooks(rule!,path.replaceAll("&page&", "$page")));
     isLoading.value = false;
-    //书籍
-    for (var element in books) {
-      var bookUrl = element.queryXPath(rule.recommendBooks!.bookUrl!).attr;
-      var name = element.queryXPath(rule.recommendBooks!.name!).attr;
-      var author = element.queryXPath(rule.recommendBooks!.author!).attr;
-      var intro = element.queryXPath(rule.recommendBooks!.intro!).attr;
-      var cover = element.queryXPath(rule.recommendBooks!.cover!).attr;
-      var category = element.queryXPath(rule.recommendBooks!.category!).attrs;
-      var lastChapter =
-          element.queryXPath(rule.recommendBooks!.lastChapter!).attr;
-      categoryBookList.add(BookBean(
-          bookUrl: bookUrl,
-          name: name ?? "",
-          author: author ?? "",
-          intro: intro ?? "",
-          cover: cover ?? "",
-          category: category,
-          lastChapter: lastChapter ?? ""));
-    }
   }
 
   @override

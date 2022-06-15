@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
 import 'package:fun_novel/pages/find/find_ctr.dart';
 import 'package:fun_novel/pages/find/find_item.dart';
 import 'package:get/get.dart';

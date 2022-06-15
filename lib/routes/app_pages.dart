@@ -1,13 +1,10 @@
-import 'package:fun_novel/pages/book/book_connect.dart';
 import 'package:fun_novel/pages/book/book_ctr.dart';
 import 'package:fun_novel/pages/book/book_page.dart';
-import 'package:fun_novel/pages/category/category_connect.dart';
 import 'package:fun_novel/pages/category/category_ctr.dart';
 import 'package:fun_novel/pages/category/category_page.dart';
 import 'package:fun_novel/pages/index/index_connect.dart';
 import 'package:fun_novel/pages/index/index_ctr.dart';
 import 'package:fun_novel/pages/index/index_page.dart';
-import 'package:fun_novel/pages/read/read_connect.dart';
 import 'package:fun_novel/pages/read/read_ctr.dart';
 import 'package:fun_novel/pages/read/read_page.dart';
 import 'package:fun_novel/pages/search/search_ctr.dart';

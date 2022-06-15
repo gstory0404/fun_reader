@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:fun_novel/manager/spider_manager.dart';
-import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_novel/pages/index/index_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -26,7 +26,7 @@ class WelComeCtr extends GetxController{
       } else {
         _timer?.cancel();
         _timer = null;
-        Get.offAllNamed(Routes.INDEX);
+        IndexPage.go();
       }
     });
   }

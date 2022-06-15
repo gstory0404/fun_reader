@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/book_bean.dart';
-import 'package:fun_novel/routes/app_pages.dart';
-import 'package:get/get.dart';
+import 'package:fun_novel/pages/book/book_page.dart';
+import 'package:fun_novel/pages/widgets/book_cover_widget.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/11 11:11
@@ -19,8 +19,7 @@ class BookItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.BOOK,
-            arguments: {"sourceUrl": sourceUrl, "bookUrl": bookBean.bookUrl});
+        BookPage.go(sourceUrl: sourceUrl, bookUrl: bookBean.bookUrl!);
       },
       child: Container(
         alignment: Alignment.centerLeft,
@@ -32,23 +31,7 @@ class BookItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            FadeInImage(
-              width: 80,
-              height: 100,
-              fit: BoxFit.fill,
-              placeholder: const AssetImage(
-                "assets/images/icon_book_logo.png",
-              ),
-              image: NetworkImage(bookBean.cover ?? ""),
-              imageErrorBuilder: (context, error, stackTrace) {
-                return Image.asset(
-                  "assets/images/icon_book_logo.png",
-                  width: 80,
-                  height: 100,
-                  fit: BoxFit.fill,
-                );
-              },
-            ),
+            BookCoverWidget(bookBean.cover ?? "",width:80,height:100),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
