@@ -131,10 +131,14 @@ class BookPhonePage extends GetView<BookCtr> {
                             }
                             Get.bottomSheet(
                                 ChapterPage(
-                                  sourceUrl: controller.sourceUrl,
-                                  bookUrl: controller.bookUrl,
                                   chapterList:
                                       controller.book.value.chapterList,
+                                  onChoose: (index) {
+                                    ReadPage.go(
+                                        sourceUrl: controller.sourceUrl,
+                                        bookUrl: controller.bookUrl,
+                                        chapterIndex: index);
+                                  },
                                 ),
                                 isScrollControlled: true);
                           },
@@ -195,7 +199,9 @@ class BookPhonePage extends GetView<BookCtr> {
                       return;
                     }
                     ReadPage.go(
-                        sourceUrl: controller.sourceUrl,bookUrl: controller.bookUrl, chapterIndex: 0);
+                        sourceUrl: controller.sourceUrl,
+                        bookUrl: controller.bookUrl,
+                        chapterIndex: 0);
                   },
                   child: const Text(
                     "立即阅读",

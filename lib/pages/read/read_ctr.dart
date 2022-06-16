@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/book_detail_bean.dart';
-import 'package:fun_novel/entity/chapter_bean.dart';
 import 'package:fun_novel/entity/chapter_content_bean.dart';
 import 'package:fun_novel/entity/rule_bean.dart';
 import 'package:fun_novel/manager/my_connect.dart';
-import 'package:fun_novel/utils/log_util.dart';
 import 'package:fun_novel/utils/toast_util.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -19,7 +16,7 @@ class ReadCtr extends GetxController {
 
   var sourceUrl = "";
   var bookUrl = "";
-  var chapterIndex = 0;
+  var chapterIndex = 0.obs;
 
   var index = 0;
 
@@ -35,6 +32,11 @@ class ReadCtr extends GetxController {
   final ItemPositionsListener readPositionsListener =
       ItemPositionsListener.create();
 
+  //是否显示菜单页面
+  var isShowMenu = false.obs;
+  //是否显示设置页面
+  var isShowSetting = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -49,33 +51,34 @@ class ReadCtr extends GetxController {
   //竖直阅读的时候监听滚动
   void _checkChapter(int index, double up) async {
     if(!isLoad){
-      chapterIndex = getChapterPostion(chapterContentList[index].chapterUrl);
+      chapterIndex.value = getChapterPostion(chapterContentList[index].chapterUrl);
       //如果存在上一章 接预加载
       if(index == 0 && up == 0 && chapterIndex > 0){
         isLoad = true;
         chapterContentList.insert(
             0,
             await getChapterContent(
-                book.value.chapterList[chapterIndex - 1].chapterName!,
-                book.value.chapterList[chapterIndex - 1].chapterUrl!));
+                book.value.chapterList[chapterIndex.value - 1].chapterName!,
+                book.value.chapterList[chapterIndex.value - 1].chapterUrl!));
         isLoad = false;
         //延时跳转
         Future.delayed(const Duration(milliseconds: 100), () {
-          readScrollController.jumpTo(index: index + 1, alignment: up);
+          readScrollController.jumpTo(index: index + 1, alignment: 0);
         });
       }
       //如果存在下一章 则预加载
       if (index == chapterContentList.length - 1 && chapterIndex < book.value.chapterList.length - 1) {
         isLoad = true;
-        print(book.value.chapterList[chapterIndex +1].chapterUrl);
+        print(book.value.chapterList[chapterIndex.value +1].chapterUrl);
         chapterContentList.add(await getChapterContent(
-            book.value.chapterList[chapterIndex +1].chapterName!,
-            book.value.chapterList[chapterIndex +1].chapterUrl!));
+            book.value.chapterList[chapterIndex.value +1].chapterName!,
+            book.value.chapterList[chapterIndex.value +1].chapterUrl!));
         isLoad = false;
       }
     }
   }
 
+  //获取章节下标
   int getChapterPostion(String chapterUrl) {
     for (int i = 0; i < book.value.chapterList.length; i++) {
       if (book.value.chapterList[i].chapterUrl == chapterUrl) {
@@ -90,7 +93,7 @@ class ReadCtr extends GetxController {
     super.onReady();
     sourceUrl = Get.arguments['sourceUrl'];
     bookUrl = Get.arguments['bookUrl'];
-    chapterIndex = Get.arguments["chapterIndex"];
+    chapterIndex.value = Get.arguments["chapterIndex"];
     //解析规则
     rule = connect.spiderManager.getRule(sourceUrl);
     if (rule == null) {
@@ -117,20 +120,21 @@ class ReadCtr extends GetxController {
     List<ChapterContentBean> lists = [];
     if (chapterIndex > 0) {
       lists.add(await getChapterContent(
-          book.value.chapterList[chapterIndex - 1].chapterName!,
-          book.value.chapterList[chapterIndex - 1].chapterUrl!));
+          book.value.chapterList[chapterIndex.value - 1].chapterName!,
+          book.value.chapterList[chapterIndex.value - 1].chapterUrl!));
     }
     lists.add(await getChapterContent(
-        book.value.chapterList[chapterIndex].chapterName!,
-        book.value.chapterList[chapterIndex].chapterUrl!));
+        book.value.chapterList[chapterIndex.value].chapterName!,
+        book.value.chapterList[chapterIndex.value].chapterUrl!));
     //加载下一章
     if (chapterIndex < book.value.chapterList.length) {
       lists.add(await getChapterContent(
-          book.value.chapterList[chapterIndex + 1].chapterName!,
-          book.value.chapterList[chapterIndex + 1].chapterUrl!));
+          book.value.chapterList[chapterIndex.value + 1].chapterName!,
+          book.value.chapterList[chapterIndex.value + 1].chapterUrl!));
     }
     chapterContentList.clear();
     chapterContentList.addAll(lists);
+    print("重新加载 ${chapterIndex.value}   ${chapterContentList.length}");
     //延时跳转
     Future.delayed(const Duration(milliseconds: 100), () {
       if (chapterIndex == 0) {

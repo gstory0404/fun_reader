@@ -138,7 +138,7 @@
       "chapterUrl": "//*[@class=\"detail\"]/*[@class=\"action\"]/a[1]/@href"
     },
     "chapter": {
-      "chapterList": "//*[@class=\"read\"]//dl[position()>0]//dd",
+      "chapterList": "//*[@class=\"read\"]//dl[position()>1]//dd",
       "chapterName": "/a/text()",
       "chapterUrl": "/a/@href",
       "nextPage": ""

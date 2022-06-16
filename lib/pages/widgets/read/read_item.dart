@@ -9,19 +9,19 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class ReadItem extends GetView<ReadCtr>{
+class ReadItem extends GetView<ReadCtr> {
 
   ChapterContentBean chapter;
+
   ReadItem({required this.chapter});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
-        // readSettingCallback.onShowMenu(true);
+        controller.isShowMenu.value = true;
       },
-      child:Container(
+      child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
         // color: backGroundColor,
         child: Column(
@@ -32,11 +32,12 @@ class ReadItem extends GetView<ReadCtr>{
               child: Text(
                 chapter.chapterName,
                 style: TextStyle(
-                  fontSize: 20
+                    fontSize: 20
                 ),
               ),
             ),
             Container(
+              constraints: BoxConstraints(minHeight: context.height * 0.8),
               child: Text(
                 chapter.chapterContent,
                 style: TextStyle(

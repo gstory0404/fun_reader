@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/entity/chapter_bean.dart';
-import 'package:fun_novel/pages/read/read_page.dart';
 import 'package:get/get.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 
@@ -12,14 +11,12 @@ import 'package:vs_scrollbar/vs_scrollbar.dart';
 class ChapterPage extends StatefulWidget {
   List<ChapterBean> chapterList;
   int? index;
-  String sourceUrl;
-  String bookUrl;
+  Function(int index) onChoose;
 
   ChapterPage(
       {Key? key,
-      required this.sourceUrl,
       required this.chapterList,
-      required this.bookUrl,
+      required this.onChoose,
       this.index = 0})
       : super(key: key);
 
@@ -85,10 +82,7 @@ class _ChapterPageState extends State<ChapterPage> {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
-                        ReadPage.go(
-                            sourceUrl: widget.sourceUrl,
-                            bookUrl: widget.bookUrl,
-                            chapterIndex: index);
+                        widget.onChoose(index);
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,

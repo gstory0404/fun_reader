@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/read/read_ctr.dart';
 import 'package:fun_novel/pages/read/phone/read_phone_page.dart';
+import 'package:fun_novel/pages/read/read_ctr.dart';
 import 'package:fun_novel/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +22,7 @@ class ReadPage extends BaseWidget<ReadCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
-    return Container();
+    return ReadPhonePage();
   }
 
   @override
