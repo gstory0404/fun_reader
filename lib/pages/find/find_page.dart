@@ -25,6 +25,7 @@ class FindPage extends BaseWidget<FindCtr> {
   Widget phonePage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF12aa9c),
         title: Text("发现"),
         actions: [
           // 搜索
