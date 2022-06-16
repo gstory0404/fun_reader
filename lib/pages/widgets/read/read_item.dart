@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/entity/chapter_content_bean.dart';
-import 'package:fun_novel/pages/read/read_ctr.dart';
+import 'package:fun_reader/entity/chapter_content_bean.dart';
+import 'package:fun_reader/pages/read/read_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

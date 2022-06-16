@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/pages/search/phone/search_phone_appbar.dart';
-import 'package:fun_novel/pages/search/search_ctr.dart';
-import 'package:fun_novel/pages/widgets/book_item.dart';
+import 'package:fun_reader/pages/search/phone/search_phone_appbar.dart';
+import 'package:fun_reader/pages/search/search_ctr.dart';
+import 'package:fun_reader/pages/widgets/book_item.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

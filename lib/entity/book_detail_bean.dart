@@ -1,4 +1,4 @@
-import 'package:fun_novel/entity/chapter_bean.dart';
+import 'package:fun_reader/entity/chapter_bean.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/14 18:13

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/book/book_ctr.dart';
-import 'package:fun_novel/pages/chapter/chapter_page.dart';
-import 'package:fun_novel/pages/read/read_page.dart';
-import 'package:fun_novel/pages/widgets/book_cover_widget.dart';
-import 'package:fun_novel/utils/toast_util.dart';
+import 'package:fun_reader/pages/book/book_ctr.dart';
+import 'package:fun_reader/pages/chapter/chapter_page.dart';
+import 'package:fun_reader/pages/read/read_page.dart';
+import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

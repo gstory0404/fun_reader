@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/find/find_ctr.dart';
-import 'package:fun_novel/pages/find/find_item.dart';
+import 'package:fun_reader/pages/find/find_ctr.dart';
+import 'package:fun_reader/pages/find/find_item.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

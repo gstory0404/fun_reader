@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/find/find_body.dart';
-import 'package:fun_novel/pages/find/find_ctr.dart';
-import 'package:fun_novel/pages/search/search_page.dart';
+import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/find/find_body.dart';
+import 'package:fun_reader/pages/find/find_ctr.dart';
+import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

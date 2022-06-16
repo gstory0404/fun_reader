@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fun_novel/manager/spider_manager.dart';
-import 'package:fun_novel/pages/index/index_page.dart';
+import 'package:fun_reader/manager/spider_manager.dart';
+import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

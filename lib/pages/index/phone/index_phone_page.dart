@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/bookshelf/bookshelf_page.dart';
-import 'package:fun_novel/pages/find/find_page.dart';
-import 'package:fun_novel/pages/index/index_ctr.dart';
+import 'package:fun_reader/pages/bookshelf/bookshelf_page.dart';
+import 'package:fun_reader/pages/find/find_page.dart';
+import 'package:fun_reader/pages/index/index_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

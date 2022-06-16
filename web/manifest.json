@@ -1,6 +1,6 @@
 {
-    "name": "fun_novel",
-    "short_name": "fun_novel",
+    "name": "fun_reader",
+    "short_name": "fun_reader",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

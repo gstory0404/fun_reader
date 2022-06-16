@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/chapter/chapter_page.dart';
-import 'package:fun_novel/pages/read/phone/read_phone_menu.dart';
-import 'package:fun_novel/pages/read/read_ctr.dart';
-import 'package:fun_novel/pages/widgets/read/read_item.dart';
+import 'package:fun_reader/pages/chapter/chapter_page.dart';
+import 'package:fun_reader/pages/read/phone/read_phone_menu.dart';
+import 'package:fun_reader/pages/read/read_ctr.dart';
+import 'package:fun_reader/pages/widgets/read/read_item.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 

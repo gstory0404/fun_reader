@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/book_bean.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/manager/my_connect.dart';
-import 'package:fun_novel/utils/toast_util.dart';
+import 'package:fun_reader/entity/book_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

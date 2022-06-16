@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.gstory" "\0"
-            VALUE "FileDescription", "fun_novel" "\0"
+            VALUE "FileDescription", "fun_reader" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "fun_novel" "\0"
+            VALUE "InternalName", "fun_reader" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.gstory. All rights reserved." "\0"
-            VALUE "OriginalFilename", "fun_novel.exe" "\0"
-            VALUE "ProductName", "fun_novel" "\0"
+            VALUE "OriginalFilename", "fun_reader.exe" "\0"
+            VALUE "ProductName", "fun_reader" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

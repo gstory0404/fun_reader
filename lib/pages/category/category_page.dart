@@ -1,9 +1,9 @@
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/category/category_ctr.dart';
-import 'package:fun_novel/pages/category/desktop/category_desktop_page.dart';
-import 'package:fun_novel/pages/category/phone/category_phone_page.dart';
-import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/category/category_ctr.dart';
+import 'package:fun_reader/pages/category/desktop/category_desktop_page.dart';
+import 'package:fun_reader/pages/category/phone/category_phone_page.dart';
+import 'package:fun_reader/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

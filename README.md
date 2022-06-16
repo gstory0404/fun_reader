@@ -1,4 +1,4 @@
-# fun_novel
+# fun_reader
 
 # 图标  
 https://fonts.google.com/icons?selected=Material+Icons

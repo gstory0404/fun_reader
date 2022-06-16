@@ -1,8 +1,8 @@
-import 'package:fun_novel/entity/book_detail_bean.dart';
-import 'package:fun_novel/entity/chapter_content_bean.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/manager/my_connect.dart';
-import 'package:fun_novel/utils/toast_util.dart';
+import 'package:fun_reader/entity/book_detail_bean.dart';
+import 'package:fun_reader/entity/chapter_content_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 

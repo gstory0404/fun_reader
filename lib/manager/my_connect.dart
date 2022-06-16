@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:fun_novel/entity/book_bean.dart';
-import 'package:fun_novel/entity/book_detail_bean.dart';
-import 'package:fun_novel/entity/chapter_bean.dart';
-import 'package:fun_novel/entity/chapter_content_bean.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/manager/spider_manager.dart';
-import 'package:fun_novel/utils/log_util.dart';
+import 'package:fun_reader/entity/book_bean.dart';
+import 'package:fun_reader/entity/book_detail_bean.dart';
+import 'package:fun_reader/entity/chapter_bean.dart';
+import 'package:fun_reader/entity/chapter_content_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/spider_manager.dart';
+import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
 

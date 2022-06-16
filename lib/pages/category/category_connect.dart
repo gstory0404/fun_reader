@@ -1,4 +1,4 @@
-import 'package:fun_novel/manager/spider_manager.dart';
+import 'package:fun_reader/manager/spider_manager.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/pages/search/search_ctr.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

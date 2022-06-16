@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gstory.fun_novel">
+    package="com.gstory.fun_reader">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
    <application
-        android:label="fun_novel"
+        android:label="fun_reader"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

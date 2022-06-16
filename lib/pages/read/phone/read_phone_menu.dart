@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/read/read_ctr.dart';
-import 'package:fun_novel/pages/widgets/read/progress_widget.dart';
-import 'package:fun_novel/utils/toast_util.dart';
+import 'package:fun_reader/pages/read/read_ctr.dart';
+import 'package:fun_reader/pages/widgets/read/progress_widget.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

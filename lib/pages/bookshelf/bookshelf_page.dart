@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/bookshelf/bookshelf_ctr.dart';
+import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/10 16:06

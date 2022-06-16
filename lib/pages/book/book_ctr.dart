@@ -1,6 +1,6 @@
-import 'package:fun_novel/entity/book_detail_bean.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/manager/my_connect.dart';
+import 'package:fun_reader/entity/book_detail_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/my_connect.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

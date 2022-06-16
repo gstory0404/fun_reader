@@ -1,4 +1,4 @@
-package com.gstory.fun_novel
+package com.gstory.fun_reader
 
 import io.flutter.embedding.android.FlutterActivity
 

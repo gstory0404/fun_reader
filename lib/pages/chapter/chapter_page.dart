@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/chapter_bean.dart';
+import 'package:fun_reader/entity/chapter_bean.dart';
 import 'package:get/get.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 

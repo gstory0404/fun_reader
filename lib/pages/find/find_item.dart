@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/pages/category/category_page.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/pages/category/category_page.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/13 16:27

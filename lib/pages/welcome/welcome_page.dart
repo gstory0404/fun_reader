@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fun_novel/pages/welcome/welcome_ctr.dart';
+import 'package:fun_reader/pages/welcome/welcome_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

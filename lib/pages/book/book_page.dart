@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fun_novel/pages/base/base_widget.dart';
-import 'package:fun_novel/pages/book/book_ctr.dart';
-import 'package:fun_novel/pages/book/phone/book_phone_page.dart';
-import 'package:fun_novel/routes/app_pages.dart';
+import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/book/book_ctr.dart';
+import 'package:fun_reader/pages/book/phone/book_phone_page.dart';
+import 'package:fun_reader/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

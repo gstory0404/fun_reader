@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:fun_novel/entity/rule_bean.dart';
-import 'package:fun_novel/entity/spider_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/spider_bean.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/9 10:39
