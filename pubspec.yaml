@@ -20,6 +20,9 @@ dependencies:
   dropdown_button2: ^1.6.2
   flutter_easyloading: ^3.0.5
   scrollable_positioned_list: ^0.3.2
+  sqflite: ^2.0.2+1
+  sqflite_common_ffi: ^2.1.1
+  path: ^1.8.1
 
 dev_dependencies:
   flutter_test:

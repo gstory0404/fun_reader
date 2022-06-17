@@ -25,9 +25,9 @@ class IndexPhonePage extends GetWidget<IndexCtr> {
         controller.chooseIndex.value = index;
       },
       children: <Widget>[
-        BookshelfPage(),
+        BookShelfPage(),
         FindPage(),
-        BookshelfPage(),
+        BookShelfPage(),
       ],
     );
   }

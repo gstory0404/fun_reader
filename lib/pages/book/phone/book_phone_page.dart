@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
@@ -16,7 +17,7 @@ class BookPhonePage extends GetView<BookCtr> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text(controller.book.value.bookName)),
+        title: Obx(() => Text(controller.book.value.bookName ?? "")),
       ),
       backgroundColor: Colors.white,
       body: Column(
@@ -35,8 +36,10 @@ class BookPhonePage extends GetView<BookCtr> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Obx(
-                            () => BookCoverWidget(controller.book.value.cover,
-                                width: 90, height: 120),
+                            () => BookCoverWidget(
+                                controller.book.value.cover ?? "",
+                                width: 90,
+                                height: 120),
                           ),
                           Expanded(
                             child: Container(
@@ -47,13 +50,13 @@ class BookPhonePage extends GetView<BookCtr> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Obx(() => Text(
-                                        controller.book.value.bookName,
+                                        controller.book.value.bookName ?? "",
                                         style: TextStyle(fontSize: 16),
                                       )),
                                   Container(
                                     margin: const EdgeInsets.only(top: 4),
                                     child: Obx(() => Text(
-                                          controller.book.value.author,
+                                          controller.book.value.author ?? "",
                                           style: TextStyle(fontSize: 14),
                                         )),
                                   ),
@@ -94,7 +97,8 @@ class BookPhonePage extends GetView<BookCtr> {
                                   Container(
                                     margin: const EdgeInsets.only(top: 8),
                                     child: Obx(() => Text(
-                                          controller.book.value.updateTime,
+                                          controller.book.value.updateTime ??
+                                              "",
                                           style: TextStyle(fontSize: 14),
                                         )),
                                   ),
@@ -106,7 +110,8 @@ class BookPhonePage extends GetView<BookCtr> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 30),
-                        child: Obx(() => Text(controller.book.value.intro)),
+                        child:
+                            Obx(() => Text(controller.book.value.intro ?? "")),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 30),
@@ -150,7 +155,7 @@ class BookPhonePage extends GetView<BookCtr> {
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 16),
                                   child: Obx(() => Text(
-                                        controller.book.value.lastChapter,
+                                        controller.book.value.lastChapter ?? "",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       )),
@@ -174,38 +179,64 @@ class BookPhonePage extends GetView<BookCtr> {
           Container(
             height: 50,
             margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.all(Radius.circular(25)),
-            ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "加入书架",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                Expanded(
+                  child: InkWell(
+                    onTap: () async {
+                      controller.addBookShelf();
+                    },
+                    child: Obx(
+                      () => Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: controller.book.value.isBookshelf
+                              ? Colors.grey
+                              : Colors.red,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              bottomLeft: Radius.circular(25)),
+                        ),
+                        child: Text(
+                          controller.book.value.isBookshelf ? "已在书架" : "加入书架",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
                   width: 1,
                   color: Colors.white,
                 ),
-                InkWell(
-                  onTap: () {
-                    if (controller.book.value.chapterList.isEmpty) {
-                      ToastUtil.showToast("暂无章节");
-                      return;
-                    }
-                    ReadPage.go(
-                        sourceUrl: controller.sourceUrl,
-                        bookUrl: controller.bookUrl,
-                        chapterIndex: 0);
-                  },
-                  child: const Text(
-                    "立即阅读",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      if (controller.book.value.chapterList.isEmpty) {
+                        ToastUtil.showToast("暂无章节");
+                        return;
+                      }
+                      ReadPage.go(
+                          sourceUrl: controller.sourceUrl,
+                          bookUrl: controller.bookUrl,
+                          chapterIndex: 0);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(25),
+                            bottomRight: Radius.circular(25)),
+                      ),
+                      child: const Text(
+                        "立即阅读",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
                   ),
                 ),
               ],

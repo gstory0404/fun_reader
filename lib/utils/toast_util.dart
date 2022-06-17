@@ -10,4 +10,18 @@ class ToastUtil {
   static void showToast(String msg) {
     EasyLoading.showToast(msg);
   }
+
+  static void showLoading(String msg) async {
+    await EasyLoading.show(
+      status: msg,
+      maskType: EasyLoadingMaskType.black,
+      dismissOnTap: true,
+    );
+  }
+
+  static void dismiss() {
+    if (EasyLoading.isShow) {
+      EasyLoading.dismiss();
+    }
+  }
 }

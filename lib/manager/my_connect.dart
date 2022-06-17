@@ -5,6 +5,7 @@ import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_bean.dart';
 import 'package:fun_reader/entity/chapter_content_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/manager/spider_manager.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
@@ -56,8 +57,8 @@ class MyConnect extends GetConnect {
   }
 
   ///获取分类书籍列表
-  Future<List<BookBean>> getCategoryBooks(RuleBean rule,String path) async {
-    List<BookBean> bookList =[];
+  Future<List<BookBean>> getCategoryBooks(RuleBean rule, String path) async {
+    List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
     var books = XPath.html(html).query(rule.recommendBooks!.books!).nodes;
     //书籍
@@ -83,15 +84,14 @@ class MyConnect extends GetConnect {
   }
 
   ///搜索小说
-  Future<List<BookBean>> getSearchBook(RuleBean rule,String key) async {
-    List<BookBean> bookList =[];
+  Future<List<BookBean>> getSearchBook(RuleBean rule, String key) async {
+    List<BookBean> bookList = [];
     var body = rule.search!.body!;
     body = body.replaceAll("&key&", key);
     var map = json.decode(body);
     String html;
     if (rule.search?.method == "POST") {
-      html = await postData(
-          rule.sourceUrl!, rule.search!.url!, map,
+      html = await postData(rule.sourceUrl!, rule.search!.url!, map,
           contentType: rule.search!.contentType);
     } else {
       html = await getData(rule.sourceUrl!, rule.search!.url!, query: map);
@@ -104,10 +104,8 @@ class MyConnect extends GetConnect {
       var author = element.queryXPath(rule.searchBooks!.author!).attr;
       var intro = element.queryXPath(rule.searchBooks!.intro!).attr;
       var cover = element.queryXPath(rule.searchBooks!.cover!).attr;
-      var category =
-          element.queryXPath(rule.searchBooks!.category!).attrs;
-      var lastChapter =
-          element.queryXPath(rule.searchBooks!.lastChapter!).attr;
+      var category = element.queryXPath(rule.searchBooks!.category!).attrs;
+      var lastChapter = element.queryXPath(rule.searchBooks!.lastChapter!).attr;
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -122,20 +120,22 @@ class MyConnect extends GetConnect {
 
   ///获取书籍详情
   Future<BookDetailBean> getBookDetail(RuleBean rule, String bookUrl) async {
-    var book = BookDetailBean();
+    var book = await DBManager().queryBook(rule.sourceUrl ?? "", bookUrl);
+    if(book.id == null){
+      book.sourceName = rule.sourceName;
+      book.sourceUrl = rule.sourceUrl;
+      book.bookUrl = bookUrl;
+    }
     var html = await getData(rule.sourceUrl ?? "", bookUrl);
     book.bookName =
         XPath.html(html).query(rule.bookInfo!.name ?? "").attr ?? "";
-    book.cover =
-        XPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
+    book.cover = XPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
     book.author =
         XPath.html(html).query(rule.bookInfo!.author ?? "").attr ?? "";
-    book.category =
-        XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
+    book.category = XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
     book.updateTime =
         XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr ?? "";
-    book.intro =
-        XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
+    book.intro = XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
     book.lastChapter =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
@@ -183,19 +183,22 @@ class MyConnect extends GetConnect {
   }
 
   ///获取章节内容
-  Future<String> getChapterContent(RuleBean rule, String chapterUrl) async{
+  Future<String> getChapterContent(RuleBean rule, String chapterUrl) async {
     var content = "";
     var html = await getData(rule.sourceUrl ?? "", chapterUrl);
-    List<String?> contents = XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
+    List<String?> contents =
+        XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
     for (var element in contents) {
       content = "$content\n$element";
     }
-    content = content.replaceAll(RegExp(rule.chapterContent?.replaceReg ?? ""), "");
-    if(rule.chapterContent?.nextPage?.isNotEmpty ?? false){
-      var nextPage = XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
-      if(nextPage.isNotEmpty){
-        var nextContent = await getChapterContent(rule,nextPage);
-        if(nextContent.isEmpty){
+    content =
+        content.replaceAll(RegExp(rule.chapterContent?.replaceReg ?? ""), "");
+    if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
+      var nextPage =
+          XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
+      if (nextPage.isNotEmpty) {
+        var nextContent = await getChapterContent(rule, nextPage);
+        if (nextContent.isEmpty) {
           content = "$content$nextContent";
         }
       }

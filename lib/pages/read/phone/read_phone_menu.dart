@@ -106,7 +106,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    readCtr.book.value.bookName,
+                    readCtr.book.value.bookName ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 20, color: Colors.white),

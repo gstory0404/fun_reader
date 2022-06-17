@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 
@@ -8,7 +7,7 @@ import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class BookshelfPage extends BaseWidget<BookshelfCtr>{
+class BookShelfPage extends BaseWidget<BookShelfCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
