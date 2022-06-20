@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/manager/sp_manager.dart';
 import 'package:fun_reader/routes/app_pages.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,14 @@ import 'package:window_manager/window_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   initWindow();
+  initServer();
+  runApp(const MyApp());
+}
+
+void initServer() async{
   Get.put(MyConnect(),permanent: true);
   LogUtil.init(isDebug: true);
-  runApp(const MyApp());
 }
 
 void initWindow() async {

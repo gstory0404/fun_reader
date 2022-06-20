@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/chapter_content_bean.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/read/phone/read_phone_ctr.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -14,6 +15,8 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ReadCtr extends GetxController {
   MyConnect connect = Get.find();
+  //手机阅读设置
+  ReadPhoneCtr readPhoneCtr = Get.put(ReadPhoneCtr());
 
   var sourceUrl = "";
   var bookUrl = "";

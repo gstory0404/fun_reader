@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
+import 'package:fun_reader/manager/sp_manager.dart';
 import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/7 15:32
@@ -20,10 +22,11 @@ class WelComeCtr extends GetxController{
   var countdown = 3.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     //初始化爬虫规则
     // initRule();
+    await SPManager().init();
     _timer = Timer.periodic(Duration(seconds: 1),(timer){
       if (countdown > 0) {
         countdown--;

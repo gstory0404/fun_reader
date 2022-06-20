@@ -4,6 +4,7 @@
 /// @Description: dart类作用描述 
 
 class LogUtil {
+
   static var _separator = "=";
   static var _split =
       "$_separator$_separator$_separator$_separator$_separator$_separator$_separator$_separator$_separator";

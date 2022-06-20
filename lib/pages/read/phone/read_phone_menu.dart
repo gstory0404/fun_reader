@@ -12,10 +12,9 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class ReadPhoneMenu extends StatefulWidget {
-
   Function()? openDraw;
 
-  ReadPhoneMenu({Key? key,this.openDraw}) : super(key: key);
+  ReadPhoneMenu({Key? key, this.openDraw}) : super(key: key);
 
   @override
   State<ReadPhoneMenu> createState() => _ReadPhoneMenuState();
@@ -30,6 +29,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
 
   //进度
   var isShowProgress = false.obs;
+
+  //背景
+  var isShowBg = false.obs;
 
   @override
   void initState() {
@@ -60,6 +62,10 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             onTap: () {
               if (isShowProgress.value) {
                 isShowProgress.value = false;
+                return;
+              }
+              if (isShowBg.value) {
+                isShowBg.value = false;
                 return;
               }
               hide();
@@ -125,6 +131,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
     );
   }
 
+  //底部设置栏
   _buildBottomView() {
     return Positioned(
       bottom: -(context.mediaQueryPadding.bottom + 100) * (1 - animation.value),
@@ -144,7 +151,8 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Column(
               children: <Widget>[
                 Obx(() =>
-                    isShowProgress.value ? buildProgressView() : Container()),
+                    isShowProgress.value ? _buildProgressView() : Container()),
+                Obx(() => isShowBg.value ? _buildBgSettingView() : Container()),
                 buildBottomMenus(),
               ],
             ),
@@ -167,11 +175,10 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               Icons.menu,
               color: Colors.white,
             ),
-            onPressed: (){
-              if( isShowProgress.value){
-                isShowProgress.value = false;
-              }
-              if(widget.openDraw != null){
+            onPressed: () {
+              isShowProgress.value = false;
+              isShowBg.value = false;
+              if (widget.openDraw != null) {
                 widget.openDraw!();
               }
             },
@@ -182,8 +189,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               Icons.commit,
               color: Colors.white,
             ),
-            onPressed: (){
-              isShowProgress.value = true;
+            onPressed: () {
+              isShowBg.value = false;
+              isShowProgress.value = !isShowProgress.value;
             },
           ),
           //背景
@@ -192,8 +200,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               Icons.sunny,
               color: Colors.white,
             ),
-            onPressed: (){
-              isShowProgress.value = true;
+            onPressed: () {
+              isShowProgress.value = false;
+              isShowBg.value = !isShowBg.value;
             },
           ),
           //字体
@@ -202,7 +211,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               Icons.text_format,
               color: Colors.white,
             ),
-            onPressed: (){
+            onPressed: () {
               isShowProgress.value = true;
             },
           ),
@@ -212,11 +221,10 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
   }
 
   //进度设置栏
-  buildProgressView() {
+  _buildProgressView() {
     return Container(
-        decoration: const BoxDecoration(
-            border:Border(bottom:BorderSide(width: 1,color: Colors.white24) )
-        ),
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1, color: Colors.white24))),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(
         children: <Widget>[
@@ -242,7 +250,8 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               child: Obx(
                 () => ProgressWidget(
                   defaultValue: readCtr.chapterIndex.value.toDouble(),
-                  maxValue: readCtr.book.value.chapterList.length.toDouble() -1,
+                  maxValue:
+                      readCtr.book.value.chapterList.length.toDouble() - 1,
                   onChange: (value) {
                     ToastUtil.showToast(readCtr.book.value
                             .chapterList[value.toInt()].chapterName ??
@@ -273,6 +282,61 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                 color: Colors.white,
               ),
             ),
+          )
+        ],
+      ),
+    );
+  }
+
+  //背景设置
+  _buildBgSettingView() {
+    print("xianshi l");
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1, color: Colors.white24))),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      child: Column(
+        children: [
+          // Container(
+          //   child: Obx(
+          //     () => ProgressWidget(
+          //       defaultValue: 0.5,
+          //       maxValue: 1,
+          //       onChange: (value) {},
+          //       onFinish: (value) {},
+          //     ),
+          //   ),
+          // ),
+          Row(
+            children: [
+              Text(
+                "背景",
+                style: TextStyle(color: Colors.white),
+              ),
+              Expanded(
+                child: Container(
+                  height: 40,
+                  child: ListView.builder(
+                      itemCount: readCtr.readPhoneCtr.bgColorList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            readCtr.readPhoneCtr.setBgColor(index);
+                          },
+                          child: Container(
+                              width: 40,
+                              height: 40,
+                              margin: const EdgeInsets.only(left: 14),
+                              decoration: BoxDecoration(
+                                color: readCtr.readPhoneCtr.bgColorList[index],
+                                borderRadius: BorderRadius.circular(20),
+                              )),
+                        );
+                      }),
+                ),
+              ),
+            ],
           )
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/read/phone/read_phone_menu.dart';
 import 'package:fun_reader/pages/read/read_ctr.dart';
-import 'package:fun_reader/pages/widgets/read/read_item.dart';
+import 'package:fun_reader/pages/read/phone/read_phone_item.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -21,13 +21,6 @@ class ReadPhonePage extends StatefulWidget {
 class _ReadPhonePageState extends State<ReadPhonePage> {
   ReadCtr controller = Get.find();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-//
-// class ReadPhonePage extends GetView<ReadCtr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,23 +39,24 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
         ),
         body: Stack(
           children: [
-            Container(
+            Obx(() => Container(
+              color: controller.readPhoneCtr.bgColor.value,
               child: Column(
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                     child: Row(
                       children: [
                         Obx(() => Text(controller
-                                .book.value.chapterList.isNotEmpty
+                            .book.value.chapterList.isNotEmpty
                             ? controller
-                                    .book
-                                    .value
-                                    .chapterList[controller.chapterIndex.value]
-                                    .chapterName ??
-                                ""
+                            .book
+                            .value
+                            .chapterList[controller.chapterIndex.value]
+                            .chapterName ??
+                            ""
                             : "")),
                       ],
                     ),
@@ -70,22 +64,22 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
                   Expanded(
                     child: Container(
                       child: Obx(
-                        () => ScrollablePositionedList.builder(
+                            () => ScrollablePositionedList.builder(
                           itemCount: controller.chapterContentList.length,
                           physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => ReadItem(
+                          itemBuilder: (context, index) => ReadPhoneItem(
                             chapter: controller.chapterContentList[index],
                           ),
                           itemScrollController: controller.readScrollController,
                           itemPositionsListener:
-                              controller.readPositionsListener,
+                          controller.readPositionsListener,
                         ),
                       ),
                     ),
                   ),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -97,7 +91,7 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
                   )
                 ],
               ),
-            ),
+            )),
             Builder(
               builder: (BuildContext context) {
                 return Obx(() => controller.isShowMenu.value
