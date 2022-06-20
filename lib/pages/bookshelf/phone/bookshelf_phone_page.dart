@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
-import 'package:fun_reader/pages/book/book_ctr.dart';
-import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/read/read_page.dart';

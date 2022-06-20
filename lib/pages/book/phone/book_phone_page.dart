@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';

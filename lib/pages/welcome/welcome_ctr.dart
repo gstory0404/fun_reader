@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:fun_reader/manager/spider_manager.dart';
+import 'package:flutter/services.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +23,7 @@ class WelComeCtr extends GetxController{
   void onInit() {
     super.onInit();
     //初始化爬虫规则
-    SpiderManager().init();
+    // initRule();
     _timer = Timer.periodic(Duration(seconds: 1),(timer){
       if (countdown > 0) {
         countdown--;
@@ -35,6 +39,25 @@ class WelComeCtr extends GetxController{
   void onClose() {
     _timer?.cancel();
     _timer = null;
+  }
+
+  //模拟一个规则
+  void initRule() async{
+    rootBundle.loadString("assets/json/spider.json").then((value) async {
+      List list = json.decode(value);
+      for (var element in list) {
+        RuleBean bean = RuleBean.fromJson(element);
+        var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
+        if(dbBean?.id == null){
+          DBRuleBean dbRuleBean = DBRuleBean();
+          dbRuleBean.sourceUrl = bean.sourceUrl;
+          dbRuleBean.sourceName = bean.sourceName;
+          dbRuleBean.ruleBean = bean;
+          dbRuleBean.isEffect = true;
+          RuleDao().insert(dbRuleBean);
+        }
+      }
+    });
   }
 }
 

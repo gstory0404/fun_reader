@@ -2,7 +2,6 @@ import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/category/category_ctr.dart';
 import 'package:fun_reader/pages/category/category_page.dart';
-import 'package:fun_reader/pages/index/index_connect.dart';
 import 'package:fun_reader/pages/index/index_ctr.dart';
 import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:fun_reader/pages/read/read_ctr.dart';
@@ -35,8 +34,7 @@ class AppPages {
       name: Routes.INDEX,
       page: () => const IndexPage(),
       binding: BindingsBuilder(() {
-        Get.lazyPut<IndexConnect>(() => IndexConnect());
-        Get.lazyPut(() => IndexCtr(connect: Get.find()));
+        Get.lazyPut(() => IndexCtr());
       }),
     ),
     GetPage(

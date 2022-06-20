@@ -1,6 +1,7 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_content_bean.dart';
-import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class ReadCtr extends GetxController {
   //书籍相关参数
   var book = BookDetailBean().obs;
 
-  RuleBean? rule;
+  DBRuleBean? rule;
 
   //章节内容列表
   var chapterContentList = <ChapterContentBean>[].obs;
@@ -89,13 +90,13 @@ class ReadCtr extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
     sourceUrl = Get.arguments['sourceUrl'];
     bookUrl = Get.arguments['bookUrl'];
     chapterIndex.value = Get.arguments["chapterIndex"];
     //解析规则
-    rule = connect.spiderManager.getRule(sourceUrl);
+    rule = await RuleDao().query(sourceUrl);
     if (rule == null) {
       ToastUtil.showToast("$sourceUrl解析规则获取失败");
       Get.back();
@@ -106,7 +107,7 @@ class ReadCtr extends GetxController {
 
   //获取书籍详情
   Future<void> getBookDetail() async {
-    book.value = await connect.getBookDetail(rule!, bookUrl);
+    book.value = await connect.getBookDetail(rule!.ruleBean!, bookUrl);
     reloadChapter();
   }
 
@@ -148,7 +149,7 @@ class ReadCtr extends GetxController {
   //获取章节内容
   Future<ChapterContentBean> getChapterContent(
       String chapterName, String chapterUrl) async {
-    var content = await connect.getChapterContent(rule!, chapterUrl);
+    var content = await connect.getChapterContent(rule!.ruleBean!, chapterUrl);
     return ChapterContentBean(
         chapterName: chapterName,
         chapterUrl: chapterUrl,

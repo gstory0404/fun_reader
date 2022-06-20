@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_bean.dart';
-import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
@@ -16,22 +17,24 @@ class SearchCtr extends GetxController {
   //分类书籍列表
   var bookList = <BookBean>[].obs;
 
-  var rule = RuleBean().obs;
+  var rule = DBRuleBean().obs;
+  var ruleList = <DBRuleBean>[].obs;
 
   var inputController = TextEditingController();
 
   SearchCtr();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    if (connect.spiderManager.ruleList.isNotEmpty) {
-      rule.value = connect.spiderManager.ruleList.first;
+    ruleList.value = await RuleDao().queryAll(isEffect: true);
+    if (ruleList.isNotEmpty) {
+      rule.value = ruleList.first;
     }
   }
 
   //切换数据源
-  void changeRule(RuleBean bean) {
+  void changeRule(DBRuleBean bean) {
     rule.value = bean;
   }
 
@@ -41,7 +44,7 @@ class SearchCtr extends GetxController {
       return [];
     }
     bookList.clear();
-    bookList.addAll(await connect.getSearchBook(rule.value,key)) ;
+    bookList.addAll(await connect.getSearchBook(rule.value.ruleBean!,key)) ;
     return bookList;
   }
 }

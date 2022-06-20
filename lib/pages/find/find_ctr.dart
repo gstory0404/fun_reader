@@ -1,4 +1,5 @@
-import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,7 @@ import 'package:get/get.dart';
 class FindCtr extends GetxController{
   MyConnect connect = Get.find();
 
-  var rulelist = <RuleBean>[].obs;
+  var rulelist = <DBRuleBean>[].obs;
 
   @override
   void onInit() {
@@ -19,9 +20,9 @@ class FindCtr extends GetxController{
   }
 
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
-    rulelist.value = connect.spiderManager.ruleList;
+    rulelist.value = await RuleDao().queryAll(isEffect: true);
   }
 }
 

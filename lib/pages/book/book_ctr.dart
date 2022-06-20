@@ -1,6 +1,7 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
-import 'package:fun_reader/manager/db_manager.dart';
+import 'package:fun_reader/manager/db/book_dao.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
@@ -21,8 +22,6 @@ class BookCtr extends GetxController {
   //书籍相关参数
   var book = BookDetailBean().obs;
 
-  DBManager dbManager = DBManager();
-
   BookCtr({this.sourceUrl = "", this.bookUrl = ""});
 
   @override
@@ -30,7 +29,7 @@ class BookCtr extends GetxController {
     sourceUrl = Get.arguments['sourceUrl'];
     bookUrl = Get.arguments['bookUrl'];
     //解析规则
-    rule = connect.spiderManager.getRule(sourceUrl);
+    rule = (await RuleDao().query(sourceUrl))?.ruleBean;
     //获取书籍
     if (rule != null && sourceUrl.isNotEmpty && bookUrl.isNotEmpty) {
       book.value = await connect.getBookDetail(rule!, bookUrl);
@@ -41,11 +40,11 @@ class BookCtr extends GetxController {
   Future<void> addBookShelf() async {
     ToastUtil.showLoading("正在加载...");
     if (book.value.id != null) {
-      book.value = await dbManager.updateBook(book.value
+      book.value = await BookDao().update(book.value
         ..isBookshelf = !book.value.isBookshelf
         ..addTime = DateUtil.nowTimestamp());
     } else {
-      book.value = await dbManager.insertBook(book.value
+      book.value = await BookDao().insert(book.value
         ..isBookshelf = true
         ..addTime = DateUtil.nowTimestamp());
     }

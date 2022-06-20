@@ -23,6 +23,7 @@ dependencies:
   sqflite: ^2.0.2+1
   sqflite_common_ffi: ^2.1.1
   path: ^1.8.1
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

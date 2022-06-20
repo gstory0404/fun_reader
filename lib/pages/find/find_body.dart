@@ -15,7 +15,7 @@ class FindBody extends GetView<FindCtr> {
           itemCount: controller.rulelist.length,
           itemBuilder: (BuildContext context, int index) {
             return FindItem(
-              ruleBean: controller.rulelist[index],
+              ruleBean: controller.rulelist[index].ruleBean!,
             );
           },
         ));

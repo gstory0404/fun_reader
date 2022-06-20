@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_reader/pages/index/index_connect.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class IndexCtr extends GetxController with GetTickerProviderStateMixin{
-  IndexConnect connect;
 
    TabController? tabController;
 
@@ -19,7 +17,7 @@ class IndexCtr extends GetxController with GetTickerProviderStateMixin{
 
   var chooseIndex = 0.obs;
 
-  IndexCtr({required this.connect});
+  IndexCtr();
 
   @override
   void onInit() {

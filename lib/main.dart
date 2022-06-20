@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/routes/app_pages.dart';
 import 'package:fun_reader/utils/log_util.dart';
@@ -16,7 +15,6 @@ void main() {
   initWindow();
   Get.put(MyConnect(),permanent: true);
   LogUtil.init(isDebug: true);
-  DBManager().init();
   runApp(const MyApp());
 }
 

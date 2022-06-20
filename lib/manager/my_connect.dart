@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_bean.dart';
-import 'package:fun_reader/entity/chapter_content_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
-import 'package:fun_reader/manager/db_manager.dart';
-import 'package:fun_reader/manager/spider_manager.dart';
+import 'package:fun_reader/manager/db/book_dao.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/utils/date_util.dart';
-import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
 
@@ -18,7 +17,6 @@ import 'package:xpath_selector/xpath_selector.dart';
 /// @Description: dart类作用描述
 
 class MyConnect extends GetConnect {
-  SpiderManager spiderManager = SpiderManager();
 
   @override
   void onInit() {}
@@ -32,8 +30,9 @@ class MyConnect extends GetConnect {
       httpClient.baseUrl = "";
     }
     Map<String, String>? head;
-    if (spiderManager.getRule(sourceUrl).head?.isNotEmpty ?? false) {
-      head = json.decode(spiderManager.getRule(sourceUrl).head!);
+    DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
+    if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
+      head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
@@ -49,8 +48,9 @@ class MyConnect extends GetConnect {
       httpClient.baseUrl = "";
     }
     Map<String, String>? head = {};
-    if (spiderManager.getRule(sourceUrl).head?.isNotEmpty ?? false) {
-      head = json.decode(spiderManager.getRule(sourceUrl).head!);
+    DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
+    if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
+      head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     Response<String> response =
         await post(path, body, headers: head, contentType: contentType);
@@ -58,20 +58,20 @@ class MyConnect extends GetConnect {
   }
 
   ///获取分类书籍列表
-  Future<List<BookBean>> getCategoryBooks(RuleBean rule, String path) async {
+  Future<List<BookBean>> getCategoryBooks(DBRuleBean rule, String path) async {
     List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
-    var books = XPath.html(html).query(rule.recommendBooks!.books!).nodes;
+    var books = XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
     //书籍
     for (var element in books) {
-      var bookUrl = element.queryXPath(rule.recommendBooks!.bookUrl!).attr;
-      var name = element.queryXPath(rule.recommendBooks!.name!).attr;
-      var author = element.queryXPath(rule.recommendBooks!.author!).attr;
-      var intro = element.queryXPath(rule.recommendBooks!.intro!).attr;
-      var cover = element.queryXPath(rule.recommendBooks!.cover!).attr;
-      var category = element.queryXPath(rule.recommendBooks!.category!).attrs;
+      var bookUrl = element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
+      var name = element.queryXPath(rule.ruleBean!.recommendBooks!.name!).attr;
+      var author = element.queryXPath(rule.ruleBean!.recommendBooks!.author!).attr;
+      var intro = element.queryXPath(rule.ruleBean!.recommendBooks!.intro!).attr;
+      var cover = element.queryXPath(rule.ruleBean!.recommendBooks!.cover!).attr;
+      var category = element.queryXPath(rule.ruleBean!.recommendBooks!.category!).attrs;
       var lastChapter =
-          element.queryXPath(rule.recommendBooks!.lastChapter!).attr;
+          element.queryXPath(rule.ruleBean!.recommendBooks!.lastChapter!).attr;
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -121,7 +121,7 @@ class MyConnect extends GetConnect {
 
   ///获取书籍详情
   Future<BookDetailBean> getBookDetail(RuleBean rule, String bookUrl) async {
-    var book = await DBManager().queryBook(rule.sourceUrl ?? "", bookUrl);
+    var book = await BookDao().query(rule.sourceUrl ?? "", bookUrl);
     if(book.id == null){
       book.sourceName = rule.sourceName;
       book.sourceUrl = rule.sourceUrl;

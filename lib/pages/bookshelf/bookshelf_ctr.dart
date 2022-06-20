@@ -1,5 +1,5 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
-import 'package:fun_reader/manager/db_manager.dart';
+import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述 
 
 class BookShelfCtr extends GetxController{
-  DBManager dbManager = DBManager();
   //分类书籍列表
   var bookList = <BookDetailBean>[].obs;
 
@@ -22,14 +21,14 @@ class BookShelfCtr extends GetxController{
 
   //获取全部书籍
   Future<void> getAllBooks()  async {
-    bookList.value = await dbManager.queryAllBookShelf();
+    bookList.value = await BookDao().queryAllBookShelf();
     LogUtil.d(bookList.length);
   }
 
   //移出书架
   void deleteBookShelf(BookDetailBean bean) async{
     bean.isBookshelf = false;
-    await dbManager.updateBook(bean);
+    await BookDao().update(bean);
     await getAllBooks();
   }
 

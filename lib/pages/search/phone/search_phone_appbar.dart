@@ -1,6 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:get/get.dart';
 
@@ -52,8 +52,8 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    items: controller.connect.spiderManager.ruleList
-                        .map((item) => DropdownMenuItem<RuleBean>(
+                    items: controller.ruleList
+                        .map((item) => DropdownMenuItem<DBRuleBean>(
                               value: item,
                               child: Text(
                                 item.sourceName ?? "未知",
@@ -68,7 +68,7 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
                         .toList(),
                     value: controller.rule.value,
                     onChanged: (value) {
-                      controller.changeRule(value as RuleBean);
+                      controller.changeRule(value as DBRuleBean);
                     },
                     icon: const Icon(
                       Icons.keyboard_arrow_down_sharp,

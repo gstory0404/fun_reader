@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_bean.dart';
-import 'package:fun_reader/entity/rule_bean.dart';
+import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -15,7 +17,7 @@ class CategoryCtr extends GetxController {
   //分类书籍列表
   var categoryBookList = <BookBean>[].obs;
 
-  RuleBean? rule;
+  DBRuleBean? rule;
 
   var sourceUrl = "";
   var path = "";
@@ -29,31 +31,30 @@ class CategoryCtr extends GetxController {
   ScrollController booksController = ScrollController();
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
     name.value = Get.arguments["name"];
     sourceUrl = Get.arguments["sourceUrl"];
     path = Get.arguments["path"];
     //解析规则
-    rule = connect.spiderManager.getRule(sourceUrl);
+    print(sourceUrl);
+    rule = await RuleDao().query(sourceUrl);
     booksController.addListener(() {
       if (booksController.position.pixels ==
           booksController.position.maxScrollExtent) {
         loadMore();
       }
     });
-  }
-
-  @override
-  void onReady() {
     refreshData();
   }
-
   //刷新
   Future<void> refreshData() async {
     if(rule == null){
+      ToastUtil.showToast("获取解析规则失败");
+      Get.back();
       return;
     }
+    print(rule);
     isLoading.value = false;
     page = 1;
     categoryBookList.clear();
