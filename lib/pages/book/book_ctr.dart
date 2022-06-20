@@ -2,6 +2,7 @@ import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
@@ -42,14 +43,12 @@ class BookCtr extends GetxController {
     if (book.value.id != null) {
       book.value = await dbManager.updateBook(book.value
         ..isBookshelf = !book.value.isBookshelf
-        ..addTime = DateTime.now().millisecondsSinceEpoch);
+        ..addTime = DateUtil.nowTimestamp());
     } else {
       book.value = await dbManager.insertBook(book.value
         ..isBookshelf = true
-        ..addTime = DateTime.now().millisecondsSinceEpoch);
+        ..addTime = DateUtil.nowTimestamp());
     }
-    print(DateTime.now().millisecondsSinceEpoch);
-    print(book.value.toJson());
     book.refresh();
     ToastUtil.dismiss();
   }

@@ -3,7 +3,11 @@ import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
+import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
+import 'package:fun_reader/pages/read/read_page.dart';
+import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
+import 'package:fun_reader/utils/date_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -12,21 +16,32 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class BookShelfPhonePage extends GetView<BookShelfCtr> {
-
   BookShelfCtr ctr = Get.put(BookShelfCtr());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF12aa9c),
+        title: Text("书架"),
+        actions: [
+          // 搜索
+          IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                SearchPage.go();
+              }),
+        ],
+      ),
       body: Container(
         child: RefreshIndicator(
           onRefresh: () {
-            return ctr.getAllBook();
+            return ctr.getAllBooks();
           },
           child: Obx(() => ListView.builder(
                 itemCount: ctr.bookList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return _listItem(ctr.bookList[index]);
+                  return _listItem(context, ctr.bookList[index]);
                 },
               )),
         ),
@@ -34,17 +49,22 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
     );
   }
 
-  _listItem(BookDetailBean bookBean){
-    InkWell(
+  _listItem(BuildContext context, BookDetailBean bookBean) {
+    return InkWell(
       onTap: () {
-        BookPage.go(
+        ReadPage.go(
             sourceUrl: bookBean.sourceUrl ?? "",
-            bookUrl: bookBean.bookUrl!);
+            bookUrl: bookBean.bookUrl ?? "",
+            chapterIndex: bookBean.lastReadIndex);
+      },
+      onLongPress: () {
+        Get.bottomSheet(BookShelfPhoneSheet(
+          book: bookBean,
+        ));
       },
       child: Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(
-            vertical: 10, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1, color: Colors.black12),
@@ -52,14 +72,14 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
         ),
         child: Row(
           children: [
-            BookCoverWidget(bookBean.cover ?? "",
-                width: 80, height: 100),
+            BookCoverWidget(bookBean.cover ?? "", width: 80, height: 100),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.only(left: 10),
+                height: 100,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -71,19 +91,35 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      bookBean.author ?? "",
+                      "最近阅读：${bookBean.lastReadChapter}",
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      bookBean.intro ?? "",
+                      "最新章节：${bookBean.lastChapter}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),
-                      maxLines: 2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "上次阅读：${DateUtil.getDateScope(checkDate: bookBean.lastReadTime)}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "书源：《${bookBean.sourceName}》",
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

@@ -1,5 +1,6 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/manager/db_manager.dart';
+import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -16,11 +17,21 @@ class BookShelfCtr extends GetxController{
   @override
   void onReady() {
     super.onReady();
-    getAllBook();
+    getAllBooks();
   }
 
-  Future<void> getAllBook()  async {
-    bookList.value = await dbManager.queryAllBooks();
+  //获取全部书籍
+  Future<void> getAllBooks()  async {
+    bookList.value = await dbManager.queryAllBookShelf();
+    LogUtil.d(bookList.length);
   }
+
+  //移出书架
+  void deleteBookShelf(BookDetailBean bean) async{
+    bean.isBookshelf = false;
+    await dbManager.updateBook(bean);
+    await getAllBooks();
+  }
+
 }
 

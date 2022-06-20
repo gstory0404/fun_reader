@@ -97,6 +97,14 @@ class DBManager {
     }
   }
 
+  //查询所有书架书籍
+  Future<List<BookDetailBean>> queryAllBookShelf() async {
+    final List<Map<String, dynamic>> maps = await db.query(bookTable,where: "is_bookshelf = ?",whereArgs: [1]);
+    return List.generate(maps.length, (i) {
+      return BookDetailBean.fromJson(maps[i]);
+    });
+  }
+
   //更新书籍
   Future<BookDetailBean> updateBook(BookDetailBean book) async {
    await db.update(

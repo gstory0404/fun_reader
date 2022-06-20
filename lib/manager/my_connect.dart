@@ -7,6 +7,7 @@ import 'package:fun_reader/entity/chapter_content_bean.dart';
 import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db_manager.dart';
 import 'package:fun_reader/manager/spider_manager.dart';
+import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
@@ -154,6 +155,14 @@ class MyConnect extends GetConnect {
       var chapterAllUrl =
           XPath.html(html).query(rule.bookInfo!.chapterUrl ?? "").attr ?? "";
       book.chapterList = await getBookChapterList(rule, chapterAllUrl);
+    }
+    //最新章节
+    book.lastChapter = book.chapterList[book.chapterList.length - 1].chapterName;
+    if(book.lastReadChapter?.isEmpty ?? true){
+      book.lastReadChapter = book.chapterList.first.chapterName;
+      book.lastReadIndex = 0;
+      book.lastReadUrl = book.chapterList.first.chapterUrl;
+      book.lastReadTime = DateUtil.nowTimestamp();
     }
     return book;
   }
