@@ -36,3 +36,13 @@ flutter:
   assets:
     - assets/json/spider.json
     - assets/images/
+
+  fonts:
+      #书法家行楷体
+    - family: shufajiaxingkai
+      fonts:
+        - asset: assets/fonts/shufajiaxingkai.ttf
+          #华文行楷体
+    - family: huawenxingkai
+      fonts:
+        - asset: assets/fonts/huawenxingkai.ttf

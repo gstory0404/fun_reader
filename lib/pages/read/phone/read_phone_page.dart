@@ -40,58 +40,101 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
         body: Stack(
           children: [
             Obx(() => Container(
-              color: controller.readPhoneCtr.bgColor.value,
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                    child: Row(
-                      children: [
-                        Obx(() => Text(controller
-                            .book.value.chapterList.isNotEmpty
-                            ? controller
-                            .book
-                            .value
-                            .chapterList[controller.chapterIndex.value]
-                            .chapterName ??
-                            ""
-                            : "")),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Obx(
-                            () => ScrollablePositionedList.builder(
-                          itemCount: controller.chapterContentList.length,
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => ReadPhoneItem(
-                            chapter: controller.chapterContentList[index],
-                          ),
-                          itemScrollController: controller.readScrollController,
-                          itemPositionsListener:
-                          controller.readPositionsListener,
+                  color: controller.readPhoneCtr
+                      .bgColorList[controller.readPhoneCtr.bgColor.value],
+                  child: Column(
+                    children: [
+                      Container(
+                        margin:
+                            EdgeInsets.only(top: context.mediaQueryPadding.top),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 4),
+                        child: Row(
+                          children: [
+                            Obx(() => Text(
+                                  controller.book.value.chapterList.isNotEmpty
+                                      ? controller
+                                              .book
+                                              .value
+                                              .chapterList[
+                                                  controller.chapterIndex.value]
+                                              .chapterName ??
+                                          ""
+                                      : "",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily:
+                                        controller.readPhoneCtr.fontFamilyList[
+                                            controller
+                                                .readPhoneCtr.fontFamily.value],
+                                    color:
+                                        controller.readPhoneCtr.fontColorList[
+                                            controller
+                                                .readPhoneCtr.fontColor.value],
+                                  ),
+                                )),
+                          ],
                         ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          child: Obx(
+                            () => ScrollablePositionedList.builder(
+                              itemCount: controller.chapterContentList.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) => ReadPhoneItem(
+                                chapter: controller.chapterContentList[index],
+                              ),
+                              itemScrollController:
+                                  controller.readScrollController,
+                              itemPositionsListener:
+                                  controller.readPositionsListener,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: controller.readPhoneCtr.widthMarginList[
+                                controller.readPhoneCtr.widthMargin.value],
+                            vertical: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() => Text(
+                                  "《${controller.book.value.bookName}》",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily:
+                                        controller.readPhoneCtr.fontFamilyList[
+                                            controller
+                                                .readPhoneCtr.fontFamily.value],
+                                    color:
+                                        controller.readPhoneCtr.fontColorList[
+                                            controller
+                                                .readPhoneCtr.fontColor.value],
+                                  ),
+                                )),
+                            Obx(() => Text(
+                                  "${controller.chapterIndex.value + 1} / ${controller.book.value.chapterList.length}",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily:
+                                        controller.readPhoneCtr.fontFamilyList[
+                                            controller
+                                                .readPhoneCtr.fontFamily.value],
+                                    color:
+                                        controller.readPhoneCtr.fontColorList[
+                                            controller
+                                                .readPhoneCtr.fontColor.value],
+                                  ),
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(() => Text("《${controller.book.value.bookName}》")),
-                        Obx(() => Text(
-                            "${controller.chapterIndex.value + 1} / ${controller.book.value.chapterList.length}")),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )),
+                )),
             Builder(
               builder: (BuildContext context) {
                 return Obx(() => controller.isShowMenu.value

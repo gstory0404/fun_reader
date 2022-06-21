@@ -33,6 +33,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
   //背景
   var isShowBg = false.obs;
 
+  //字体
+  var isShowFont = false.obs;
+
   @override
   void initState() {
     super.initState();
@@ -66,6 +69,10 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               }
               if (isShowBg.value) {
                 isShowBg.value = false;
+                return;
+              }
+              if (isShowFont.value) {
+                isShowFont.value = false;
                 return;
               }
               hide();
@@ -153,6 +160,8 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                 Obx(() =>
                     isShowProgress.value ? _buildProgressView() : Container()),
                 Obx(() => isShowBg.value ? _buildBgSettingView() : Container()),
+                Obx(() =>
+                    isShowFont.value ? _buildFontSettingView() : Container()),
                 buildBottomMenus(),
               ],
             ),
@@ -178,6 +187,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             onPressed: () {
               isShowProgress.value = false;
               isShowBg.value = false;
+              isShowFont.value = false;
               if (widget.openDraw != null) {
                 widget.openDraw!();
               }
@@ -191,6 +201,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             ),
             onPressed: () {
               isShowBg.value = false;
+              isShowFont.value = false;
               isShowProgress.value = !isShowProgress.value;
             },
           ),
@@ -202,6 +213,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             ),
             onPressed: () {
               isShowProgress.value = false;
+              isShowFont.value = false;
               isShowBg.value = !isShowBg.value;
             },
           ),
@@ -212,7 +224,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
               color: Colors.white,
             ),
             onPressed: () {
-              isShowProgress.value = true;
+              isShowProgress.value = false;
+              isShowBg.value = false;
+              isShowFont.value = !isShowFont.value;
             },
           ),
         ],
@@ -295,49 +309,307 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(width: 1, color: Colors.white24))),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      child: Row(
+        children: [
+          Text(
+            "背景",
+            style: TextStyle(color: Colors.white),
+          ),
+          Expanded(
+            child: Container(
+              height: 40,
+              child: ListView.builder(
+                  itemCount: readCtr.readPhoneCtr.bgColorList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        readCtr.readPhoneCtr.setBgColor(index);
+                      },
+                      child: Container(
+                          width: 40,
+                          height: 40,
+                          margin: const EdgeInsets.only(left: 14),
+                          decoration: BoxDecoration(
+                            color: readCtr.readPhoneCtr.bgColorList[index],
+                            borderRadius: BorderRadius.circular(20),
+                          )),
+                    );
+                  }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //字体设置
+  _buildFontSettingView() {
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1, color: Colors.white24))),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       child: Column(
         children: [
-          // Container(
-          //   child: Obx(
-          //     () => ProgressWidget(
-          //       defaultValue: 0.5,
-          //       maxValue: 1,
-          //       onChange: (value) {},
-          //       onFinish: (value) {},
-          //     ),
-          //   ),
-          // ),
-          Row(
-            children: [
-              Text(
-                "背景",
-                style: TextStyle(color: Colors.white),
-              ),
-              Expanded(
-                child: Container(
-                  height: 40,
-                  child: ListView.builder(
-                      itemCount: readCtr.readPhoneCtr.bgColorList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            readCtr.readPhoneCtr.setBgColor(index);
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.white30))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "字体大小",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.fontSize.value > 0) {
+                              readCtr.readPhoneCtr.setFontSize(
+                                  readCtr.readPhoneCtr.fontSize.value - 1);
+                            }
                           },
-                          child: Container(
-                              width: 40,
-                              height: 40,
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Obx(() => Text(
+                              "${readCtr.readPhoneCtr.fontSizeList[readCtr.readPhoneCtr.fontSize.value]}",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            )),
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.fontSize.value <
+                                readCtr.readPhoneCtr.fontSizeList.length - 1) {
+                              readCtr.readPhoneCtr.setFontSize(
+                                  readCtr.readPhoneCtr.fontSize.value + 1);
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.white30))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "行间距",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.fontHeight.value > 0) {
+                              readCtr.readPhoneCtr.setFontHeight(
+                                  readCtr.readPhoneCtr.fontHeight.value - 1);
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Obx(() => Text(
+                              "${readCtr.readPhoneCtr.fontHeightList[readCtr.readPhoneCtr.fontHeight.value]}",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            )),
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.fontHeight.value <
+                                readCtr.readPhoneCtr.fontHeightList.length -
+                                    1) {
+                              readCtr.readPhoneCtr.setFontHeight(
+                                  readCtr.readPhoneCtr.fontHeight.value + 1);
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.white30))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "左右间距",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.widthMargin.value > 0) {
+                              readCtr.readPhoneCtr.setWidthMargin(
+                                  readCtr.readPhoneCtr.widthMargin.value - 1);
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Obx(() => Text(
+                          "${readCtr.readPhoneCtr.widthMarginList[readCtr.readPhoneCtr.widthMargin.value]}",
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.white),
+                        )),
+                        IconButton(
+                          onPressed: () {
+                            if (readCtr.readPhoneCtr.widthMargin.value <
+                                readCtr.readPhoneCtr.widthMarginList.length -
+                                    1) {
+                              readCtr.readPhoneCtr.setWidthMargin(
+                                  readCtr.readPhoneCtr.widthMargin.value + 1);
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.text_increase,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.white30))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "字体",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: ListView.builder(
+                        itemCount: readCtr.readPhoneCtr.fontFamilyList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              readCtr.readPhoneCtr.setFontFamily(index);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 14),
                               margin: const EdgeInsets.only(left: 14),
                               decoration: BoxDecoration(
-                                color: readCtr.readPhoneCtr.bgColorList[index],
-                                borderRadius: BorderRadius.circular(20),
-                              )),
-                        );
-                      }),
+                                border: Border.all(
+                                    color: Colors.white, width: 0.5), // border
+                                borderRadius: BorderRadius.circular((8)), // 圆角
+                              ),
+                              child: Text(
+                                readCtr.readPhoneCtr.fontFamilyStrList[index],
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
                 ),
-              ),
-            ],
-          )
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.white30))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "字体颜色",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: ListView.builder(
+                        itemCount: readCtr.readPhoneCtr.fontColorList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              readCtr.readPhoneCtr.setFontColor(index);
+                            },
+                            child: Container(
+                                width: 40,
+                                height: 40,
+                                margin: const EdgeInsets.only(left: 14),
+                                decoration: BoxDecoration(
+                                  color:
+                                      readCtr.readPhoneCtr.fontColorList[index],
+                                  borderRadius: BorderRadius.circular(20),
+                                )),
+                          );
+                        }),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
