@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/category/category_ctr.dart';
 import 'package:fun_reader/pages/widgets/book_item.dart';
 import 'package:get/get.dart';
@@ -49,9 +50,9 @@ class CategoryPhonePage extends GetView<CategoryCtr> {
                             strokeWidth: 2,
                           ),
                         ),
-                        const Text(
-                          '上拉加载更多',
-                          style: TextStyle(
+                        Text(
+                          Keys.loadMore.tr,
+                          style: const TextStyle(
                             fontSize: 15,
                           ),
                         )

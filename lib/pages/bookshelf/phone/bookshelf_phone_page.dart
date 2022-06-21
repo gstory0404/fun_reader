@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
@@ -21,7 +22,7 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF12aa9c),
-        title: Text("书架"),
+        title: Text(Keys.bookshelf.tr),
         actions: [
           // 搜索
           IconButton(
@@ -89,7 +90,7 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "最近阅读：${bookBean.lastReadChapter}",
+                      "${Keys.lastRead.tr}：${bookBean.lastReadChapter}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),
@@ -97,7 +98,7 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "最新章节：${bookBean.lastChapter}",
+                      "${Keys.latestChapter.tr}：${bookBean.lastChapter}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),
@@ -105,7 +106,7 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "上次阅读：${DateUtil.getDateScope(checkDate: bookBean.lastReadTime)}",
+                      "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(checkDate: bookBean.lastReadTime)}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),
@@ -113,7 +114,7 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "书源：《${bookBean.sourceName}》",
+                      "${Keys.bookSource.tr}：《${bookBean.sourceName}》",
                       style: const TextStyle(
                         fontSize: 12,
                       ),

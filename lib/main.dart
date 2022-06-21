@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fun_reader/lang/translation_service.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/manager/sp_manager.dart';
 import 'package:fun_reader/routes/app_pages.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       builder: EasyLoading.init(),
+      locale: TranslationService.locale,
+      fallbackLocale: TranslationService.fallbackLocale,
+      translations: TranslationService(),
     );
   }
 }

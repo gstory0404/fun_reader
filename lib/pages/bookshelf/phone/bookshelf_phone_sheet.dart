@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
@@ -52,7 +53,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "最近阅读：${book.lastReadChapter}",
+                          "${Keys.lastRead.tr}：${book.lastReadChapter}",
                           style: const TextStyle(
                             fontSize: 12,
                           ),
@@ -60,7 +61,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "最新章节：${book.lastChapter}",
+                          "${Keys.latestChapter.tr}：${book.lastChapter}",
                           style: const TextStyle(
                             fontSize: 12,
                           ),
@@ -68,7 +69,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "上次阅读：${DateUtil.getDateScope(checkDate: book.lastReadTime)}",
+                          "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(checkDate: book.lastReadTime)}",
                           style: const TextStyle(
                             fontSize: 12,
                           ),
@@ -76,7 +77,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          "书源：《${book.sourceName}》",
+                          "${Keys.bookSource.tr}《${book.sourceName}》",
                           style: const TextStyle(
                             fontSize: 12,
                           ),
@@ -107,17 +108,17 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.book, size: 20),
+                          const Icon(Icons.book, size: 20),
                           Text(
-                            "阅读",
+                            Keys.read.tr,
                             style:
-                                TextStyle(fontSize: 14, color: Colors.black87),
+                            const TextStyle(fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),
@@ -135,17 +136,17 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.bookmarks, size: 20),
+                          const Icon(Icons.bookmarks, size: 20),
                           Text(
-                            "详情",
+                            Keys.detail.tr,
                             style:
-                                TextStyle(fontSize: 14, color: Colors.black87),
+                                const TextStyle(fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),
@@ -162,17 +163,17 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.delete_rounded, size: 20),
+                          const Icon(Icons.delete_rounded, size: 20),
                           Text(
-                            "删除",
+                            Keys.delete.tr,
                             style:
-                                TextStyle(fontSize: 14, color: Colors.black87),
+                                const TextStyle(fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),
@@ -182,7 +183,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 14),
+              margin: const EdgeInsets.only(top: 14),
               child: Text(
                 book.intro ?? "",
                 style: const TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/read/read_ctr.dart';
 import 'package:fun_reader/pages/widgets/read/progress_widget.dart';
 import 'package:fun_reader/utils/toast_util.dart';
@@ -245,7 +246,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
           GestureDetector(
             onTap: () {
               if (readCtr.chapterIndex.value == 0) {
-                ToastUtil.showToast("已经是第一章了");
+                ToastUtil.showToast(Keys.firstChapterTips.tr);
                 return;
               }
               readCtr.chapterIndex.value = readCtr.chapterIndex.value - 1;
@@ -283,7 +284,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             onTap: () {
               if (readCtr.chapterIndex.value >=
                   readCtr.book.value.chapterList.length - 1) {
-                ToastUtil.showToast("已经是最后一章了");
+                ToastUtil.showToast(Keys.lastChapterTips.tr);
                 return;
               }
               readCtr.chapterIndex.value = readCtr.chapterIndex.value + 1;
@@ -304,7 +305,6 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
 
   //背景设置
   _buildBgSettingView() {
-    print("xianshi l");
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(width: 1, color: Colors.white24))),
@@ -312,7 +312,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
       child: Row(
         children: [
           Text(
-            "背景",
+            Keys.background.tr,
             style: TextStyle(color: Colors.white),
           ),
           Expanded(
@@ -359,9 +359,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "字体大小",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                Text(
+                  Keys.fontSize.tr,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 Expanded(
                   child: Container(
@@ -416,9 +416,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "行间距",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                Text(
+                  Keys.lineSpacing.tr,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 Expanded(
                   child: Container(
@@ -474,9 +474,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "左右间距",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                 Text(
+                  Keys.horizontalSpacing.tr,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 Expanded(
                   child: Container(
@@ -498,10 +498,10 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                           ),
                         ),
                         Obx(() => Text(
-                          "${readCtr.readPhoneCtr.widthMarginList[readCtr.readPhoneCtr.widthMargin.value]}",
-                          style: const TextStyle(
-                              fontSize: 14, color: Colors.white),
-                        )),
+                              "${readCtr.readPhoneCtr.widthMarginList[readCtr.readPhoneCtr.widthMargin.value]}",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            )),
                         IconButton(
                           onPressed: () {
                             if (readCtr.readPhoneCtr.widthMargin.value <
@@ -532,9 +532,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "字体",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                Text(
+                  Keys.font.tr,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 Expanded(
                   child: Container(
@@ -549,7 +549,8 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 14),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4, horizontal: 14),
                               margin: const EdgeInsets.only(left: 14),
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -579,9 +580,9 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "字体颜色",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                Text(
+                  Keys.fontColor.tr,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 Expanded(
                   child: Container(

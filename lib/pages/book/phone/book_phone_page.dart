@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
@@ -130,7 +131,7 @@ class BookPhonePage extends GetView<BookCtr> {
                         child: InkWell(
                           onTap: () async {
                             if (controller.book.value.chapterList.isEmpty) {
-                              ToastUtil.showToast("获取章节列表失败");
+                              ToastUtil.showToast(Keys.getChapterError.tr);
                               return;
                             }
                             Get.bottomSheet(
@@ -148,7 +149,7 @@ class BookPhonePage extends GetView<BookCtr> {
                           },
                           child: Row(
                             children: [
-                              const Text("最新"),
+                              Text(Keys.newest.tr),
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
@@ -197,7 +198,7 @@ class BookPhonePage extends GetView<BookCtr> {
                               bottomLeft: Radius.circular(25)),
                         ),
                         child: Text(
-                          controller.book.value.isBookshelf ? "已在书架" : "加入书架",
+                          controller.book.value.isBookshelf ? Keys.hasBookshelf.tr : Keys.addBookshelf.tr,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -215,7 +216,7 @@ class BookPhonePage extends GetView<BookCtr> {
                   child: InkWell(
                     onTap: () {
                       if (controller.book.value.chapterList.isEmpty) {
-                        ToastUtil.showToast("暂无章节");
+                        ToastUtil.showToast(Keys.noChapter.tr);
                         return;
                       }
                       ReadPage.go(
@@ -231,9 +232,9 @@ class BookPhonePage extends GetView<BookCtr> {
                             topRight: Radius.circular(25),
                             bottomRight: Radius.circular(25)),
                       ),
-                      child: const Text(
-                        "立即阅读",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      child: Text(
+                        Keys.read.tr,
+                        style: const TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ),

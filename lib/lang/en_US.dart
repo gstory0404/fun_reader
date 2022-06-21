@@ -1,0 +1,42 @@
+import 'package:fun_reader/lang/keys.dart';
+
+/// @Author: gstory
+/// @CreateDate: 2022/6/21 17:11
+/// @Email gstory0404@gmail.com
+/// @Description: dart类作用描述 
+
+const Map<String, String> en_US = {
+   Keys.appName: 'Fun Reader',
+   Keys.bookshelf: 'BookShelf',
+   Keys.find: 'Find',
+   Keys.my: 'Mine',
+   Keys.lastRead: 'last read',
+   Keys.latestChapter: 'latest chapter',
+   Keys.lastReadTime: 'last read time',
+   Keys.bookSource: 'book source',
+   Keys.read: 'Read',
+   Keys.detail: 'Detail',
+   Keys.getChapterError: 'Failed to get chapter',
+   Keys.newest: 'newest',
+   Keys.hasBookshelf: 'already on the bookshelf',
+   Keys.addBookshelf: 'add to bookshelf',
+   Keys.noChapter: 'No chapters yet',
+   Keys.loadMore: 'Pull up to load more',
+   Keys.chapterList: 'Chapter List',
+   Keys.firstChapterTips: 'It\'s the first chapter',
+   Keys.lastChapterTips: 'It\'s the last chapter',
+   Keys.background: 'background',
+   Keys.fontSize: 'font size',
+   Keys.lineSpacing: 'line spacing',
+   Keys.horizontalSpacing: 'horizontal spacing',
+   Keys.font: 'font',
+   Keys.fontColor:"font color",
+   Keys.selectBookSource:"Select book source",
+   Keys.unknown :"unknown",
+   Keys.searchHint :"Please enter novel, author",
+   Keys.bookSourceManage :"Book source management",
+   Keys.languageSettings :"Language Settings",
+   Keys.about :"about App",
+};
+
+

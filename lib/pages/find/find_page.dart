@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
 import 'package:fun_reader/pages/find/find_body.dart';
 import 'package:fun_reader/pages/find/find_ctr.dart';
@@ -26,7 +27,7 @@ class FindPage extends BaseWidget<FindCtr> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF12aa9c),
-        title: Text("发现"),
+        title: Text(Keys.find.tr),
         actions: [
           // 搜索
           IconButton(

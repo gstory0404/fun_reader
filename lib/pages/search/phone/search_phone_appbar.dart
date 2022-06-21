@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:get/get.dart';
 
@@ -44,9 +45,9 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
                 child: Obx(
                   () => DropdownButton2(
                     isExpanded: true,
-                    hint: const Text(
-                      '选择书源',
-                      style: TextStyle(
+                    hint: Text(
+                      Keys.selectBookSource.tr,
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black12,
                       ),
@@ -56,7 +57,7 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
                         .map((item) => DropdownMenuItem<DBRuleBean>(
                               value: item,
                               child: Text(
-                                item.sourceName ?? "未知",
+                                item.sourceName ?? Keys.unknown.tr,
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,
@@ -109,11 +110,12 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
                 // autofocus: widget.autoFocus,
                 // focusNode: _focusNode,
                 controller: controller.inputController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,
-                  hintText: '请输入小说、作者',
-                  hintStyle: TextStyle(fontSize: 15, color: Color(0xFF999999)),
+                  hintText: Keys.searchHint.tr,
+                  hintStyle:
+                      const TextStyle(fontSize: 15, color: Color(0xFF999999)),
                 ),
                 style: const TextStyle(
                     fontSize: 15, color: Color(0xFF333333), height: 1),

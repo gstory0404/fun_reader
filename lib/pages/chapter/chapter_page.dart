@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/chapter_bean.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:get/get.dart';
 import 'package:vs_scrollbar/vs_scrollbar.dart';
 
@@ -51,9 +52,9 @@ class _ChapterPageState extends State<ChapterPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "章节列表",
-                    style: TextStyle(fontSize: 20),
+                  Text(
+                    Keys.chapterList.tr,
+                    style: const TextStyle(fontSize: 20),
                   ),
                   InkWell(
                     onTap: () {
