@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fun_reader/utils/language_util.dart';
 import 'package:get/get.dart';
 import 'package:fun_reader/lang/keys.dart';
 
@@ -13,9 +14,9 @@ import 'zh_CN.dart';
 
 class TranslationService extends Translations {
 
-  static Locale? get locale => Get.deviceLocale;
+  static Locale? get locale => LanguageUtil.getLanguageLocale(LanguageUtil.getLanguage());
 
-  static const fallbackLocale = Locale('en', 'US');
+  static const fallbackLocale = Locale('zh', 'CN');
 
   @override
   Map<String, Map<String, String>> get keys => {

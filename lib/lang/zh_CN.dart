@@ -38,4 +38,11 @@ const Map<String, String> zh_CN = {
   Keys.bookSourceManage :"书源管理",
   Keys.languageSettings :"语言设置",
   Keys.about :"关于App",
+  Keys.auto :"自动",
+  Keys.simplifiedChinese :"简体中文",
+  Keys.english :"English",
+  Keys.deleteSource :"删除书源",
+  Keys.deleteSourceTips :"删除书源后，当前书源下的书籍均不可阅读，是否确认删除？",
+  Keys.cancel :"取消",
+  Keys.delete :"删除",
 };

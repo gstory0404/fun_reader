@@ -56,10 +56,15 @@ class RuleDao extends DBProvider {
 
   ///查询所有规则
   ///[isEffect] 是否生效
-  Future<List<DBRuleBean>> queryAll({bool isEffect = true}) async {
+  Future<List<DBRuleBean>> queryAll({bool? isEffect}) async {
     Database db = await getDB();
-    final List<Map<String, dynamic>> maps = await db.query(_tableName,
-        where: "$_isEffect = ?", whereArgs: [isEffect ? 1 : 0]);
+    late List<Map<String, dynamic>> maps;
+    if(isEffect == null){
+      maps = await db.query(_tableName);
+    }else{
+      maps = await db.query(_tableName,
+          where: "$_isEffect = ?", whereArgs: [isEffect ? 1 : 0]);
+    }
     return List.generate(maps.length, (i) {
       LogUtil.d(maps[i]);
       return DBRuleBean.fromJson(maps[i]);

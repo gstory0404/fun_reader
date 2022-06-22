@@ -99,4 +99,16 @@ class Keys {
 
   //关于app
   static const String about = "about";
+  //简体中文
+  static const String simplifiedChinese = "simplifiedChinese";
+  //英文
+  static const String english = "english";
+  //自动
+  static const String auto = "auto";
+  //删除书源
+  static const String deleteSource = "deleteSource";
+  //删除书源提示
+  static const String deleteSourceTips = "deleteSourceTips";
+  //取消
+  static const String cancel = "cancel";
 }

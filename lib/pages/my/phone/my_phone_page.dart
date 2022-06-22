@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
+import 'package:fun_reader/pages/my/language_dialog.dart';
 import 'package:fun_reader/pages/my/my_ctr.dart';
+import 'package:fun_reader/pages/source/source_page.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -40,6 +42,9 @@ class MyPhonePage extends GetView<MyCtr> {
             child: Column(
               children: [
                 InkWell(
+                  onTap: (){
+                    SourcePage.go();
+                  },
                   child: Container(
                     decoration: const BoxDecoration(
                       border: Border(
@@ -60,6 +65,9 @@ class MyPhonePage extends GetView<MyCtr> {
                   ),
                 ),
                 InkWell(
+                  onTap: (){
+                    Get.dialog(LanguageDialog());
+                  },
                   child: Container(
                     decoration: const BoxDecoration(
                       border: Border(

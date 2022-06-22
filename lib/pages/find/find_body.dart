@@ -11,13 +11,20 @@ import 'package:get/get.dart';
 class FindBody extends GetView<FindCtr> {
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView.builder(
-          itemCount: controller.rulelist.length,
-          itemBuilder: (BuildContext context, int index) {
-            return FindItem(
-              ruleBean: controller.rulelist[index].ruleBean!,
-            );
-          },
-        ));
+    return Container(
+      child: RefreshIndicator(
+        onRefresh: () {
+          return controller.getAllRule();
+        },
+        child: Obx(() => ListView.builder(
+              itemCount: controller.rulelist.length,
+              itemBuilder: (BuildContext context, int index) {
+                return FindItem(
+                  ruleBean: controller.rulelist[index].ruleBean!,
+                );
+              },
+            )),
+      ),
+    );
   }
 }

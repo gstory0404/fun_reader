@@ -8,6 +8,8 @@ import 'package:fun_reader/pages/read/read_ctr.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
+import 'package:fun_reader/pages/source/source_ctr.dart';
+import 'package:fun_reader/pages/source/source_page.dart';
 import 'package:fun_reader/pages/welcome/welcome_ctr.dart';
 import 'package:fun_reader/pages/welcome/welcome_page.dart';
 import 'package:get/get.dart';
@@ -63,6 +65,13 @@ class AppPages {
       page: () => ReadPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => ReadCtr());
+      }),
+    ),
+    GetPage(
+      name: Routes.SOURCE,
+      page: () => SourcePage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => SourceCtr());
       }),
     ),
   ];

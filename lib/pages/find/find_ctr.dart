@@ -16,12 +16,10 @@ class FindCtr extends GetxController{
   @override
   void onInit() {
     super.onInit();
-
+    getAllRule();
   }
 
-  @override
-  void onReady() async{
-    super.onReady();
+  Future<void> getAllRule() async{
     rulelist.value = await RuleDao().queryAll(isEffect: true);
   }
 }
