@@ -1,3 +1,4 @@
+import 'package:fun_reader/pages/about/about_page.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/category/category_ctr.dart';
@@ -73,6 +74,10 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut(() => SourceCtr());
       }),
+    ),
+    GetPage(
+      name: Routes.ABOUT,
+      page: () => AboutPage(),
     ),
   ];
 }

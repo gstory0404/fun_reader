@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
+import 'package:fun_reader/pages/about/about_page.dart';
 import 'package:fun_reader/pages/my/language_dialog.dart';
 import 'package:fun_reader/pages/my/my_ctr.dart';
 import 'package:fun_reader/pages/source/source_page.dart';
@@ -93,6 +94,9 @@ class MyPhonePage extends GetView<MyCtr> {
                 ),
                 //关于app
                 InkWell(
+                  onTap: (){
+                    AboutPage.go();
+                  },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 16),
