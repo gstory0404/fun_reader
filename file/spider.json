@@ -1,0 +1,152 @@
+[
+  {
+    "sourceName": "九桃小说",
+    "sourceUrl": "https://www.9taoxs.com",
+    "head": "",
+    "recommend": [
+      {
+        "recommendName": "总点击榜",
+        "recommendUrl": "https://www.9taoxs.com/top/allvisit/&page&.html"
+      },
+      {
+        "recommendName": "月点击榜",
+        "recommendUrl": "https://www.9taoxs.com/top/monthvisit/&page&.html"
+      },
+      {
+        "recommendName": "周点击榜",
+        "recommendUrl": "https://www.9taoxs.com/top/weekvisit/&page&.html"
+      },
+      {
+        "recommendName": "总推荐榜",
+        "recommendUrl": "https://www.9taoxs.com/top/allvote/&page&.html"
+      },
+      {
+        "recommendName": "月推荐榜",
+        "recommendUrl": "https://www.9taoxs.com/top/monthvote/&page&.html"
+      },
+      {
+        "recommendName": "周推荐榜",
+        "recommendUrl": "https://www.9taoxs.com/top/weekvote/&page&.html"
+      },
+      {
+        "recommendName": "总收藏榜",
+        "recommendUrl": "https://www.9taoxs.com/top/goodnum/&page&.html"
+      },
+      {
+        "recommendName": "强推榜",
+        "recommendUrl": "https://www.9taoxs.com/top/toptime/&page&.html"
+      },
+      {
+        "recommendName": "新书榜",
+        "recommendUrl": "https://www.9taoxs.com/top/goodnew/&page&.html"
+      },
+      {
+        "recommendName": "最新入库",
+        "recommendUrl": "https://www.9taoxs.com/top/postdate/&page&.html"
+      },
+      {
+        "recommendName": "最近更新",
+        "recommendUrl": "https://www.9taoxs.com/top/lastupdate/&page&.html"
+      },
+      {
+        "recommendName": "玄幻奇幻•全部",
+        "recommendUrl": "https://www.9taoxs.com/library/0_1_0_&page&.html"
+      },
+      {
+        "recommendName": "玄幻奇幻•连载",
+        "recommendUrl": "https://www.9taoxs.com/library/0_1_1_&page&.html"
+      },
+      {
+        "recommendName": "玄幻奇幻•完结",
+        "recommendUrl": "https://www.9taoxs.com/library/0_1_2_&page&.html"
+      },
+      {
+        "recommendName": "武侠修真•全部",
+        "recommendUrl": "https://www.9taoxs.com/library/0_2_0_&page&.html"
+      },
+      {
+        "recommendName": "武侠修真•连载",
+        "recommendUrl": "https://www.9taoxs.com/library/0_2_1_&page&.html"
+      },
+      {
+        "recommendName": "武侠修真•完结",
+        "recommendUrl": "https://www.9taoxs.com/library/0_2_2_&page&.html"
+      },
+      {
+        "recommendName": "都市生活•全部",
+        "recommendUrl": "https://www.9taoxs.com/library/0_3_0_&page&.html"
+      },
+      {
+        "recommendName": "都市生活•连载",
+        "recommendUrl": "https://www.9taoxs.com/library/0_3_1_&page&.html"
+      },
+      {
+        "recommendName": "都市生活•完结",
+        "recommendUrl": "https://www.9taoxs.com/library/0_3_2_&page&.html"
+      },
+      {
+        "recommendName": "历史军事•全部",
+        "recommendUrl": "https://www.9taoxs.com/library/0_4_0_&page&.html"
+      },
+      {
+        "recommendName": "历史军事•连载",
+        "recommendUrl": "https://www.9taoxs.com/library/0_4_1_&page&.html"
+      },
+      {
+        "recommendName": "历史军事•完结",
+        "recommendUrl": "https://www.9taoxs.com/library/0_4_2_&page&.html"
+      },
+      {
+        "recommendName": "游戏竞技•全部",
+        "recommendUrl": "https://www.9taoxs.com/library/0_5_0_&page&.html"
+      }
+    ],
+    "recommendBooks": {
+      "books": "//*[@class=\"list\"]/*[@class=\"rank zoom\"]//li | //*[@class=\"library\"]//li",
+      "name": "/a[2]/text()",
+      "author": "/p[2]/a[1]/text()",
+      "cover": "/a[1]/img/@src",
+      "intro": "/*[@class=\"intro\"]/text()",
+      "category": "/p[2]/a[2]//text()",
+      "lastChapter": "/p[4]/a/text()",
+      "bookUrl": "/a[2]/@href"
+    },
+    "search": {
+      "url": "/search.html",
+      "method": "POST",
+      "body": "{\"searchkey\":\"&key&\"}",
+      "contentType": "application/x-www-form-urlencoded"
+    },
+    "searchBooks": {
+      "books": "//*[@class=\"library\"]//li",
+      "name": "/a[2]/text()",
+      "author": "/p[1]/a[1]/text()",
+      "cover": "/a[1]/img/@src",
+      "intro": "/*[@class=\"intro\"]/text()",
+      "category": "/span[1]/text() | /p[1]/a[2]//text()",
+      "lastChapter": "/a[3]/text()",
+      "bookUrl": "/a[1]/@href"
+    },
+    "bookInfo": {
+      "name": "//*[@class=\"detail\"]/h1[1]/text()",
+      "author": "//*[@class=\"detail\"]/p[1]/a[1]/text()",
+      "cover": "//*[@class=\"detail\"]/a[1]/img/@src",
+      "intro": "//*[@class=\"content\"]/*[@class=\"intro\"]/text()",
+      "category": "//*[@class=\"detail\"]/p[1]/a[2]/text()",
+      "lastChapter": "//*[@class=\"detail\"]/p[4]/a/text()",
+      "updateTime": "//*[@class=\"detail\"]/p[1]/a[2]/text()",
+      "chapterUrl": "//*[@class=\"detail\"]/*[@class=\"action\"]/a[1]/@href"
+    },
+    "chapter": {
+      "chapterList": "//*[@class=\"read\"]//dl[position()>1]//dd",
+      "chapterName": "/a/text()",
+      "chapterUrl": "/a/@href",
+      "nextPage": ""
+    },
+    "chapterContent": {
+      "content": "//*[@id=\"content\"]//p[position()>0]/text()",
+      "nextPage": "/a/text()",
+      "replaceReg": "九桃小说 老域名(9txs.com)被墙，请您牢记本站最新域名(9taoxs.com)"
+    }
+  }
+]

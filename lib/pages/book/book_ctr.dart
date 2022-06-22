@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,9 @@ class BookCtr extends GetxController {
         ..addTime = DateUtil.nowTimestamp());
     }
     book.refresh();
+    //刷新书架
+    BookShelfCtr bookShelfCtr = Get.find();
+    bookShelfCtr.getAllBooks();
     ToastUtil.dismiss();
   }
 }

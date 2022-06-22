@@ -8,6 +8,8 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/find/find_ctr.dart';
+import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
@@ -40,7 +42,7 @@ class SourceCtr extends GetxController {
     rulelist.refresh();
   }
 
-  //删除书源
+  ///删除书源
   void deleteRule(DBRuleBean bean) {
     RuleDao().delete(bean);
     queryAllRule();
@@ -83,6 +85,7 @@ class SourceCtr extends GetxController {
     List list = json.decode(contents);
     for (var element in list) {
       RuleBean bean = RuleBean.fromJson(element);
+      print("保存${bean.toJson()}");
       var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
       //如果不存在就插入表中
       if(dbBean?.id == null){
@@ -91,11 +94,18 @@ class SourceCtr extends GetxController {
         dbRuleBean.sourceName = bean.sourceName;
         dbRuleBean.ruleBean = bean;
         dbRuleBean.isEffect = true;
+        print("保存${dbRuleBean.toJson()}");
         RuleDao().insert(dbRuleBean);
       }
     }
     //刷新数据
     queryAllRule();
+    //发现页
+    FindCtr findCtr = Get.find();
+    findCtr.queryAllRule();
+    //搜索页
+    SearchCtr searchCtr = Get.find();
+    searchCtr.queryAllRule();
     ToastUtil.showToast(Keys.addSourceSuccess.tr);
   }
 }

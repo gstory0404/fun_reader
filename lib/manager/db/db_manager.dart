@@ -25,6 +25,7 @@ class DBManager {
       _db = await openDatabase(join(await getDatabasesPath(), _dbName),
           version: _dbVersion, onCreate: (db, version) async {});
     } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      sqfliteFfiInit();
       var factory = databaseFactoryFfi;
       _db = await factory.openDatabase(
         inMemoryDatabasePath,

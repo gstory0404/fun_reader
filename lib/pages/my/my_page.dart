@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/my/desktop/my_desktop_page.dart';
 import 'package:fun_reader/pages/my/my_ctr.dart';
 import 'package:fun_reader/pages/my/phone/my_phone_page.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class MyPage extends BaseWidget<MyCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
-     return Container();
+     return MyDesktopPage();
   }
 
   @override

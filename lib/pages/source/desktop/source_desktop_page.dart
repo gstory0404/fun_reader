@@ -7,11 +7,11 @@ import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
-/// @CreateDate: 2022/6/22 10:25
+/// @CreateDate: 2022/6/22 16:25
 /// @Email gstory0404@gmail.com
-/// @Description: dart类作用描述
+/// @Description: dart类作用描述 
 
-class SourcePhonePage extends GetView<SourceCtr> {
+class SourceDesktopPage extends GetView<SourceCtr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +128,7 @@ class SourcePhonePage extends GetView<SourceCtr> {
         decoration: const BoxDecoration(
           color: Colors.white,
           border:
-              Border(bottom: BorderSide(color: Color(0xFFEEEEEE), width: 1)),
+          Border(bottom: BorderSide(color: Color(0xFFEEEEEE), width: 1)),
         ),
         child: Row(
           children: [
@@ -171,3 +171,4 @@ class SourcePhonePage extends GetView<SourceCtr> {
     );
   }
 }
+

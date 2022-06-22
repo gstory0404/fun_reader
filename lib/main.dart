@@ -28,7 +28,7 @@ void initWindow() async {
     await windowManager.ensureInitialized();
     windowManager.waitUntilReadyToShow().then((_) async{
       // 隐藏窗口标题栏
-      await windowManager.setTitleBarStyle('hidden');
+      await windowManager.setTitleBarStyle('show');
       await windowManager.setSize(const Size(540, 880));
       // await windowManager.setMaximumSize(const Size(1000, 1000));
       await windowManager.setMinimumSize(const Size(540, 880));
@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       builder: EasyLoading.init(),

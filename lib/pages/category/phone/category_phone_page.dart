@@ -14,6 +14,7 @@ class CategoryPhonePage extends GetView<CategoryCtr> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF12aa9c),
         title: Obx(() => Text(controller.name.value)),
       ),
       body: Container(

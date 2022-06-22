@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
+import 'package:fun_reader/pages/source/desktop/source_desktop_page.dart';
 import 'package:fun_reader/pages/source/phone/source_phone_page.dart';
 import 'package:fun_reader/pages/source/source_ctr.dart';
 import 'package:fun_reader/routes/app_pages.dart';
@@ -18,7 +19,7 @@ class SourcePage extends BaseWidget<SourceCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
-    return Container();
+    return SourceDesktopPage();
   }
 
   @override

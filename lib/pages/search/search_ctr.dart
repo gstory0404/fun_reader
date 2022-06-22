@@ -27,10 +27,18 @@ class SearchCtr extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    queryAllRule();
+  }
+
+  ///获取所有书源
+  void queryAllRule() async {
     ruleList.value = await RuleDao().queryAll(isEffect: true);
     if (ruleList.isNotEmpty) {
       rule.value = ruleList.first;
+    }else{
+      rule.value = DBRuleBean();
     }
+    print("搜索源${rule.value.toJson()}");
   }
 
   //切换数据源

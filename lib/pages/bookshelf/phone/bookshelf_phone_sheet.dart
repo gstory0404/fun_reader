@@ -22,8 +22,10 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
   Widget build(BuildContext context) {
     return Container(
         height: 400,
-        width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        constraints: BoxConstraints(
+          maxWidth: 500
+        ),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(10)),

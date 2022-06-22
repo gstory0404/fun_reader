@@ -66,7 +66,6 @@ class RuleDao extends DBProvider {
           where: "$_isEffect = ?", whereArgs: [isEffect ? 1 : 0]);
     }
     return List.generate(maps.length, (i) {
-      LogUtil.d(maps[i]);
       return DBRuleBean.fromJson(maps[i]);
     });
   }

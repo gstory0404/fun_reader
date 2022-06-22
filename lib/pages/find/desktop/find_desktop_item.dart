@@ -7,16 +7,16 @@ import 'package:fun_reader/pages/category/category_page.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class FindItem extends StatefulWidget {
+class FindDesktopItem extends StatefulWidget {
   RuleBean ruleBean;
 
-  FindItem({Key? key, required this.ruleBean}) : super(key: key);
+  FindDesktopItem({Key? key, required this.ruleBean}) : super(key: key);
 
   @override
-  State<FindItem> createState() => _FindItemState();
+  State<FindDesktopItem> createState() => _FindItemState();
 }
 
-class _FindItemState extends State<FindItem> {
+class _FindItemState extends State<FindDesktopItem> {
   bool isShow = false;
 
   @override

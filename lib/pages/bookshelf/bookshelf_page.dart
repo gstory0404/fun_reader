@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
+import 'package:fun_reader/pages/bookshelf/desktop/bookshelf_desktop_page.dart';
 import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_page.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class BookShelfPage extends BaseWidget<BookShelfCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
-    return Container();
+    return BookShelfDesktopPage();
   }
 
   @override

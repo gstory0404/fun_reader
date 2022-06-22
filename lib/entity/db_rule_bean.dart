@@ -20,7 +20,7 @@ class DBRuleBean {
   DBRuleBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     sourceName = json['source_name'];
-    sourceUrl = json['sourceUrl'];
+    sourceUrl = json['source_url'];
     rule = json['rule'];
     isEffect = json['is_effect'] == 1;
     ruleBean = RuleBean.fromJson(convert.jsonDecode(rule ?? ""));

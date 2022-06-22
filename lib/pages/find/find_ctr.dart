@@ -16,11 +16,12 @@ class FindCtr extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    getAllRule();
+    queryAllRule();
   }
 
-  Future<void> getAllRule() async{
+  Future<void> queryAllRule() async{
     rulelist.value = await RuleDao().queryAll(isEffect: true);
+    print("本地书源${rulelist.value}");
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
+import 'package:fun_reader/pages/book/desktop/book_desktop_page.dart';
 import 'package:fun_reader/pages/book/phone/book_phone_page.dart';
 import 'package:fun_reader/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class BookPage extends BaseWidget<BookCtr>{
 
   @override
   Widget desktopPage(BuildContext context) {
-    return Container();
+    return BookDesktopPage();
   }
 
   @override

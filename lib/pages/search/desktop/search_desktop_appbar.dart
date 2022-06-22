@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class SearchPhoneAppbar extends GetView<SearchCtr>
+class SearchDesktopAppbar extends GetView<SearchCtr>
     implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -20,9 +20,8 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
     return AppBar(
       backgroundColor: Color(0xFF12aa9c),
       titleSpacing: 0,
-      leading: BackButton(onPressed: () {
-        Get.back();
-      }),
+      leading: Container(),
+      leadingWidth: 10,
       title: Container(
         height: 36,
         padding: EdgeInsets.symmetric(horizontal: 4),
@@ -40,7 +39,7 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
               child: Icon(Icons.search, size: 22, color: Color(0xFF999999)),
             ),
             Container(
-              width: 80,
+              width: 140,
               margin: const EdgeInsets.only(left: 4),
               child: DropdownButtonHideUnderline(
                 child: Obx(

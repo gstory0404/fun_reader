@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class BookPhonePage extends GetView<BookCtr> {
+class BookDesktopPage extends GetView<BookCtr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,6 +176,9 @@ class BookPhonePage extends GetView<BookCtr> {
           Container(
             height: 50,
             margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
+            constraints: const BoxConstraints(
+              maxWidth: 300
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -189,15 +192,13 @@ class BookPhonePage extends GetView<BookCtr> {
                         decoration: BoxDecoration(
                           color: controller.book.value.isBookshelf
                               ? Colors.grey
-                              : Color(0xFF12aa9c),
+                              :  Color(0xFF12aa9c),
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(25),
                               bottomLeft: Radius.circular(25)),
                         ),
                         child: Text(
-                          controller.book.value.isBookshelf
-                              ? Keys.hasBookshelf.tr
-                              : Keys.addBookshelf.tr,
+                          controller.book.value.isBookshelf ? Keys.hasBookshelf.tr : Keys.addBookshelf.tr,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -226,15 +227,14 @@ class BookPhonePage extends GetView<BookCtr> {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: const BoxDecoration(
-                        color: Color(0xFF12aa9c),
+                        color:  Color(0xFF12aa9c),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(25),
                             bottomRight: Radius.circular(25)),
                       ),
                       child: Text(
                         Keys.read.tr,
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.white),
+                        style: const TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,7 @@ abstract class BaseWidget<S extends GetLifeCycleBase> extends GetView<S>{
 
   @override
   Widget build(BuildContext context) {
-    return context.isPhone ? phonePage(context) : desktopPage(context);
+    return Platform.isAndroid || Platform.isIOS ? phonePage(context) : desktopPage(context);
   }
 }
 
