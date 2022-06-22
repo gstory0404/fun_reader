@@ -14,6 +14,10 @@
 
 ## 书源规则
  
+[书源规则](https://github.com/gstory0404/fun_reader/blob/master/rule.md))
+
+[示例](https://github.com/gstory0404/fun_reader/blob/master/file/spider.json)
+
 
 
 
