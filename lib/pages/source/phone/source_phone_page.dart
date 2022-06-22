@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/source/source_ctr.dart';
+import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -17,6 +18,67 @@ class SourcePhonePage extends GetView<SourceCtr> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Keys.bookSourceManage.tr),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+              _selectView(Icons.file_download, Keys.netFile.tr, 'net'),
+              _selectView(
+                  Icons.drive_file_move_sharp, Keys.localFile.tr, 'file'),
+            ],
+            onSelected: (String action) {
+              switch (action) {
+                case 'net':
+                  showCupertinoDialog(
+                      context: context,
+                      builder: (context) {
+                        final editontroller = TextEditingController();
+                        return CupertinoAlertDialog(
+                          title: Text(Keys.netFile.tr),
+                          content: Card(
+                            elevation: 0.0,
+                            child: Column(
+                              children: <Widget>[
+                                TextField(
+                                  controller: editontroller,
+                                  decoration: InputDecoration(
+                                    hintText: Keys.netFileHint.tr,
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text(Keys.cancel.tr)),
+                            TextButton(
+                              onPressed: () {
+                                var text = editontroller.text;
+                                if (text.startsWith("http") &&
+                                    (text.endsWith(".txt") ||
+                                        text.endsWith(".json"))) {
+                                  Get.back();
+                                  controller.download(text);
+                                } else {
+                                  ToastUtil.showToast(Keys.netFileHint.tr);
+                                }
+                              },
+                              child: Text(Keys.confirm.tr),
+                            )
+                          ],
+                        );
+                      });
+                  break;
+                case 'file':
+                  controller.selectFile();
+                  break;
+              }
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Obx(() => ListView.builder(
@@ -26,6 +88,19 @@ class SourcePhonePage extends GetView<SourceCtr> {
             })),
       ),
     );
+  }
+
+  // 菜单item
+  _selectView(IconData icon, String text, String id) {
+    return PopupMenuItem<String>(
+        value: id,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Icon(icon, color: Colors.blue),
+            Text(text),
+          ],
+        ));
   }
 
   _sourceItem(BuildContext context, int index, DBRuleBean bean) {

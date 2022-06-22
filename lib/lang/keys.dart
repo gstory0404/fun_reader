@@ -99,6 +99,8 @@ class Keys {
 
   //关于app
   static const String about = "about";
+  //选择语言
+  static const String selectLanguage = "selectLanguage";
   //简体中文
   static const String simplifiedChinese = "simplifiedChinese";
   //英文
@@ -111,4 +113,16 @@ class Keys {
   static const String deleteSourceTips = "deleteSourceTips";
   //取消
   static const String cancel = "cancel";
+  //确认
+  static const String confirm = "confirm";
+  //本地文件
+  static const String localFile = "localFile";
+  //网络文件
+  static const String netFile = "netFile";
+  //网络文件提示
+  static const String netFileHint = "netFileHint";
+  //书源添加完成
+  static const String addSourceSuccess = "addSourceSuccess";
+  //书源文件异常
+  static const String sourceFileError = "sourceFileError";
 }

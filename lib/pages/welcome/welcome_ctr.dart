@@ -24,8 +24,7 @@ class WelComeCtr extends GetxController{
   @override
   Future<void> onInit() async {
     super.onInit();
-    //初始化爬虫规则
-    // initRule();
+
     await SPManager().init();
     _timer = Timer.periodic(Duration(seconds: 1),(timer){
       if (countdown > 0) {
@@ -42,25 +41,6 @@ class WelComeCtr extends GetxController{
   void onClose() {
     _timer?.cancel();
     _timer = null;
-  }
-
-  //模拟一个规则
-  void initRule() async{
-    rootBundle.loadString("assets/json/spider.json").then((value) async {
-      List list = json.decode(value);
-      for (var element in list) {
-        RuleBean bean = RuleBean.fromJson(element);
-        var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
-        if(dbBean?.id == null){
-          DBRuleBean dbRuleBean = DBRuleBean();
-          dbRuleBean.sourceUrl = bean.sourceUrl;
-          dbRuleBean.sourceName = bean.sourceName;
-          dbRuleBean.ruleBean = bean;
-          dbRuleBean.isEffect = true;
-          RuleDao().insert(dbRuleBean);
-        }
-      }
-    });
   }
 }
 

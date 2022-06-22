@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/my/language_dialog.dart';
 import 'package:fun_reader/pages/my/my_ctr.dart';
 import 'package:fun_reader/pages/source/source_page.dart';
+import 'package:fun_reader/utils/language_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -41,6 +43,7 @@ class MyPhonePage extends GetView<MyCtr> {
             ),
             child: Column(
               children: [
+                //书源管理
                 InkWell(
                   onTap: (){
                     SourcePage.go();
@@ -64,9 +67,10 @@ class MyPhonePage extends GetView<MyCtr> {
                     ),
                   ),
                 ),
+                //选择语言
                 InkWell(
-                  onTap: (){
-                    Get.dialog(LanguageDialog());
+                  onTap: () async{
+                    LanguageDialog.showLanguageDialog(context);
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -87,6 +91,7 @@ class MyPhonePage extends GetView<MyCtr> {
                     ),
                   ),
                 ),
+                //关于app
                 InkWell(
                   child: Container(
                     padding: const EdgeInsets.symmetric(

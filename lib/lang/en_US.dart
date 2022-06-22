@@ -38,12 +38,19 @@ const Map<String, String> en_US = {
    Keys.languageSettings :"Language Settings",
    Keys.about :"about App",
    Keys.auto :"Auto",
+   Keys.selectLanguage :"Choose a language",
    Keys.simplifiedChinese :"简体中文",
    Keys.english :"English",
    Keys.deleteSource :"delete book source",
    Keys.deleteSourceTips :"删除书源后，当前书源下的书籍均不可阅读，是否确认删除？",
    Keys.cancel :"Cancel",
+   Keys.confirm :"confirm",
    Keys.delete :"Delete",
+   Keys.localFile :"local files",
+   Keys.netFile :"net files",
+   Keys.netFileHint :"Please enter the txt/json file address",
+   Keys.addSourceSuccess :"Book source added",
+   Keys.sourceFileError :"Book source file exception",
 };
 
 
