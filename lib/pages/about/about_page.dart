@@ -59,46 +59,22 @@ class AboutPage extends StatelessWidget {
                         vertical: 16, horizontal: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
                           "项目地址",
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 16, color: Colors.black),
                         ),
-                        const Icon(Icons.chevron_right),
+                        Icon(Icons.chevron_right),
                       ],
                     ),
                   ),
                 ),
                 //书源规则
                 InkWell(
-                  onTap: () async {},
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(color: Color(0xFFEEEEEE), width: 1)),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "书源规则",
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black),
-                        ),
-                        const Icon(Icons.chevron_right),
-                      ],
-                    ),
-                  ),
-                ),
-                //开源协议
-                InkWell(
                   onTap: () async {
-                    await launchUrl(Uri.parse(
-                        " https://github.com/gstory0404/fun_reader/blob/master/LICENSE"));
+                    await launchUrl(
+                        Uri.parse("https://github.com/gstory0404/fun_reader/blob/master/rule.md"));
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -110,13 +86,40 @@ class AboutPage extends StatelessWidget {
                         vertical: 16, horizontal: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
-                          "开源协议",
-                          style: const TextStyle(
+                          "书源规则",
+                          style: TextStyle(
                               fontSize: 16, color: Colors.black),
                         ),
-                        const Icon(Icons.chevron_right),
+                        Icon(Icons.chevron_right),
+                      ],
+                    ),
+                  ),
+                ),
+                //开源协议
+                InkWell(
+                  onTap: () async {
+                    await launchUrl(Uri.parse(
+                        "https://github.com/gstory0404/fun_reader/blob/master/LICENSE"));
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(color: Color(0xFFEEEEEE), width: 1)),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          "开源协议",
+                          style: TextStyle(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        Icon(Icons.chevron_right),
                       ],
                     ),
                   ),
