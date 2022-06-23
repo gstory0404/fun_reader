@@ -91,14 +91,14 @@
 
 |  字段   | 说明  |
 |  ----  | ----  |
-|  books  | 推荐栏目书籍列表  |
-|  name  | 书名  |
-|  author  | 作者  |
-|  cover  | 封面  |
-|  intro  | 简介  |
-|  category  | 分类  |
-|  lastChapter  | 最后一章名称  |
-|  bookUrl  | 书籍链接  |
+|  books  | 推荐栏目书籍列表集合，如果存在翻页则固定&page&为页码  |
+|  name  | 集合item中解析书名  |
+|  author  | 集合item中解析作者  |
+|  cover  | 集合item中解析封面  |
+|  intro  | 集合item中解析简介  |
+|  category  | 集合item中解析分类  |
+|  lastChapter  | 集合item中解析最后一章名称  |
+|  bookUrl  | 集合item中解析书籍链接  |
 
 ## search
 搜索
@@ -115,14 +115,14 @@
 
 |  字段   | 说明  |
 |  ----  | ----  |
-|  books  | 推荐栏目书籍列表  |
-|  name  | 书名  |
-|  author  | 作者  |
-|  cover  | 封面  |
-|  intro  | 简介  |
-|  category  | 分类  |
-|  lastChapter  | 最后一章名称  |
-|  bookUrl  | 书籍链接  |
+|  books  | 推荐栏目书籍列表集合  |
+|  name  | 集合item中解析书名  |
+|  author  | 集合item中解析作者  |
+|  cover  | 集合item中解析封面  |
+|  intro  | 集合item中解析简介  |
+|  category  | 集合item中解析分类  |
+|  lastChapter  | 集合item中解析最后一章名称  |
+|  bookUrl  | 集合item中解析书籍链接  |
 
 ## bookInfo
 书籍详情
@@ -142,9 +142,9 @@
 章节解析规则
 |  字段   | 说明  |
 |  ----  | ----  |
-|  chapterList  | 章节列表  |
-|  chapterName  | 章节名称  |
-|  chapterUrl  | 章节url  |
+|  chapterList  | 章节列表集合  |
+|  chapterName  | 集合item解析章节名称  |
+|  chapterUrl  | 集合item解析章节url  |
 |  nextPage  | 下一页url，如果不为空则循环获取所有章节|
 
 ## chapterContent
