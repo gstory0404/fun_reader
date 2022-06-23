@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_bean.dart';
@@ -34,6 +35,13 @@ class MyConnect extends GetConnect {
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
+    }
+    //添加User-Agent
+    if(head?["User-Agent"] == null){
+      await FlutterUserAgent.init();
+      var webAgent = FlutterUserAgent.webViewUserAgent;
+      head ??= {};
+      head["User-Agent"] = webAgent ?? "";
     }
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
