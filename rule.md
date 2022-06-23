@@ -1,5 +1,8 @@
 # FunReader数据采集规则说明
 
+[示例](https://github.com/gstory0404/fun_reader/blob/master/file/spider.json)
+
+
 ```
 [
   {
