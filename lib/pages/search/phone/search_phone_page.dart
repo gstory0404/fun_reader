@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fun_reader/pages/search/phone/search_phone_appbar.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:fun_reader/pages/widgets/book_item.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -17,7 +18,7 @@ class SearchPhonePage extends GetView<SearchCtr> {
       appBar: SearchPhoneAppbar(),
       body: Container(
         child: Obx(
-          () => ListView.builder(
+          () => StatusWidget(loadType: controller.loadStatus.value, body: ListView.builder(
             itemCount: controller.bookList.length,
             itemBuilder: (BuildContext context, int index) {
               return BookItem(
@@ -25,7 +26,7 @@ class SearchPhonePage extends GetView<SearchCtr> {
                 bookBean: controller.bookList[index],
               );
             },
-          ),
+          )),
         ),
       ),
     );

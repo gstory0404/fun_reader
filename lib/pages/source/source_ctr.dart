@@ -8,6 +8,7 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/pages/find/find_ctr.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:fun_reader/utils/date_util.dart';
@@ -20,7 +21,7 @@ import 'package:path_provider/path_provider.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class SourceCtr extends GetxController {
+class SourceCtr extends BaseCtr {
   MyConnect connect = Get.find();
   var rulelist = <DBRuleBean>[].obs;
 

@@ -125,4 +125,10 @@ class Keys {
   static const String addSourceSuccess = "addSourceSuccess";
   //书源文件异常
   static const String sourceFileError = "sourceFileError";
+  //暂无数据
+  static const String emptyTips = "emptyTips";
+  //加载中
+  static const String loadingTips = "loadingTips";
+  //请求错误
+  static const String errorTips = "errorTips";
 }

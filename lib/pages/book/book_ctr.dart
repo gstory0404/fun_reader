@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class BookCtr extends GetxController {
+class BookCtr extends BaseCtr {
   MyConnect connect = Get.find();
   var sourceUrl = "";
   var bookUrl = "";
@@ -33,7 +34,11 @@ class BookCtr extends GetxController {
     rule = (await RuleDao().query(sourceUrl))?.ruleBean;
     //获取书籍
     if (rule != null && sourceUrl.isNotEmpty && bookUrl.isNotEmpty) {
+      showLoading();
       book.value = await connect.getBookDetail(rule!, bookUrl);
+      showMain();
+    }else{
+      showError();
     }
   }
 

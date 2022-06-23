@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/chapter_content_bean.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/pages/read/phone/read_phone_ctr.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class ReadCtr extends GetxController {
+class ReadCtr extends BaseCtr {
   MyConnect connect = Get.find();
   //手机阅读设置
   ReadPhoneCtr readPhoneCtr = Get.put(ReadPhoneCtr());
@@ -110,8 +111,10 @@ class ReadCtr extends GetxController {
 
   //获取书籍详情
   Future<void> getBookDetail() async {
+    showLoading();
     book.value = await connect.getBookDetail(rule!.ruleBean!, bookUrl);
     reloadChapter();
+    showMain();
   }
 
   //重新加载章节内容

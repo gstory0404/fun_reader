@@ -3,6 +3,7 @@ import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/find/desktop/find_desktop_item.dart';
 import 'package:fun_reader/pages/find/find_ctr.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -25,7 +26,7 @@ class FindDesktopPage extends GetView<FindCtr>{
               }),
         ],
       ),
-      body: Container(
+      body: Obx(() => StatusWidget(loadType: controller.loadStatus.value, body: Container(
         child: RefreshIndicator(
           onRefresh: () {
             return controller.queryAllRule();
@@ -39,7 +40,7 @@ class FindDesktopPage extends GetView<FindCtr>{
             },
           )),
         ),
-      ),
+      ))),
     );
   }
 }

@@ -109,6 +109,7 @@ class SourceDesktopPage extends GetView<SourceCtr> {
         Get.dialog(
           Scaffold(
             appBar: AppBar(
+              backgroundColor: Color(0xFF12aa9c),
               title: Text(bean.sourceName ?? ""),
             ),
             body: ListView(

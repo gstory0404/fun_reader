@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class SearchCtr extends GetxController {
+class SearchCtr extends BaseCtr {
   MyConnect connect = Get.find();
 
   //分类书籍列表
@@ -38,7 +39,6 @@ class SearchCtr extends GetxController {
     }else{
       rule.value = DBRuleBean();
     }
-    print("搜索源${rule.value.toJson()}");
   }
 
   //切换数据源
@@ -51,8 +51,14 @@ class SearchCtr extends GetxController {
       ToastUtil.showToast("请选择有效数据源");
       return [];
     }
+    showLoading();
     bookList.clear();
     bookList.addAll(await connect.getSearchBook(rule.value.ruleBean!,key)) ;
+    if(bookList.isEmpty){
+      showEmpty();
+    }else{
+      showMain();
+    }
     return bookList;
   }
 }

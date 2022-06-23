@@ -6,6 +6,7 @@ import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +15,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class BookShelfPhonePage extends GetView<BookShelfCtr> {
-  BookShelfCtr ctr = Get.put(BookShelfCtr());
+class BookShelfPhonePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +32,23 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
               }),
         ],
       ),
-      body: Container(
-        child: RefreshIndicator(
-          onRefresh: () {
-            return ctr.getAllBooks();
-          },
-          child: Obx(() => ListView.builder(
-                itemCount: ctr.bookList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _listItem(context, ctr.bookList[index]);
+      body: GetX<BookShelfCtr>(
+          builder: (controller) {
+            return StatusWidget(
+              loadType: controller.loadStatus.value,
+              body: RefreshIndicator(
+                onRefresh: () {
+                  return controller.getAllBooks();
                 },
-              )),
-        ),
+                child: ListView.builder(
+                  itemCount: controller.bookList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _listItem(context, controller.bookList[index]);
+                  },
+                ),
+              ),
+            );
+          }
       ),
     );
   }
@@ -106,7 +111,8 @@ class BookShelfPhonePage extends GetView<BookShelfCtr> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(checkDate: bookBean.lastReadTime)}",
+                      "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(
+                          checkDate: bookBean.lastReadTime)}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),

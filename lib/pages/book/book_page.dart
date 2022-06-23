@@ -28,5 +28,11 @@ class BookPage extends BaseWidget<BookCtr>{
     return BookPhonePage();
   }
 
+  @override
+  Widget? title() {
+    // TODO: implement title
+    throw UnimplementedError();
+  }
+
 }
 

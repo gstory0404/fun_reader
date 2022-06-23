@@ -1,6 +1,7 @@
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -8,7 +9,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class FindCtr extends GetxController{
+class FindCtr extends BaseCtr{
   MyConnect connect = Get.find();
 
   var rulelist = <DBRuleBean>[].obs;
@@ -20,8 +21,13 @@ class FindCtr extends GetxController{
   }
 
   Future<void> queryAllRule() async{
+    showLoading();
     rulelist.value = await RuleDao().queryAll(isEffect: true);
-    print("本地书源${rulelist.value}");
+    if(rulelist.isEmpty){
+      showEmpty();
+    }else{
+      showMain();
+    }
   }
 }
 

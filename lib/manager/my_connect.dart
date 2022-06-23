@@ -29,6 +29,7 @@ class MyConnect extends GetConnect {
     } else {
       httpClient.baseUrl = "";
     }
+    httpClient.timeout = const Duration(seconds: 60);
     Map<String, String>? head;
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
@@ -62,6 +63,8 @@ class MyConnect extends GetConnect {
     List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
     var books = XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
+    print(path);
+    print(books);
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
@@ -98,6 +101,7 @@ class MyConnect extends GetConnect {
       html = await getData(rule.sourceUrl!, rule.search!.url!, query: map);
     }
     var books = XPath.html(html).query(rule.searchBooks!.books!).nodes;
+    print("$books");
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.searchBooks!.bookUrl!).attr;
@@ -157,7 +161,9 @@ class MyConnect extends GetConnect {
       book.chapterList = await getBookChapterList(rule, chapterAllUrl);
     }
     //最新章节
-    book.lastChapter = book.chapterList[book.chapterList.length - 1].chapterName;
+    if(book.chapterList.isNotEmpty){
+      book.lastChapter = book.chapterList.last.chapterName;
+    }
     if(book.lastReadChapter?.isEmpty ?? true){
       book.lastReadChapter = book.chapterList.first.chapterName;
       book.lastReadIndex = 0;

@@ -1,4 +1,5 @@
 import 'package:fun_reader/manager/sp_manager.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/utils/language_util.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class MyCtr extends GetxController{
+class MyCtr extends BaseCtr{
 
   SPManager spManager = SPManager();
 

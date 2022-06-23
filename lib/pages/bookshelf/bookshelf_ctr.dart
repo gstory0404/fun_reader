@@ -1,5 +1,7 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +10,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class BookShelfCtr extends GetxController{
+class BookShelfCtr extends BaseCtr{
   //分类书籍列表
   var bookList = <BookDetailBean>[].obs;
 
@@ -21,8 +23,13 @@ class BookShelfCtr extends GetxController{
 
   //获取全部书籍
   Future<void> getAllBooks()  async {
+    showLoading();
     bookList.value = await BookDao().queryAllBookShelf();
-    LogUtil.d(bookList.length);
+    if(bookList.isEmpty){
+      showEmpty();
+    }else{
+      showMain();
+    }
   }
 
   //移出书架

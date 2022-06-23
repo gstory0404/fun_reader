@@ -51,6 +51,9 @@ const Map<String, String> en_US = {
    Keys.netFileHint :"Please enter the txt/json file address",
    Keys.addSourceSuccess :"Book source added",
    Keys.sourceFileError :"Book source file exception",
+   Keys.emptyTips :"No data",
+   Keys.errorTips :"Failed to get data, please try again later",
+   Keys.loadingTips :"Loading data, please wait",
 };
 
 

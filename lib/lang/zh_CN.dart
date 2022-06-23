@@ -52,4 +52,7 @@ const Map<String, String> zh_CN = {
   Keys.netFileHint :"请输入txt/json文件地址",
   Keys.addSourceSuccess :"书源添加完成",
   Keys.sourceFileError :"书源文件异常",
+  Keys.emptyTips :"暂无数据",
+  Keys.errorTips :"获取数据失败，请稍后重试",
+  Keys.loadingTips :"正在加载数据，请稍后",
 };

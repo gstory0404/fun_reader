@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/category/category_ctr.dart';
 import 'package:fun_reader/pages/widgets/book_item.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -17,7 +18,7 @@ class CategoryDesktopPage extends GetWidget<CategoryCtr>{
         backgroundColor: Color(0xFF12aa9c),
         title: Obx(() => Text(controller.name.value)),
       ),
-      body: Container(
+      body:Obx(() => StatusWidget(loadType: controller.loadStatus.value, body:  Container(
         child: Column(
           children: [
             Expanded(
@@ -58,7 +59,7 @@ class CategoryDesktopPage extends GetWidget<CategoryCtr>{
                 : Container()),
           ],
         ),
-      ),
+      ))),
     );
   }
 

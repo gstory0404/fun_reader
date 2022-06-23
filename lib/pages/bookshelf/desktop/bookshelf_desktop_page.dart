@@ -7,6 +7,7 @@ import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
+import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class BookShelfDesktopPage extends GetView {
+class BookShelfDesktopPage extends StatelessWidget {
   BookShelfCtr ctr = Get.put(BookShelfCtr());
 
   @override
@@ -32,19 +33,20 @@ class BookShelfDesktopPage extends GetView {
               }),
         ],
       ),
-      body: Container(
-        child: RefreshIndicator(
-          onRefresh: () {
-            return ctr.getAllBooks();
-          },
-          child: Obx(() => ListView.builder(
+      body: Obx(() => StatusWidget(
+            loadType: ctr.loadStatus.value,
+            body: RefreshIndicator(
+              onRefresh: () {
+                return ctr.getAllBooks();
+              },
+              child: ListView.builder(
                 itemCount: ctr.bookList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return _listItem(context, ctr.bookList[index]);
                 },
-              )),
-        ),
-      ),
+              ),
+            ),
+          )),
     );
   }
 

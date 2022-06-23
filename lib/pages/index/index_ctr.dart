@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -6,7 +7,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class IndexCtr extends GetxController with GetTickerProviderStateMixin{
+class IndexCtr extends BaseCtr with GetTickerProviderStateMixin{
 
    TabController? tabController;
 
