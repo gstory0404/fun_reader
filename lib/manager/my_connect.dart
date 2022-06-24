@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'package:fun_reader/entity/book_bean.dart';
@@ -18,7 +19,6 @@ import 'package:xpath_selector/xpath_selector.dart';
 /// @Description: dart类作用描述
 
 class MyConnect extends GetConnect {
-
   @override
   void onInit() {}
 
@@ -37,10 +37,12 @@ class MyConnect extends GetConnect {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     //添加User-Agent
-    if(head["User-Agent"] == null){
-      await FlutterUserAgent.init();
-      var webAgent = FlutterUserAgent.webViewUserAgent;
-      head["User-Agent"] = webAgent ?? "";
+    if (Platform.isAndroid || Platform.isIOS) {
+      if (head["User-Agent"] == null) {
+        await FlutterUserAgent.init();
+        var webAgent = FlutterUserAgent.webViewUserAgent;
+        head["User-Agent"] = webAgent ?? "";
+      }
     }
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
@@ -61,10 +63,12 @@ class MyConnect extends GetConnect {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     //添加User-Agent
-    if(head["User-Agent"] == null){
-      await FlutterUserAgent.init();
-      var webAgent = FlutterUserAgent.webViewUserAgent;
-      head["User-Agent"] = webAgent ?? "";
+    if (Platform.isAndroid || Platform.isIOS) {
+      if (head["User-Agent"] == null) {
+        await FlutterUserAgent.init();
+        var webAgent = FlutterUserAgent.webViewUserAgent;
+        head["User-Agent"] = webAgent ?? "";
+      }
     }
     Response<String> response =
         await post(path, body, headers: head, contentType: contentType);
@@ -75,20 +79,33 @@ class MyConnect extends GetConnect {
   Future<List<BookBean>> getCategoryBooks(DBRuleBean rule, String path) async {
     List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
-    var books = XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
+    var books =
+        XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
     //书籍
     for (var element in books) {
-      var bookUrl = element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
-      var name = element.queryXPath(rule.ruleBean!.recommendBooks!.name!).attr?.trim();
-      var author = element.queryXPath(rule.ruleBean!.recommendBooks!.author!).attr?.trim();
-      var intro = element.queryXPath(rule.ruleBean!.recommendBooks!.intro!).attr?.trim();
-      var cover = element.queryXPath(rule.ruleBean!.recommendBooks!.cover!).attr;
-      if(cover != null && !cover.startsWith("http")){
+      var bookUrl =
+          element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
+      var name =
+          element.queryXPath(rule.ruleBean!.recommendBooks!.name!).attr?.trim();
+      var author = element
+          .queryXPath(rule.ruleBean!.recommendBooks!.author!)
+          .attr
+          ?.trim();
+      var intro = element
+          .queryXPath(rule.ruleBean!.recommendBooks!.intro!)
+          .attr
+          ?.trim();
+      var cover =
+          element.queryXPath(rule.ruleBean!.recommendBooks!.cover!).attr;
+      if (cover != null && !cover.startsWith("http")) {
         cover = "${rule.sourceUrl}$cover";
       }
-      var category = element.queryXPath(rule.ruleBean!.recommendBooks!.category!).attrs;
-      var lastChapter =
-          element.queryXPath(rule.ruleBean!.recommendBooks!.lastChapter!).attr?.trim();
+      var category =
+          element.queryXPath(rule.ruleBean!.recommendBooks!.category!).attrs;
+      var lastChapter = element
+          .queryXPath(rule.ruleBean!.recommendBooks!.lastChapter!)
+          .attr
+          ?.trim();
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -122,11 +139,12 @@ class MyConnect extends GetConnect {
       var author = element.queryXPath(rule.searchBooks!.author!).attr?.trim();
       var intro = element.queryXPath(rule.searchBooks!.intro!).attr?.trim();
       var cover = element.queryXPath(rule.searchBooks!.cover!).attr;
-      if(cover != null && !cover.startsWith("http")){
+      if (cover != null && !cover.startsWith("http")) {
         cover = "${rule.sourceUrl}$cover";
       }
       var category = element.queryXPath(rule.searchBooks!.category!).attrs;
-      var lastChapter = element.queryXPath(rule.searchBooks!.lastChapter!).attr?.trim();
+      var lastChapter =
+          element.queryXPath(rule.searchBooks!.lastChapter!).attr?.trim();
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -142,7 +160,7 @@ class MyConnect extends GetConnect {
   ///获取书籍详情
   Future<BookDetailBean> getBookDetail(RuleBean rule, String bookUrl) async {
     var book = await BookDao().query(rule.sourceUrl ?? "", bookUrl);
-    if(book.id == null){
+    if (book.id == null) {
       book.sourceName = rule.sourceName;
       book.sourceUrl = rule.sourceUrl;
       book.bookUrl = bookUrl;
@@ -151,15 +169,18 @@ class MyConnect extends GetConnect {
     book.bookName =
         XPath.html(html).query(rule.bookInfo!.name ?? "").attr?.trim() ?? "";
     book.cover = XPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
-    if(book.cover != null && !book.cover!.startsWith("http")){
+    if (book.cover != null && !book.cover!.startsWith("http")) {
       book.cover = "${rule.sourceUrl}${book.cover}";
     }
     book.author =
         XPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ?? "";
-    book.category = XPath.html(html).query(rule.bookInfo!.category?.trim() ?? "").attrs;
+    book.category =
+        XPath.html(html).query(rule.bookInfo!.category?.trim() ?? "").attrs;
     book.updateTime =
-        XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ?? "";
-    book.intro = XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
+        XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ??
+            "";
+    book.intro =
+        XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
     book.lastChapter =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
@@ -180,10 +201,10 @@ class MyConnect extends GetConnect {
       book.chapterList = await getBookChapterList(rule, chapterAllUrl);
     }
     //最新章节
-    if(book.chapterList.isNotEmpty){
+    if (book.chapterList.isNotEmpty) {
       book.lastChapter = book.chapterList.last.chapterName;
     }
-    if(book.lastReadChapter?.isEmpty ?? false){
+    if (book.lastReadChapter?.isEmpty ?? false) {
       book.lastReadChapter = book.chapterList.first.chapterName;
       book.lastReadIndex = 0;
       book.lastReadUrl = book.chapterList.first.chapterUrl;
