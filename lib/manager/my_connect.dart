@@ -79,13 +79,16 @@ class MyConnect extends GetConnect {
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
-      var name = element.queryXPath(rule.ruleBean!.recommendBooks!.name!).attr;
-      var author = element.queryXPath(rule.ruleBean!.recommendBooks!.author!).attr;
-      var intro = element.queryXPath(rule.ruleBean!.recommendBooks!.intro!).attr;
+      var name = element.queryXPath(rule.ruleBean!.recommendBooks!.name!).attr?.trim();
+      var author = element.queryXPath(rule.ruleBean!.recommendBooks!.author!).attr?.trim();
+      var intro = element.queryXPath(rule.ruleBean!.recommendBooks!.intro!).attr?.trim();
       var cover = element.queryXPath(rule.ruleBean!.recommendBooks!.cover!).attr;
+      if(cover != null && !cover.startsWith("http")){
+        cover = "${rule.sourceUrl}$cover";
+      }
       var category = element.queryXPath(rule.ruleBean!.recommendBooks!.category!).attrs;
       var lastChapter =
-          element.queryXPath(rule.ruleBean!.recommendBooks!.lastChapter!).attr;
+          element.queryXPath(rule.ruleBean!.recommendBooks!.lastChapter!).attr?.trim();
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -115,12 +118,15 @@ class MyConnect extends GetConnect {
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.searchBooks!.bookUrl!).attr;
-      var name = element.queryXPath(rule.searchBooks!.name!).attr;
-      var author = element.queryXPath(rule.searchBooks!.author!).attr;
-      var intro = element.queryXPath(rule.searchBooks!.intro!).attr;
+      var name = element.queryXPath(rule.searchBooks!.name!).attr?.trim();
+      var author = element.queryXPath(rule.searchBooks!.author!).attr?.trim();
+      var intro = element.queryXPath(rule.searchBooks!.intro!).attr?.trim();
       var cover = element.queryXPath(rule.searchBooks!.cover!).attr;
+      if(cover != null && !cover.startsWith("http")){
+        cover = "${rule.sourceUrl}$cover";
+      }
       var category = element.queryXPath(rule.searchBooks!.category!).attrs;
-      var lastChapter = element.queryXPath(rule.searchBooks!.lastChapter!).attr;
+      var lastChapter = element.queryXPath(rule.searchBooks!.lastChapter!).attr?.trim();
       bookList.add(BookBean(
           bookUrl: bookUrl,
           name: name ?? "",
@@ -143,14 +149,17 @@ class MyConnect extends GetConnect {
     }
     var html = await getData(rule.sourceUrl ?? "", bookUrl);
     book.bookName =
-        XPath.html(html).query(rule.bookInfo!.name ?? "").attr ?? "";
+        XPath.html(html).query(rule.bookInfo!.name ?? "").attr?.trim() ?? "";
     book.cover = XPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
+    if(book.cover != null && !book.cover!.startsWith("http")){
+      book.cover = "${rule.sourceUrl}${book.cover}";
+    }
     book.author =
-        XPath.html(html).query(rule.bookInfo!.author ?? "").attr ?? "";
-    book.category = XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
+        XPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ?? "";
+    book.category = XPath.html(html).query(rule.bookInfo!.category?.trim() ?? "").attrs;
     book.updateTime =
-        XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr ?? "";
-    book.intro = XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
+        XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ?? "";
+    book.intro = XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
     book.lastChapter =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
@@ -218,6 +227,7 @@ class MyConnect extends GetConnect {
     }
     content =
         content.replaceAll(RegExp(rule.chapterContent?.replaceReg ?? ""), "");
+    print(content);
     if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
       var nextPage =
           XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";

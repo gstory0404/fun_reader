@@ -310,5 +310,83 @@
       "nextPage": "",
       "replaceReg": "(\\n)\\1{2,}"
     }
+  },
+  {
+    "sourceName": "dingdian6",
+    "sourceUrl": "https://www.dingdian6.com",
+    "head": "",
+    "recommend": [
+      {
+        "recommendName": "玄幻奇幻",
+        "recommendUrl": "/category/1.html"
+      },
+      {
+        "recommendName": "武侠仙侠",
+        "recommendUrl": "/category/2.html"
+      },
+      {
+        "recommendName": "都市言情",
+        "recommendUrl": "/category/3.html"
+      },
+      {
+        "recommendName": "历史军事",
+        "recommendUrl": "/category/4.html"
+      },
+      {
+        "recommendName": "科幻灵异",
+        "recommendUrl": "/category/5.html"
+      },
+      {
+        "recommendName": "网游竞技",
+        "recommendUrl": "/category/6.html"
+      }
+    ],
+    "recommendBooks": {
+      "books": "//*[@id=\"alistbox\"]",
+      "name": "/div[2]/div[1]/h2/a/text()",
+      "author": "/div[2]/div[1]/span/text()",
+      "cover": "/div[1]/a/img/@src",
+      "intro": "/div[2]/div[3]/text()",
+      "category": "",
+      "lastChapter": "/div[2]/div[2]/li/a/text()",
+      "bookUrl": "/div[2]/div[1]/h2/a/@href"
+    },
+    "search": {
+      "url": "/searchbook.php",
+      "method": "GET",
+      "body": "{\"keyword\":\"&key&\"}",
+      "contentType": "application/x-www-form-urlencoded"
+    },
+    "searchBooks": {
+      "books": "//*[@id=\"main\"]/table/tbody/tr[position()>1]",
+      "name": "/td[1]/a/text()",
+      "author": "/td[3]/text()",
+      "cover": "",
+      "intro": "",
+      "category": "/td[4]//text()",
+      "lastChapter": "/td[2]/a/text()",
+      "bookUrl": "/td[1]/a/@href"
+    },
+    "bookInfo": {
+      "name": "//*[@id=\"info\"]/h1/text()",
+      "author": "//*[@id=\"info\"]/p[1]/text()",
+      "cover": "//*[@id=\"fmimg\"]/img/@src",
+      "intro": "//*[@id=\"intro\"]/text()",
+      "category": "//*[@id=\"webhtml\"]/div[4]/div[1]/text()",
+      "lastChapter": "//*[@id=\"info\"]/p[3]/a/text()",
+      "updateTime": "//*[@id=\"info\"]/p[4]/text()",
+      "chapterUrl": ""
+    },
+    "chapter": {
+      "chapterList": "//*[@id=\"list\"]/dl/dd[position()>12]",
+      "chapterName": "/a/text()",
+      "chapterUrl": "/a/@href",
+      "nextPage": ""
+    },
+    "chapterContent": {
+      "content": "//*[@id=\"TXT\"]/text()",
+      "nextPage": "",
+      "replaceReg": ""
+    }
   }
 ]

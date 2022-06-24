@@ -86,17 +86,21 @@ class SourceCtr extends BaseCtr {
     List list = json.decode(contents);
     for (var element in list) {
       RuleBean bean = RuleBean.fromJson(element);
-      print("保存${bean.toJson()}");
       var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
       //如果不存在就插入表中
-      if(dbBean?.id == null){
+      if(dbBean == null){
         DBRuleBean dbRuleBean = DBRuleBean();
         dbRuleBean.sourceUrl = bean.sourceUrl;
         dbRuleBean.sourceName = bean.sourceName;
         dbRuleBean.ruleBean = bean;
         dbRuleBean.isEffect = true;
-        print("保存${dbRuleBean.toJson()}");
         RuleDao().insert(dbRuleBean);
+      }else{
+        //存在就更新
+        dbBean.sourceUrl = bean.sourceUrl;
+        dbBean.sourceName = bean.sourceName;
+        dbBean.ruleBean = bean;
+        RuleDao().update(dbBean);
       }
     }
     //刷新数据
