@@ -24,8 +24,6 @@ class BookCtr extends BaseCtr {
   //书籍相关参数
   var book = BookDetailBean().obs;
 
-  BookCtr({this.sourceUrl = "", this.bookUrl = ""});
-
   @override
   Future<void> onReady() async {
     sourceUrl = Get.arguments['sourceUrl'];

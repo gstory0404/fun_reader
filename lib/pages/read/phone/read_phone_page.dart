@@ -34,6 +34,9 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
               onChoose: (index) {
                 controller.chapterIndex.value = index;
                 controller.reloadChapter();
+                //关闭draw
+                Get.back();
+                controller.isShowMenu.value = false;
               },
             ),
           ),

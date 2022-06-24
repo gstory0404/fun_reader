@@ -31,16 +31,15 @@ class MyConnect extends GetConnect {
       httpClient.baseUrl = "";
     }
     httpClient.timeout = const Duration(seconds: 60);
-    Map<String, String>? head;
+    Map<String, String> head = {};
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     //添加User-Agent
-    if(head?["User-Agent"] == null){
+    if(head["User-Agent"] == null){
       await FlutterUserAgent.init();
       var webAgent = FlutterUserAgent.webViewUserAgent;
-      head ??= {};
       head["User-Agent"] = webAgent ?? "";
     }
     Response<String> response = await get(path, query: query, headers: head);
@@ -56,10 +55,16 @@ class MyConnect extends GetConnect {
     } else {
       httpClient.baseUrl = "";
     }
-    Map<String, String>? head = {};
+    Map<String, String> head = {};
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
+    }
+    //添加User-Agent
+    if(head["User-Agent"] == null){
+      await FlutterUserAgent.init();
+      var webAgent = FlutterUserAgent.webViewUserAgent;
+      head["User-Agent"] = webAgent ?? "";
     }
     Response<String> response =
         await post(path, body, headers: head, contentType: contentType);
@@ -71,8 +76,6 @@ class MyConnect extends GetConnect {
     List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
     var books = XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
-    print(path);
-    print(books);
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.ruleBean!.recommendBooks!.bookUrl!).attr;
@@ -109,7 +112,6 @@ class MyConnect extends GetConnect {
       html = await getData(rule.sourceUrl!, rule.search!.url!, query: map);
     }
     var books = XPath.html(html).query(rule.searchBooks!.books!).nodes;
-    print("$books");
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.searchBooks!.bookUrl!).attr;
@@ -152,7 +154,7 @@ class MyConnect extends GetConnect {
     book.lastChapter =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
-    if (rule.bookInfo!.chapterUrl == null) {
+    if (rule.bookInfo!.chapterUrl?.isEmpty ?? true) {
       var chapters =
           XPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
       for (var element in chapters) {
@@ -172,7 +174,7 @@ class MyConnect extends GetConnect {
     if(book.chapterList.isNotEmpty){
       book.lastChapter = book.chapterList.last.chapterName;
     }
-    if(book.lastReadChapter?.isEmpty ?? true){
+    if(book.lastReadChapter?.isEmpty ?? false){
       book.lastReadChapter = book.chapterList.first.chapterName;
       book.lastReadIndex = 0;
       book.lastReadUrl = book.chapterList.first.chapterUrl;
@@ -226,7 +228,6 @@ class MyConnect extends GetConnect {
         }
       }
     }
-    print(content);
     return content;
   }
 }

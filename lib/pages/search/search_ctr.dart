@@ -33,7 +33,14 @@ class SearchCtr extends BaseCtr {
 
   ///获取所有书源
   void queryAllRule() async {
-    ruleList.value = await RuleDao().queryAll(isEffect: true);
+    ruleList.clear();
+    var list = await RuleDao().queryAll(isEffect: true);
+    //过滤搜索规则不存在的
+    for (var element in list) {
+      if(element.ruleBean?.search != null){
+        ruleList.add(element);
+      }
+    }
     if (ruleList.isNotEmpty) {
       rule.value = ruleList.first;
     }else{

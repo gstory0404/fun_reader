@@ -141,7 +141,6 @@ class ReadCtr extends BaseCtr {
     }
     chapterContentList.clear();
     chapterContentList.addAll(lists);
-    print("重新加载 ${chapterIndex.value}   ${chapterContentList.length}");
     //延时跳转
     Future.delayed(const Duration(milliseconds: 100), () {
       if (chapterIndex == 0) {

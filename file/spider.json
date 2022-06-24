@@ -148,5 +148,167 @@
       "nextPage": "/a/text()",
       "replaceReg": "九桃小说 老域名(9txs.com)被墙，请您牢记本站最新域名(9taoxs.com)"
     }
+  },
+  {
+    "sourceName": "天域小说网",
+    "sourceUrl": "https://www.zmccx.com",
+    "head": "{\"Accept-Language\":\"zh-CN,zh;q=0.9\"}",
+    "recommend": [
+      {
+        "recommendName": "玄幻小说",
+        "recommendUrl": "/xuanhuanxiaoshuo/"
+      },
+      {
+        "recommendName": "修真小说",
+        "recommendUrl": "/xiuzhenxiaoshuo/"
+      },
+      {
+        "recommendName": "都市小说",
+        "recommendUrl": "/dushixiaoshuo/"
+      },
+      {
+        "recommendName": "穿越小说",
+        "recommendUrl": "/chuanyuexiaoshuo/"
+      },
+      {
+        "recommendName": "网游小说",
+        "recommendUrl": "/wangyouxiaoshuo/"
+      },
+      {
+        "recommendName": "科幻小说",
+        "recommendUrl": "/kehuanxiaoshuo/"
+      }
+    ],
+    "recommendBooks": {
+      "books": "//*[@id=\"newscontent\"]/div[1]/ul/li",
+      "name": "/*[@class=\"s2\"]/a/text()",
+      "author": "/*[@class=\"s5\"]/text()",
+      "cover": "",
+      "intro": "",
+      "category": "",
+      "lastChapter": "/*[@class=\"s3\"]/a/text()",
+      "bookUrl": "/*[@class=\"s2\"]/a/@href"
+    },
+    "search": {
+      "url": "/search.php",
+      "method": "POST",
+      "body": "{\"searchkey\":\"&key&\"}",
+      "contentType": "application/x-www-form-urlencoded"
+    },
+    "searchBooks": {
+      "books": "//*[@id=\"content\"]/table/tbody/tr[position()>1]",
+      "name": "/td[1]/a/text()",
+      "author": "/td[3]/text()",
+      "cover": "",
+      "intro": "",
+      "category": "",
+      "lastChapter": "/td[2]/a/text()",
+      "bookUrl": "/td[1]/a/@href"
+    },
+    "bookInfo": {
+      "name": "//*[@id=\"info\"]/h1/text()",
+      "author": "//*[@id=\"info\"]/p[1]/text()",
+      "cover": "//*[@id=\"fmimg\"]/img/@src",
+      "intro": "//*[@id=\"intro\"]/p/text()",
+      "category": "//*[@id=\"wrapper\"]/div[5]/div[1]/a[2]/text()",
+      "lastChapter": "//*[@class=\"detail\"]/p[4]/a/text()",
+      "updateTime": "//*[@id=\"info\"]/p[3]/text()",
+      "chapterUrl": ""
+    },
+    "chapter": {
+      "chapterList": "//*[@id=\"list\"]/dl//dd[position()>9]",
+      "chapterName": "/a/text()",
+      "chapterUrl": "/a/@href",
+      "nextPage": ""
+    },
+    "chapterContent": {
+      "content": "//*[@id=\"content\"]/text()",
+      "nextPage": "",
+      "replaceReg": "(\\n)\\1{3,}"
+    }
+  },
+  {
+    "sourceName": "看书堂",
+    "sourceUrl": "https://www.kanshutang.org",
+    "head": "",
+    "recommend": [
+      {
+        "recommendName": "现代言情",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/1-&page&.htm"
+      },
+      {
+        "recommendName": "古代言情",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/2-&page&.htm"
+      },
+      {
+        "recommendName": "穿越架空",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/3-&page&.htm"
+      },
+      {
+        "recommendName": "军婚小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/4-&page&.htm"
+      },
+      {
+        "recommendName": "校园小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/5-&page&.htm"
+      },
+      {
+        "recommendName": "玄幻小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/6-&page&.htm"
+      },
+      {
+        "recommendName": "恐怖小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/7-&page&.htm"
+      },
+      {
+        "recommendName": "总裁小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/8-&page&.htm"
+      },
+      {
+        "recommendName": "修真小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/9-&page&.htm"
+      },
+      {
+        "recommendName": "科幻小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/10-&page&.htm"
+      },
+      {
+        "recommendName": "重生小说",
+        "recommendUrl": "https://www.kanshutang.org/fenlei/11-&page&.htm"
+      }
+    ],
+    "recommendBooks": {
+      "books": "//*[@id=\"content\"]/table/tbody/tr[position()>1]",
+      "name": "/td[1]/a/text()",
+      "author": "/td[3]/text()",
+      "cover": "",
+      "intro": "",
+      "category": "/td[6]/text()",
+      "lastChapter": "/td[2]/a/text()",
+      "bookUrl": "/td[1]/a/@href"
+    },
+    "search": null,
+    "searchBooks": null,
+    "bookInfo": {
+      "name": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[2]/div/h1/text()",
+      "author": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[2]/div/span/text()",
+      "cover": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[1]/span[1]/a/img/@src",
+      "intro": "//*[@id=\"reInt\"]/div[2]/text()",
+      "category": "//*[@id=\"wrapper\"]/div[5]/div[1]/a[2]/text()",
+      "lastChapter": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[4]/td/a/text()",
+      "updateTime": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[4]/td/text()[2]/text()",
+      "chapterUrl": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[1]/span[2]/a[2]/@href"
+    },
+    "chapter": {
+      "chapterList": "/html/body/div[3]/div[3]/dl//dd",
+      "chapterName": "/a/text()",
+      "chapterUrl": "/a/@href",
+      "nextPage": ""
+    },
+    "chapterContent": {
+      "content": "//*[@id=\"table_container\"]/text()",
+      "nextPage": "",
+      "replaceReg": "(\\n)\\1{2,}"
+    }
   }
 ]

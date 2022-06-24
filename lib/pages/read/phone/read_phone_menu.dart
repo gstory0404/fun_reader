@@ -377,7 +377,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                             }
                           },
                           icon: const Icon(
-                            Icons.text_increase,
+                            Icons.text_decrease,
                             size: 30,
                             color: Colors.white,
                           ),
@@ -434,7 +434,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                             }
                           },
                           icon: const Icon(
-                            Icons.text_increase,
+                            Icons.text_decrease,
                             size: 30,
                             color: Colors.white,
                           ),
@@ -492,7 +492,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                             }
                           },
                           icon: const Icon(
-                            Icons.text_increase,
+                            Icons.text_decrease,
                             size: 30,
                             color: Colors.white,
                           ),
