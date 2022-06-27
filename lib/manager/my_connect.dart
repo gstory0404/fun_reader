@@ -10,6 +10,7 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/utils/date_util.dart';
+import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
 
@@ -38,11 +39,12 @@ class MyConnect extends GetConnect {
     }
     //添加User-Agent
     if (Platform.isAndroid || Platform.isIOS) {
-      if (head["User-Agent"] == null) {
-        await FlutterUserAgent.init();
-        var webAgent = FlutterUserAgent.webViewUserAgent;
-        head["User-Agent"] = webAgent ?? "";
-      }
+      await FlutterUserAgent.init();
+      var webAgent = FlutterUserAgent.webViewUserAgent;
+      httpClient.userAgent = webAgent.toString();
+      httpClient.sendUserAgent = true;
+    }else{
+      httpClient.sendUserAgent = false;
     }
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
@@ -50,7 +52,7 @@ class MyConnect extends GetConnect {
 
   //post请求
   Future<String> postData(
-      String sourceUrl, String path, Map<String, dynamic>? body,
+      String sourceUrl, String path, Map<String,dynamic> body,
       {String? contentType}) async {
     if (!path.startsWith("http")) {
       httpClient.baseUrl = sourceUrl;
@@ -64,14 +66,15 @@ class MyConnect extends GetConnect {
     }
     //添加User-Agent
     if (Platform.isAndroid || Platform.isIOS) {
-      if (head["User-Agent"] == null) {
-        await FlutterUserAgent.init();
-        var webAgent = FlutterUserAgent.webViewUserAgent;
-        head["User-Agent"] = webAgent ?? "";
-      }
+      await FlutterUserAgent.init();
+      var webAgent = FlutterUserAgent.webViewUserAgent;
+      httpClient.userAgent = webAgent.toString();
+      httpClient.sendUserAgent = true;
+    }else{
+      httpClient.sendUserAgent = false;
     }
     Response<String> response =
-        await post(path, body, headers: head, contentType: contentType);
+        await post(path, body, headers: head, contentType: contentType,query: body);
     return response.body ?? "";
   }
 
@@ -123,7 +126,7 @@ class MyConnect extends GetConnect {
     List<BookBean> bookList = [];
     var body = rule.search!.body!;
     body = body.replaceAll("&key&", key);
-    var map = json.decode(body);
+    var map = json.decode(body) ;
     String html;
     if (rule.search?.method == "POST") {
       html = await postData(rule.sourceUrl!, rule.search!.url!, map,
@@ -175,7 +178,7 @@ class MyConnect extends GetConnect {
     book.author =
         XPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ?? "";
     book.category =
-        XPath.html(html).query(rule.bookInfo!.category?.trim() ?? "").attrs;
+        XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
     book.updateTime =
         XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ??
             "";
@@ -248,7 +251,6 @@ class MyConnect extends GetConnect {
     }
     content =
         content.replaceAll(RegExp(rule.chapterContent?.replaceReg ?? ""), "");
-    print(content);
     if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
       var nextPage =
           XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";

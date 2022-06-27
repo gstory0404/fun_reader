@@ -94,7 +94,7 @@ class BookDesktopPage extends GetView<BookCtr> {
                                                               Colors.black45),
                                                     ),
                                                     child: Text(
-                                                      element ?? "",
+                                                      element?.trim() ?? "",
                                                       style: const TextStyle(
                                                         fontSize: 12,
                                                       ),

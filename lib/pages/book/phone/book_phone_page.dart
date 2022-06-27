@@ -86,7 +86,7 @@ class BookPhonePage extends GetView<BookCtr> {
                                                 color: Colors.black45),
                                           ),
                                           child: Text(
-                                            element ?? "",
+                                            element?.trim() ?? "",
                                             style: const TextStyle(
                                               fontSize: 12,
                                             ),
