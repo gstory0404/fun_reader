@@ -28,7 +28,7 @@ class ReadPhoneItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 30),
+                    margin: const EdgeInsets.only(top: 30),
                     child: Text(
                       chapter.chapterName,
                       style: TextStyle(

@@ -51,21 +51,20 @@ class ReadCtr extends BaseCtr {
         readPositionsListener.itemPositions.value.toList()[0].itemLeadingEdge));
   }
 
-  bool isLoad = false;
+  bool isLoad = true;
 
   //竖直阅读的时候监听滚动
   void _checkChapter(int index, double up) async {
     if(!isLoad){
+      isLoad = true;
       chapterIndex.value = getChapterPostion(chapterContentList[index].chapterUrl);
       //如果存在上一章 接预加载
       if(index == 0 && up == 0 && chapterIndex > 0){
-        isLoad = true;
         chapterContentList.insert(
             0,
             await getChapterContent(
                 book.value.chapterList[chapterIndex.value - 1].chapterName!,
                 book.value.chapterList[chapterIndex.value - 1].chapterUrl!));
-        isLoad = false;
         //延时跳转
         Future.delayed(const Duration(milliseconds: 100), () {
           readScrollController.jumpTo(index: index + 1, alignment: 0);
@@ -73,13 +72,11 @@ class ReadCtr extends BaseCtr {
       }
       //如果存在下一章 则预加载
       if (index == chapterContentList.length - 1 && chapterIndex < book.value.chapterList.length - 1) {
-        isLoad = true;
-        print(book.value.chapterList[chapterIndex.value +1].chapterUrl);
         chapterContentList.add(await getChapterContent(
             book.value.chapterList[chapterIndex.value +1].chapterName!,
             book.value.chapterList[chapterIndex.value +1].chapterUrl!));
-        isLoad = false;
       }
+      isLoad = false;
     }
   }
 
@@ -119,6 +116,7 @@ class ReadCtr extends BaseCtr {
 
   //重新加载章节内容
   Future<void> reloadChapter() async {
+    isLoad = true;
     if (book.value.chapterList.isEmpty) {
       ToastUtil.showToast("暂未获取到章节列表");
       return;
@@ -147,8 +145,10 @@ class ReadCtr extends BaseCtr {
         readScrollController.jumpTo(index: 0, alignment: 0);
       } else if (chapterIndex > 0 && chapterContentList.length > 1) {
         readScrollController.jumpTo(index: 1, alignment: 0);
+        isLoad = false;
       }
     });
+
   }
 
   //获取章节内容

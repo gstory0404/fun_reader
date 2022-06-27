@@ -95,7 +95,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
       right: 0,
       child: Container(
         padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.black,
           border: Border(
             bottom: BorderSide(width: 1, color: Colors.black12),
@@ -107,7 +107,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               ),
@@ -127,7 +127,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
                   ),
                 )),
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.more_vert,
                 color: Colors.white,
               ),
