@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
@@ -20,8 +22,25 @@ import 'package:xpath_selector/xpath_selector.dart';
 /// @Description: dart类作用描述
 
 class MyConnect extends GetConnect {
+  List<String> agents = [];
+
   @override
-  void onInit() {}
+  void onInit() {
+    rootBundle.loadString("assets/json/agent.json").then((value) {
+      List list = json.decode(value);
+      for (var element in list) {
+        agents.add(element);
+      }
+    });
+  }
+
+  String getRandomAgent() {
+    if (agents.isEmpty) {
+      return "";
+    }
+    var index = Random().nextInt(agents.length - 1);
+    return agents[index];
+  }
 
   //get请求
   Future<String> getData(String sourceUrl, String path,
@@ -38,13 +57,13 @@ class MyConnect extends GetConnect {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     //添加User-Agent
+    httpClient.sendUserAgent = true;
     if (Platform.isAndroid || Platform.isIOS) {
       await FlutterUserAgent.init();
       var webAgent = FlutterUserAgent.webViewUserAgent;
       httpClient.userAgent = webAgent.toString();
-      httpClient.sendUserAgent = true;
-    }else{
-      httpClient.sendUserAgent = false;
+    } else {
+      httpClient.userAgent = getRandomAgent();
     }
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
@@ -52,7 +71,7 @@ class MyConnect extends GetConnect {
 
   //post请求
   Future<String> postData(
-      String sourceUrl, String path, Map<String,dynamic> body,
+      String sourceUrl, String path, Map<String, dynamic> body,
       {String? contentType}) async {
     if (!path.startsWith("http")) {
       httpClient.baseUrl = sourceUrl;
@@ -65,16 +84,16 @@ class MyConnect extends GetConnect {
       head = json.decode(dbRuleBean!.ruleBean!.head!);
     }
     //添加User-Agent
+    httpClient.sendUserAgent = true;
     if (Platform.isAndroid || Platform.isIOS) {
       await FlutterUserAgent.init();
       var webAgent = FlutterUserAgent.webViewUserAgent;
       httpClient.userAgent = webAgent.toString();
-      httpClient.sendUserAgent = true;
-    }else{
-      httpClient.sendUserAgent = false;
+    } else {
+      httpClient.userAgent = getRandomAgent();
     }
-    Response<String> response =
-        await post(path, body, headers: head, contentType: contentType,query: body);
+    Response<String> response = await post(path, body,
+        headers: head, contentType: contentType, query: body);
     return response.body ?? "";
   }
 
@@ -126,7 +145,7 @@ class MyConnect extends GetConnect {
     List<BookBean> bookList = [];
     var body = rule.search!.body!;
     body = body.replaceAll("&key&", key);
-    var map = json.decode(body) ;
+    var map = json.decode(body);
     String html;
     if (rule.search?.method == "POST") {
       html = await postData(rule.sourceUrl!, rule.search!.url!, map,
@@ -177,8 +196,7 @@ class MyConnect extends GetConnect {
     }
     book.author =
         XPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ?? "";
-    book.category =
-        XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
+    book.category = XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
     book.updateTime =
         XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ??
             "";
