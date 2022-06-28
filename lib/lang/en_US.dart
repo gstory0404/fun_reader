@@ -33,6 +33,7 @@ const Map<String, String> en_US = {
    Keys.fontColor:"font color",
    Keys.selectBookSource:"Select book source",
    Keys.unknown :"unknown",
+   Keys.search :"Search",
    Keys.searchHint :"Please enter novel, author",
    Keys.bookSourceManage :"Book source management",
    Keys.languageSettings :"Language Settings",

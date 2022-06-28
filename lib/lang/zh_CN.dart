@@ -34,6 +34,7 @@ const Map<String, String> zh_CN = {
   Keys.fontColor:"字体颜色",
   Keys.selectBookSource:"选择书源",
   Keys.unknown :"未知",
+  Keys.search :"搜索",
   Keys.searchHint :"请输入小说、作者",
   Keys.bookSourceManage :"书源管理",
   Keys.languageSettings :"语言设置",

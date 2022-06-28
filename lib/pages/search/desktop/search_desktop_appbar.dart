@@ -18,8 +18,9 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF12aa9c),
+      backgroundColor: Colors.white,
       titleSpacing: 0,
+      elevation: 0,
       leading: Container(),
       leadingWidth: 10,
       title: Container(
@@ -36,7 +37,11 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
             const SizedBox(
               width: 16,
               height: 16,
-              child: Icon(Icons.search, size: 22, color: Color(0xFF999999)),
+              child: Icon(
+                Icons.search,
+                size: 22,
+                color: Colors.black,
+              ),
             ),
             Container(
               width: 140,
@@ -49,7 +54,7 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
                       Keys.selectBookSource.tr,
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Colors.black12,
+                        color: Colors.black,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -60,7 +65,7 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
                                 item.sourceName ?? Keys.unknown.tr,
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Colors.black54,
+                                  color: Colors.black,
                                 ),
                                 overflow: TextOverflow.clip,
                                 maxLines: 1,
@@ -130,9 +135,12 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
         ),
       ),
       actions: [
-        CloseButton(onPressed: () {
-          controller.inputController.clear();
-        })
+        CloseButton(
+          onPressed: () {
+            controller.inputController.clear();
+          },
+          color: Colors.black,
+        )
       ],
     );
   }

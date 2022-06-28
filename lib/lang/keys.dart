@@ -91,6 +91,9 @@ class Keys {
   //请输入小说、作者
   static const String searchHint = "searchHint";
 
+  //搜索
+  static const String search = "search";
+
   //书源管理
   static const String bookSourceManage = "sourceManage";
 

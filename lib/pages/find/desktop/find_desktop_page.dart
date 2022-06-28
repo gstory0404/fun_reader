@@ -16,11 +16,13 @@ class FindDesktopPage extends GetView<FindCtr>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF12aa9c),
-        title: Text(Keys.find.tr),
+        backgroundColor: Colors.white,
+        title: Text(Keys.find.tr,style: const TextStyle(fontSize: 24,color: Colors.black),),
+        centerTitle: false,
+        elevation: 0,
         actions: [
           IconButton(
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh,color: Colors.black,),
               onPressed: () {
                 controller.queryAllRule();
               }),

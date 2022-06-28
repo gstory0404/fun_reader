@@ -29,7 +29,7 @@ void initWindow() async {
     windowManager.waitUntilReadyToShow().then((_) async{
       // 隐藏窗口标题栏
       await windowManager.setTitleBarStyle('show');
-      await windowManager.setSize(const Size(540, 880));
+      await windowManager.setSize(const Size(800, 880));
       // await windowManager.setMaximumSize(const Size(1000, 1000));
       await windowManager.setMinimumSize(const Size(540, 880));
       await windowManager.center();

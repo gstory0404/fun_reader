@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
@@ -23,11 +22,13 @@ class BookShelfDesktopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF12aa9c),
-        title: Text(Keys.bookshelf.tr),
+        backgroundColor: Colors.white,
+        title: Text(Keys.bookshelf.tr,style: TextStyle(fontSize: 24,color: Colors.black),),
+        centerTitle: false,
+        elevation: 0,
         actions: [
           IconButton(
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh,color: Colors.black,),
               onPressed: () {
                 ctr.getAllBooks();
               }),
