@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_user_agentx/flutter_user_agent.dart';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_bean.dart';
@@ -58,13 +57,7 @@ class MyConnect extends GetConnect {
     }
     //添加User-Agent
     httpClient.sendUserAgent = true;
-    if (Platform.isAndroid || Platform.isIOS) {
-      await FlutterUserAgent.init();
-      var webAgent = FlutterUserAgent.webViewUserAgent;
-      httpClient.userAgent = webAgent.toString();
-    } else {
-      httpClient.userAgent = getRandomAgent();
-    }
+    httpClient.userAgent = getRandomAgent();
     Response<String> response = await get(path, query: query, headers: head);
     return response.body ?? "";
   }
@@ -85,13 +78,7 @@ class MyConnect extends GetConnect {
     }
     //添加User-Agent
     httpClient.sendUserAgent = true;
-    if (Platform.isAndroid || Platform.isIOS) {
-      await FlutterUserAgent.init();
-      var webAgent = FlutterUserAgent.webViewUserAgent;
-      httpClient.userAgent = webAgent.toString();
-    } else {
-      httpClient.userAgent = getRandomAgent();
-    }
+    httpClient.userAgent = getRandomAgent();
     Response<String> response = await post(path, body,
         headers: head, contentType: contentType, query: body);
     return response.body ?? "";
