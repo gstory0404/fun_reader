@@ -168,8 +168,10 @@ class BookDesktopPage extends GetView<BookCtr> {
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 16),
                                       child: Obx(() => Text(
-                                            controller.book.value.lastChapter ??
-                                                "",
+                                        controller.book.value.lastChapter != null &&
+                                            controller.book.value.lastChapter!.isNotEmpty
+                                            ? controller.book.value.lastChapter!
+                                            : Keys.noChapter.tr,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           )),

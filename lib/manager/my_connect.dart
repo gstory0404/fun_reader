@@ -190,7 +190,7 @@ class MyConnect extends GetConnect {
     book.intro =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
     book.lastChapter =
-        XPath.html(html).query(rule.bookInfo!.intro ?? "").attr ?? "";
+        XPath.html(html).query(rule.bookInfo!.lastChapter ?? "").attr ?? "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
     if (rule.bookInfo!.chapterUrl?.isEmpty ?? true) {
       var chapters =

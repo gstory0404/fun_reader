@@ -141,7 +141,7 @@ class ReadCtr extends BaseCtr {
     chapterContentList.addAll(lists);
     //延时跳转
     Future.delayed(const Duration(milliseconds: 100), () {
-      if (chapterIndex == 0) {
+      if (chapterIndex.value == 0) {
         readScrollController.jumpTo(index: 0, alignment: 0);
       } else if (chapterIndex > 0 && chapterContentList.length > 1) {
         readScrollController.jumpTo(index: 1, alignment: 0);
