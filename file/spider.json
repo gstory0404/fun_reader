@@ -1,84 +1,324 @@
 [
-  {
-    "sourceName": "顶点手机",
-    "sourceUrl": "https://m.dingdian6.com/",
-    "head": "",
-    "recommend": [
-      {
-        "recommendName": "玄幻奇幻",
-        "recommendUrl": "/category/1_&page&.html"
-      },
-      {
-        "recommendName": "武侠仙侠",
-        "recommendUrl": "/category/2_&page&.html"
-      },
-      {
-        "recommendName": "都市言情",
-        "recommendUrl": "/category/3_&page&.html"
-      },
-      {
-        "recommendName": "历史军事",
-        "recommendUrl": "/category/4_&page&.html"
-      },
-      {
-        "recommendName": "科幻灵异",
-        "recommendUrl": "/category/5_&page&.html"
-      },
-      {
-        "recommendName": "网游竞技",
-        "recommendUrl": "/category/6_&page&.html"
-      },
-      {
-        "recommendName": "女生频道",
-        "recommendUrl": "/category/7_&page&.html"
-      }
-    ],
-    "recommendBooks": {
-      "books": "//*[@id=\"main\"]////*[@class=\"hot_sale\"]",
-      "name": "/div[2]/a/div[1]/p[1]/text()",
-      "author": "/div[2]/a/div[1]/p[2]/text()",
-      "cover": "/div[1]/a/img/@src",
-      "intro": "/p/text()",
-      "category": "",
-      "lastChapter": "",
-      "bookUrl": "/div[1]/a/@href"
+    {
+        "sourceName": "天域小说网",
+        "sourceUrl": "https://www.zmccx.com",
+        "head": "{\"Accept-Language\":\"zh-CN,zh;q=0.9\"}",
+        "recommend": [
+            {
+                "recommendName": "玄幻小说",
+                "recommendUrl": "/xuanhuanxiaoshuo/"
+            },
+            {
+                "recommendName": "修真小说",
+                "recommendUrl": "/xiuzhenxiaoshuo/"
+            },
+            {
+                "recommendName": "都市小说",
+                "recommendUrl": "/dushixiaoshuo/"
+            },
+            {
+                "recommendName": "穿越小说",
+                "recommendUrl": "/chuanyuexiaoshuo/"
+            },
+            {
+                "recommendName": "网游小说",
+                "recommendUrl": "/wangyouxiaoshuo/"
+            },
+            {
+                "recommendName": "科幻小说",
+                "recommendUrl": "/kehuanxiaoshuo/"
+            }
+        ],
+        "recommendBooks": {
+            "books": "//*[@id=\"newscontent\"]/div[1]/ul/li",
+            "name": "/*[@class=\"s2\"]/a/text()",
+            "author": "/*[@class=\"s5\"]/text()",
+            "cover": "",
+            "intro": "",
+            "category": "",
+            "lastChapter": "/*[@class=\"s3\"]/a/text()",
+            "bookUrl": "/*[@class=\"s2\"]/a/@href"
+        },
+        "search": {
+            "url": "/search.php",
+            "method": "POST",
+            "body": "{\"searchkey\":\"&key&\"}",
+            "contentType": "application/x-www-form-urlencoded"
+        },
+        "searchBooks": {
+            "books": "//*[@id=\"content\"]/table/tbody/tr[position()>1]",
+            "name": "/td[1]/a/text()",
+            "author": "/td[3]/text()",
+            "cover": "",
+            "intro": "",
+            "category": "",
+            "lastChapter": "/td[2]/a/text()",
+            "bookUrl": "/td[1]/a/@href"
+        },
+        "bookInfo": {
+            "name": "//*[@id=\"info\"]/h1/text()",
+            "author": "//*[@id=\"info\"]/p[1]/text()",
+            "cover": "//*[@id=\"fmimg\"]/img/@src",
+            "intro": "//*[@id=\"intro\"]/p/text()",
+            "category": "//*[@id=\"wrapper\"]/div[5]/div[1]/a[2]/text()",
+            "lastChapter": "//*[@class=\"detail\"]/p[4]/a/text()",
+            "updateTime": "//*[@id=\"info\"]/p[3]/text()",
+            "chapterUrl": ""
+        },
+        "chapter": {
+            "chapterList": "//*[@id=\"list\"]/dl//dd[position()>9]",
+            "chapterName": "/a/text()",
+            "chapterUrl": "/a/@href",
+            "nextPage": ""
+        },
+        "chapterContent": {
+            "content": "//*[@id=\"content\"]/text()",
+            "nextPage": "",
+            "replaceReg": "(\\n)\\1{3,}"
+        }
     },
-    "search": {
-      "url": "/SearchBook.php",
-      "method": "GET",
-      "body": "{\"keyword\":\"&key&\",\"t\":\"1\"}",
-      "contentType": "text/html; charset=utf-8"
+    {
+        "sourceName": "看书堂",
+        "sourceUrl": "https://www.kanshutang.org",
+        "head": "",
+        "recommend": [
+            {
+                "recommendName": "现代言情",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/1-&page&.htm"
+            },
+            {
+                "recommendName": "古代言情",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/2-&page&.htm"
+            },
+            {
+                "recommendName": "穿越架空",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/3-&page&.htm"
+            },
+            {
+                "recommendName": "军婚小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/4-&page&.htm"
+            },
+            {
+                "recommendName": "校园小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/5-&page&.htm"
+            },
+            {
+                "recommendName": "玄幻小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/6-&page&.htm"
+            },
+            {
+                "recommendName": "恐怖小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/7-&page&.htm"
+            },
+            {
+                "recommendName": "总裁小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/8-&page&.htm"
+            },
+            {
+                "recommendName": "修真小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/9-&page&.htm"
+            },
+            {
+                "recommendName": "科幻小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/10-&page&.htm"
+            },
+            {
+                "recommendName": "重生小说",
+                "recommendUrl": "https://www.kanshutang.org/fenlei/11-&page&.htm"
+            }
+        ],
+        "recommendBooks": {
+            "books": "//*[@id=\"content\"]/table/tbody/tr[position()>1]",
+            "name": "/td[1]/a/text()",
+            "author": "/td[3]/text()",
+            "cover": "",
+            "intro": "",
+            "category": "/td[6]/text()",
+            "lastChapter": "/td[2]/a/text()",
+            "bookUrl": "/td[1]/a/@href"
+        },
+        "search": null,
+        "searchBooks": null,
+        "bookInfo": {
+            "name": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[2]/div/h1/text()",
+            "author": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[2]/div/span/text()",
+            "cover": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[1]/span[1]/a/img/@src",
+            "intro": "//*[@id=\"reInt\"]/div[2]/text()",
+            "category": "//*[@id=\"wrapper\"]/div[5]/div[1]/a[2]/text()",
+            "lastChapter": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[4]/td/a/text()",
+            "updateTime": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[4]/td/text()[2]/text()",
+            "chapterUrl": "//*[@id=\"content\"]/div/div[1]/div/table/tbody/tr[1]/td[1]/span[2]/a[2]/@href"
+        },
+        "chapter": {
+            "chapterList": "/html/body/div[3]/div[3]/dl//dd",
+            "chapterName": "/a/text()",
+            "chapterUrl": "/a/@href",
+            "nextPage": ""
+        },
+        "chapterContent": {
+            "content": "//*[@id=\"table_container\"]/text()",
+            "nextPage": "",
+            "replaceReg": "(\\n)\\1{2,}"
+        }
     },
-    "searchBooks": {
-      "books": "/*[@class=\"recommend mybook\"]//*[@class=\"hot_sale\"]",
-      "name": "/a/p[1]/text()",
-      "author": "/a/p[2]/text()",
-      "cover": "",
-      "intro": "",
-      "category": "/a/p[3]/text()",
-      "lastChapter": "",
-      "bookUrl": "/a/@href"
+    {
+        "sourceName": "dingdian6",
+        "sourceUrl": "https://www.dingdian6.com",
+        "head": "",
+        "recommend": [
+            {
+                "recommendName": "玄幻奇幻",
+                "recommendUrl": "/category/1.html"
+            },
+            {
+                "recommendName": "武侠仙侠",
+                "recommendUrl": "/category/2.html"
+            },
+            {
+                "recommendName": "都市言情",
+                "recommendUrl": "/category/3.html"
+            },
+            {
+                "recommendName": "历史军事",
+                "recommendUrl": "/category/4.html"
+            },
+            {
+                "recommendName": "科幻灵异",
+                "recommendUrl": "/category/5.html"
+            },
+            {
+                "recommendName": "网游竞技",
+                "recommendUrl": "/category/6.html"
+            }
+        ],
+        "recommendBooks": {
+            "books": "//*[@id=\"alistbox\"]",
+            "name": "/div[2]/div[1]/h2/a/text()",
+            "author": "/div[2]/div[1]/span/text()",
+            "cover": "/div[1]/a/img/@src",
+            "intro": "/div[2]/div[3]/text()",
+            "category": "",
+            "lastChapter": "/div[2]/div[2]/li/a/text()",
+            "bookUrl": "/div[2]/div[1]/h2/a/@href"
+        },
+        "search": {
+            "url": "/searchbook.php",
+            "method": "GET",
+            "body": "{\"keyword\":\"&key&\"}",
+            "contentType": "application/x-www-form-urlencoded"
+        },
+        "searchBooks": {
+            "books": "//*[@id=\"main\"]/table/tbody/tr[position()>1]",
+            "name": "/td[1]/a/text()",
+            "author": "/td[3]/text()",
+            "cover": "",
+            "intro": "",
+            "category": "/td[4]//text()",
+            "lastChapter": "/td[2]/a/text()",
+            "bookUrl": "/td[1]/a/@href"
+        },
+        "bookInfo": {
+            "name": "//*[@id=\"info\"]/h1/text()",
+            "author": "//*[@id=\"info\"]/p[1]/text()",
+            "cover": "//*[@id=\"fmimg\"]/img/@src",
+            "intro": "//*[@id=\"intro\"]/text()",
+            "category": "//*[@id=\"webhtml\"]/div[4]/div[1]/text()",
+            "lastChapter": "//*[@id=\"info\"]/p[3]/a/text()",
+            "updateTime": "//*[@id=\"info\"]/p[4]/text()",
+            "chapterUrl": ""
+        },
+        "chapter": {
+            "chapterList": "//*[@id=\"list\"]/dl/dd[position()>12]",
+            "chapterName": "/a/text()",
+            "chapterUrl": "/a/@href",
+            "nextPage": ""
+        },
+        "chapterContent": {
+            "content": "//*[@id=\"TXT\"]/text()",
+            "nextPage": "",
+            "replaceReg": ""
+        }
     },
-    "bookInfo": {
-      "name": "//*[@class=\"title\"]/text()",
-      "author": "//*[@id=\"book_detail\"]/li[1]/a/text()",
-      "cover": "//*[@id=\"thumb\"]/img/@src",
-      "intro": "//*[@class=\"review\"]/text()",
-      "category": "//*[@id=\"book_detail\"]/li[2]/text()",
-      "lastChapter": "",
-      "updateTime": "//*[@id=\"book_detail\"]/li[4]/text()",
-      "chapterUrl": "//*[@class=\"recommend\"]/h2[2]/a/@href"
-    },
-    "chapter": {
-      "chapterList": "//*[@id=\"chapterlist\"]/p[position()>1]",
-      "chapterName": "/a/text()",
-      "chapterUrl": "/a/@href",
-      "nextPage": ""
-    },
-    "chapterContent": {
-      "content": "//*[@id=\"nr1\"]/text()",
-      "nextPage": "",
-      "replaceReg": ""
+    {
+        "sourceName": "顶点手机",
+        "sourceUrl": "https://m.dingdian6.com/",
+        "head": "",
+        "recommend": [
+            {
+                "recommendName": "玄幻奇幻",
+                "recommendUrl": "/category/1_&page&.html"
+            },
+            {
+                "recommendName": "武侠仙侠",
+                "recommendUrl": "/category/2_&page&.html"
+            },
+            {
+                "recommendName": "都市言情",
+                "recommendUrl": "/category/3_&page&.html"
+            },
+            {
+                "recommendName": "历史军事",
+                "recommendUrl": "/category/4_&page&.html"
+            },
+            {
+                "recommendName": "科幻灵异",
+                "recommendUrl": "/category/5_&page&.html"
+            },
+            {
+                "recommendName": "网游竞技",
+                "recommendUrl": "/category/6_&page&.html"
+            },
+            {
+                "recommendName": "女生频道",
+                "recommendUrl": "/category/7_&page&.html"
+            }
+        ],
+        "recommendBooks": {
+            "books": "//*[@id=\"main\"]////*[@class=\"hot_sale\"]",
+            "name": "/div[2]/a/div[1]/p[1]/text()",
+            "author": "/div[2]/a/div[1]/p[2]/text()",
+            "cover": "/div[1]/a/img/@src",
+            "intro": "/p/text()",
+            "category": "",
+            "lastChapter": "",
+            "bookUrl": "/div[1]/a/@href"
+        },
+        "search": {
+            "url": "/SearchBook.php",
+            "method": "GET",
+            "body": "{\"keyword\":\"&key&\",\"t\":\"1\"}",
+            "contentType": "text/html; charset=utf-8"
+        },
+        "searchBooks": {
+            "books": "/*[@class=\"recommend mybook\"]//*[@class=\"hot_sale\"]",
+            "name": "/a/p[1]/text()",
+            "author": "/a/p[2]/text()",
+            "cover": "",
+            "intro": "",
+            "category": "/a/p[3]/text()",
+            "lastChapter": "",
+            "bookUrl": "/a/@href"
+        },
+        "bookInfo": {
+            "name": "//*[@class=\"title\"]/text()",
+            "author": "//*[@id=\"book_detail\"]/li[1]/a/text()",
+            "cover": "//*[@id=\"thumb\"]/img/@src",
+            "intro": "//*[@class=\"review\"]/text()",
+            "category": "//*[@id=\"book_detail\"]/li[2]/text()",
+            "lastChapter": "",
+            "updateTime": "//*[@id=\"book_detail\"]/li[4]/text()",
+            "chapterUrl": "//*[@class=\"recommend\"]/h2[2]/a/@href"
+        },
+        "chapter": {
+            "chapterList": "//*[@id=\"chapterlist\"]/p[position()>1]",
+            "chapterName": "/a/text()",
+            "chapterUrl": "/a/@href",
+            "nextPage": ""
+        },
+        "chapterContent": {
+            "content": "//*[@id=\"nr1\"]/text()",
+            "nextPage": "",
+            "replaceReg": ""
+        }
     }
-  }
 ]
