@@ -64,6 +64,14 @@ class CategoryCtr extends BaseCtr {
     }else{
       showMain();
     }
+    // try{
+    //   print("${rule!.sourceUrl}${path.replaceAll("&page&", "$page")}");
+    //   var respose = await Dio().get("${rule!.sourceUrl}${path.replaceAll("&page&", "$page")}");
+    //   print(respose);
+    // }catch(e){
+    //   print(e);
+    // }
+
   }
 
   //加载更多

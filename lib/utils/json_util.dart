@@ -60,7 +60,6 @@ class JsonUtil{
     }  else {//如果对象为空，则返回null字符串
       buffer.write("null");
     }
-    print( buffer.toString());
     return buffer.toString();
   }
 

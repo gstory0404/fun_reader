@@ -52,8 +52,17 @@ class MyConnect extends GetConnect {
     httpClient.timeout = const Duration(seconds: 60);
     Map<String, String> head = {};
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
+    //添加head
+    head["Referer"] = "$sourceUrl$path";
+    head["accept"] = "*/*";
+    head["accept-encoding"] = "gzip, deflate, br";
+    head["accept-language"] = "zh-CN,zh;q=0.9";
+    head["connection"] = "keep-alive";
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
-      head = json.decode(dbRuleBean!.ruleBean!.head!);
+      var ruleHead = json.decode(dbRuleBean!.ruleBean!.head!);
+      ruleHead.forEach((key, value) {
+        head[key] = value;
+      });
     }
     //添加User-Agent
     httpClient.sendUserAgent = true;
@@ -73,8 +82,17 @@ class MyConnect extends GetConnect {
     }
     Map<String, String> head = {};
     DBRuleBean? dbRuleBean = await RuleDao().query(sourceUrl);
+    //添加head
+    head["Referer"] = "$sourceUrl$path";
+    head["accept"] = "*/*";
+    head["accept-encoding"] = "gzip, deflate, br";
+    head["accept-language"] = "zh-CN,zh;q=0.9";
+    head["connection"] = "keep-alive";
     if (dbRuleBean?.ruleBean?.head?.isNotEmpty ?? false) {
-      head = json.decode(dbRuleBean!.ruleBean!.head!);
+      var ruleHead = json.decode(dbRuleBean!.ruleBean!.head!);
+      ruleHead.forEach((key, value) {
+        head[key] = value;
+      });
     }
     //添加User-Agent
     httpClient.sendUserAgent = true;
