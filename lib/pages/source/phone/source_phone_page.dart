@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/source/source_ctr.dart';
+import 'package:fun_reader/utils/json_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 
@@ -115,8 +118,8 @@ class SourcePhonePage extends GetView<SourceCtr> {
             body: ListView(
               children: [
                 Text(
-                  bean.rule ?? "",
-                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                  JsonUtil.format(json.decode(bean.rule ?? ""), 6,isObject: true),
+                  style: const TextStyle(fontSize: 16, color: Colors.black87),
                 )
               ],
             ),
