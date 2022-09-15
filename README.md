@@ -1,9 +1,12 @@
 
+<p align="center">
+    <br>
+    <img src="https://github.com/gstory0404/fun_reader/blob/master/assets/images/logo.png" width="120"/>
+    <br>
+    FunReader
+<p>
 
-![12](https://github.com/gstory0404/fun_reader/blob/master/assets/images/logo.png)
-# FunReader
-
-Flutter开发的阅读器，支持android、ios、window、macos、linux多平台运行，支持自定义书源，支持多语言。
+> Flutter开发的阅读器，支持android、ios、window、macos、linux多平台运行，支持自定义书源，支持多语言。
 
 ## 效果
 
