@@ -12,7 +12,7 @@
 
 |  macos   | android  |
 |  ----  | ----  |
-| <img src="https://github.com/gstory0404/fun_reader/blob/master/file/macos.gif" width="400px" height="400px"/>   | <img src="https://github.com/gstory0404/fun_reader/blob/master/file/phone.gif" width="400px" height="400px"/> |
+| <img src="https://github.com/gstory0404/fun_reader/blob/master/file/macos.gif" width="360px" height="400px"/>   | <img src="https://github.com/gstory0404/fun_reader/blob/master/file/phone.gif" width="210px" height="400px"/> |
 
 
 ## 书源规则
