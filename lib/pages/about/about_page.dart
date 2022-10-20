@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// @Author: gstory
@@ -9,11 +10,31 @@ import 'package:url_launcher/url_launcher.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
-
+class AboutPage extends StatefulWidget {
   static void go() {
     Get.toNamed(Routes.ABOUT);
+  }
+
+  const AboutPage({Key? key}) : super(key: key);
+
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  var version = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _getAppVersion();
+  }
+
+  Future<void> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = "v${packageInfo.version}";
+    });
   }
 
   @override
@@ -26,7 +47,7 @@ class AboutPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 100),
+            margin: const EdgeInsets.only(top: 100),
             child: Image.asset(
               "assets/images/logo.png",
               width: 80,
@@ -34,10 +55,17 @@ class AboutPage extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 30, bottom: 50),
+            margin: const EdgeInsets.only(top: 30),
             child: Text(
               Keys.appName.tr,
-              style: TextStyle(fontSize: 22, color: Colors.black),
+              style: const TextStyle(fontSize: 22, color: Colors.black),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10, bottom: 50),
+            child: Text(
+              version,
+              style: const TextStyle(fontSize: 16, color: Colors.black),
             ),
           ),
           Expanded(
@@ -62,8 +90,7 @@ class AboutPage extends StatelessWidget {
                       children: const [
                         Text(
                           "项目地址",
-                          style: TextStyle(
-                              fontSize: 16, color: Colors.black),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                         Icon(Icons.chevron_right),
                       ],
@@ -73,8 +100,8 @@ class AboutPage extends StatelessWidget {
                 //书源规则
                 InkWell(
                   onTap: () async {
-                    await launchUrl(
-                        Uri.parse("https://github.com/gstory0404/fun_reader/blob/master/rule.md"));
+                    await launchUrl(Uri.parse(
+                        "https://github.com/gstory0404/fun_reader/blob/master/rule.md"));
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -89,8 +116,7 @@ class AboutPage extends StatelessWidget {
                       children: const [
                         Text(
                           "书源规则",
-                          style: TextStyle(
-                              fontSize: 16, color: Colors.black),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                         Icon(Icons.chevron_right),
                       ],
@@ -116,8 +142,7 @@ class AboutPage extends StatelessWidget {
                       children: const [
                         Text(
                           "开源协议",
-                          style: TextStyle(
-                              fontSize: 16, color: Colors.black),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                         Icon(Icons.chevron_right),
                       ],

@@ -270,8 +270,7 @@ class MyConnect extends GetConnect {
     List<String?> contents =
         XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
     for (var element in contents) {
-      print(element);
-      content = "$content\n$element";
+      content = "$content$element";
     }
     content = content.replaceAll("　　", "\n　　");
     content =
