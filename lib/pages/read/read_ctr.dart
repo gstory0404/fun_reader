@@ -1,13 +1,16 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/entity/chapter_content_bean.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/pages/base/base_ctr.dart';
 import 'package:fun_reader/pages/read/phone/read_phone_ctr.dart';
+import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:sqflite/sqflite.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/11 15:41
@@ -16,14 +19,13 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ReadCtr extends BaseCtr {
   MyConnect connect = Get.find();
+
   //手机阅读设置
   ReadPhoneCtr readPhoneCtr = Get.put(ReadPhoneCtr());
 
   var sourceUrl = "";
   var bookUrl = "";
   var chapterIndex = 0.obs;
-
-  var index = 0;
 
   //书籍相关参数
   var book = BookDetailBean().obs;
@@ -39,6 +41,7 @@ class ReadCtr extends BaseCtr {
 
   //是否显示菜单页面
   var isShowMenu = false.obs;
+
   //是否显示设置页面
   var isShowSetting = false.obs;
 
@@ -55,26 +58,38 @@ class ReadCtr extends BaseCtr {
 
   //竖直阅读的时候监听滚动
   void _checkChapter(int index, double up) async {
-    if(!isLoad){
+    if (!isLoad) {
       isLoad = true;
-      chapterIndex.value = getChapterPostion(chapterContentList[index].chapterUrl);
+      chapterIndex.value =
+          getChapterPostion(chapterContentList[index].chapterUrl);
+      //更新阅读记录
+      if (chapterIndex.value != book.value.lastReadIndex) {
+        book.value.lastReadIndex = chapterIndex.value;
+        book.value.lastReadUrl =
+            book.value.chapterList[chapterIndex.value].chapterUrl;
+        book.value.lastReadChapter =
+            book.value.chapterList[chapterIndex.value].chapterName;
+        book.value.lastReadTime = DateUtil.nowTimestamp();
+        await BookDao().update(book.value);
+      }
       //如果存在上一章 接预加载
-      if(index == 0 && up == 0 && chapterIndex > 0){
+      if (index == 0 && up == 0 && chapterIndex > 0) {
         chapterContentList.insert(
             0,
             await getChapterContent(
                 book.value.chapterList[chapterIndex.value - 1].chapterName!,
                 book.value.chapterList[chapterIndex.value - 1].chapterUrl!));
         //延时跳转
-        Future.delayed(const Duration(milliseconds: 100), () {
+        Future.delayed(const Duration(milliseconds: 10), () {
           readScrollController.jumpTo(index: index + 1, alignment: 0);
         });
       }
       //如果存在下一章 则预加载
-      if (index == chapterContentList.length - 1 && chapterIndex < book.value.chapterList.length - 1) {
+      if (index == chapterContentList.length - 1 &&
+          chapterIndex < book.value.chapterList.length - 1) {
         chapterContentList.add(await getChapterContent(
-            book.value.chapterList[chapterIndex.value +1].chapterName!,
-            book.value.chapterList[chapterIndex.value +1].chapterUrl!));
+            book.value.chapterList[chapterIndex.value + 1].chapterName!,
+            book.value.chapterList[chapterIndex.value + 1].chapterUrl!));
       }
       isLoad = false;
     }
@@ -91,7 +106,7 @@ class ReadCtr extends BaseCtr {
   }
 
   @override
-  void onReady() async{
+  void onReady() async {
     super.onReady();
     sourceUrl = Get.arguments['sourceUrl'];
     bookUrl = Get.arguments['bookUrl'];
@@ -109,9 +124,11 @@ class ReadCtr extends BaseCtr {
   //获取书籍详情
   Future<void> getBookDetail() async {
     showLoading();
-    book.value = await connect.getBookDetail(rule!.ruleBean!, bookUrl);
-    reloadChapter();
-    showMain();
+    connect.getBookDetail(rule!.ruleBean!, bookUrl).then((value) => {
+          book.value = value,
+          reloadChapter(),
+          showMain(),
+        });
   }
 
   //重新加载章节内容
@@ -128,6 +145,7 @@ class ReadCtr extends BaseCtr {
           book.value.chapterList[chapterIndex.value - 1].chapterName!,
           book.value.chapterList[chapterIndex.value - 1].chapterUrl!));
     }
+    //加载当前章节
     lists.add(await getChapterContent(
         book.value.chapterList[chapterIndex.value].chapterName!,
         book.value.chapterList[chapterIndex.value].chapterUrl!));
@@ -141,14 +159,10 @@ class ReadCtr extends BaseCtr {
     chapterContentList.addAll(lists);
     //延时跳转
     Future.delayed(const Duration(milliseconds: 100), () {
-      if (chapterIndex.value == 0) {
-        readScrollController.jumpTo(index: 0, alignment: 0);
-      } else if (chapterIndex > 0 && chapterContentList.length > 1) {
-        readScrollController.jumpTo(index: 1, alignment: 0);
-        isLoad = false;
-      }
+      readScrollController.jumpTo(
+          index: chapterIndex.value == 0 ? 0 : 1, alignment: 0);
+      isLoad = false;
     });
-
   }
 
   //获取章节内容

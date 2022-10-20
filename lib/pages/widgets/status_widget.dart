@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:get/get.dart';
 
@@ -42,10 +43,9 @@ class _StatusWidgetState extends State<StatusWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CupertinoActivityIndicator(
-            animating: true,
-            radius: 16,
+          const SpinKitSpinningLines(
             color: Color(0xFF12aa9c),
+            size: 50,
           ),
           Container(
             margin: const EdgeInsets.only(top: 10),

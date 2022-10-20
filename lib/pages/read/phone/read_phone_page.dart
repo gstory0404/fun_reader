@@ -57,30 +57,29 @@ class _ReadPhonePageState extends State<ReadPhonePage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 4),
                             child: Obx(() => Text(
-                              controller
-                                  .book.value.chapterList.isNotEmpty
-                                  ? controller
-                                  .book
-                                  .value
-                                  .chapterList[controller
-                                  .chapterIndex.value]
-                                  .chapterName ??
-                                  ""
-                                  : "",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: controller
-                                    .readPhoneCtr.fontFamilyList[
-                                controller
-                                    .readPhoneCtr.fontFamily.value],
-                                color: controller
-                                    .readPhoneCtr.fontColorList[
-                                controller
-                                    .readPhoneCtr.fontColor.value],
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            )),
+                                  controller.book.value.chapterList.isNotEmpty
+                                      ? controller
+                                              .book
+                                              .value
+                                              .chapterList[
+                                                  controller.chapterIndex.value]
+                                              .chapterName ??
+                                          ""
+                                      : "",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily:
+                                        controller.readPhoneCtr.fontFamilyList[
+                                            controller
+                                                .readPhoneCtr.fontFamily.value],
+                                    color:
+                                        controller.readPhoneCtr.fontColorList[
+                                            controller
+                                                .readPhoneCtr.fontColor.value],
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )),
                           ),
                           Expanded(
                             child: Container(
