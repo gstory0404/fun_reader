@@ -6,7 +6,7 @@
     FunReader
 <p>
 
-> Flutter开发的阅读器，支持android、ios、window、macos、linux多平台运行，支持自定义书源，支持多语言。
+开源小说、漫画阅读器，支持android、ios、window、macos、linux多平台运行，支持自定义书源，支持多语言。
 
 ## 效果
 
