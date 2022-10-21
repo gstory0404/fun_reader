@@ -3,6 +3,7 @@ import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/category/category_ctr.dart';
 import 'package:fun_reader/pages/category/category_page.dart';
+import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/index/index_ctr.dart';
 import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:fun_reader/pages/read/read_ctr.dart';
@@ -20,18 +21,18 @@ part 'app_routes.dart';
 /// @Author: gstory
 /// @CreateDate: 2022/6/8 15:25
 /// @Email gstory0404@gmail.com
-/// @Description: dart类作用描述 
+/// @Description: dart类作用描述
 
 class AppPages {
   static const INITIAL = Routes.WELCOME;
 
   static final routes = [
     GetPage(
-        name: Routes.WELCOME,
-        page: () => const WelcomePage(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => WelComeCtr());
-        }),
+      name: Routes.WELCOME,
+      page: () => const WelcomePage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => WelComeCtr());
+      }),
     ),
     GetPage(
       name: Routes.INDEX,
@@ -79,7 +80,9 @@ class AppPages {
       name: Routes.ABOUT,
       page: () => AboutPage(),
     ),
+    GetPage(
+      name: Routes.COMIC,
+      page: () => ComicPage(),
+    ),
   ];
 }
-
-

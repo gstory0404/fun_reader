@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
+import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
@@ -23,9 +24,7 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
     return Container(
         height: 400,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-        constraints: BoxConstraints(
-          maxWidth: 500
-        ),
+        constraints: BoxConstraints(maxWidth: 500),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
@@ -99,10 +98,19 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                 children: [
                   InkWell(
                     onTap: () {
-                      ReadPage.go(
-                          sourceUrl: book.sourceUrl ?? "",
-                          bookUrl: book.bookUrl ?? "",
-                          chapterIndex: book.lastReadIndex);
+                      //小说
+                      if (book.type == null || book.type == 1) {
+                        ReadPage.go(
+                            sourceUrl: book.sourceUrl ?? "",
+                            bookUrl: book.bookUrl ?? "",
+                            chapterIndex: book.lastReadIndex);
+                        //漫画
+                      } else {
+                        ComicPage.go(
+                            sourceUrl: book.sourceUrl ?? "",
+                            bookUrl: book.bookUrl ?? "",
+                            chapterIndex: book.lastReadIndex);
+                      }
                     },
                     child: Container(
                       width: 80,
@@ -110,7 +118,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
@@ -119,8 +128,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           const Icon(Icons.book, size: 20),
                           Text(
                             Keys.read.tr,
-                            style:
-                            const TextStyle(fontSize: 14, color: Colors.black87),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),
@@ -138,7 +147,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
@@ -147,8 +157,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           const Icon(Icons.bookmarks, size: 20),
                           Text(
                             Keys.detail.tr,
-                            style:
-                                const TextStyle(fontSize: 14, color: Colors.black87),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),
@@ -165,7 +175,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:const BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         border: Border.all(width: 1, color: Colors.black87),
                       ),
                       child: Row(
@@ -174,8 +185,8 @@ class BookShelfPhoneSheet extends GetView<BookShelfCtr> {
                           const Icon(Icons.delete_rounded, size: 20),
                           Text(
                             Keys.delete.tr,
-                            style:
-                                const TextStyle(fontSize: 14, color: Colors.black87),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black87),
                           )
                         ],
                       ),

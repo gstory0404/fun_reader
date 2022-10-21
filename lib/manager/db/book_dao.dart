@@ -7,8 +7,7 @@ import 'package:sqflite/sqflite.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: 书籍表
 
-class BookDao extends DBProvider{
-
+class BookDao extends DBProvider {
   final _tableName = "books";
 
   final _tableId = "id";
@@ -27,6 +26,7 @@ class BookDao extends DBProvider{
   final _lastReadChapter = "last_read_chapter";
   final _lastReadUrl = "last_read_url";
   final _lastReadIndex = "last_read_index";
+  final _type = "type";
 
   @override
   tableName() {
@@ -52,8 +52,18 @@ class BookDao extends DBProvider{
               $_lastReadTime INTEGER,
               $_lastReadChapter TEXT,
               $_lastReadUrl TEXT,
-              $_lastReadIndex INTEGER
+              $_lastReadIndex INTEGER,
+              $_type INTEGER
               )''';
+  }
+
+  @override
+  upgradeTable(Database db, int oldVersion) async {
+    if (oldVersion < 2) {
+      var batch = db.batch();
+      batch.execute('alter table ${tableName()} add column $_type INTEGER');
+      await batch.commit();
+    }
   }
 
   ///插入单本数据
@@ -76,7 +86,8 @@ class BookDao extends DBProvider{
   Future<BookDetailBean> query(String sourceUrl, String bookUrl) async {
     Database db = await getDB();
     final List<Map<String, dynamic>> maps = await db.query(_tableName,
-        where: "$_sourceUrl = ? and $_bookUrl = ?", whereArgs: [sourceUrl, bookUrl]);
+        where: "$_sourceUrl = ? and $_bookUrl = ?",
+        whereArgs: [sourceUrl, bookUrl]);
     if (maps.isNotEmpty) {
       return BookDetailBean.fromJson(maps[0]);
     } else {
@@ -88,7 +99,7 @@ class BookDao extends DBProvider{
   Future<List<BookDetailBean>> queryAllBookShelf() async {
     Database db = await getDB();
     final List<Map<String, dynamic>> maps =
-    await db.query(_tableName, where: "$_isBookShelf = ?", whereArgs: [1]);
+        await db.query(_tableName, where: "$_isBookShelf = ?", whereArgs: [1]);
     return List.generate(maps.length, (i) {
       return BookDetailBean.fromJson(maps[i]);
     });
@@ -105,6 +116,4 @@ class BookDao extends DBProvider{
     );
     return book;
   }
-
 }
-

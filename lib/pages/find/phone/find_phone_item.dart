@@ -41,7 +41,7 @@ class _FindItemState extends State<FindPhoneItem> {
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      widget.ruleBean.sourceName ?? "",
+                      "${widget.ruleBean.sourceName} (${(widget.ruleBean.type == null || widget.ruleBean.type == 1) ? "小说" : "漫画"})",
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -67,7 +67,10 @@ class _FindItemState extends State<FindPhoneItem> {
                 spacing: 10.0,
                 runSpacing: 12.0,
                 alignment: WrapAlignment.start,
-                children: widget.ruleBean.recommend?.map((e) => _getRecommendItem(e)).toList() ?? [],
+                children: widget.ruleBean.recommend
+                        ?.map((e) => _getRecommendItem(e))
+                        .toList() ??
+                    [],
               ),
             ),
           )
@@ -79,7 +82,10 @@ class _FindItemState extends State<FindPhoneItem> {
   Widget _getRecommendItem(Recommend recommend) {
     return InkWell(
       onTap: () {
-        CategoryPage.go(name: recommend.recommendName, sourceUrl: widget.ruleBean.sourceUrl, path: recommend.recommendUrl);
+        CategoryPage.go(
+            name: recommend.recommendName,
+            sourceUrl: widget.ruleBean.sourceUrl,
+            path: recommend.recommendUrl);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),

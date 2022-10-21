@@ -9,23 +9,27 @@ class RuleBean {
   BookInfo? bookInfo;
   Chapter? chapter;
   ChapterContent? chapterContent;
+  int? type;
 
-  RuleBean(
-      {this.sourceName,
-        this.sourceUrl,
-        this.head,
-        this.recommend,
-        this.recommendBooks,
-        this.search,
-        this.searchBooks,
-        this.bookInfo,
-        this.chapter,
-        this.chapterContent});
+  RuleBean({
+    this.sourceName,
+    this.sourceUrl,
+    this.head,
+    this.recommend,
+    this.recommendBooks,
+    this.search,
+    this.searchBooks,
+    this.bookInfo,
+    this.chapter,
+    this.chapterContent,
+    this.type,
+  });
 
   RuleBean.fromJson(Map<String, dynamic> json) {
     sourceName = json['sourceName'];
     sourceUrl = json['sourceUrl'];
     head = json['head'];
+    type = json['type'];
     if (json['recommend'] != null) {
       recommend = <Recommend>[];
       json['recommend'].forEach((v) {
@@ -35,16 +39,14 @@ class RuleBean {
     recommendBooks = json['recommendBooks'] != null
         ? RecommendBooks.fromJson(json['recommendBooks'])
         : null;
-    search =
-    json['search'] != null ? Search.fromJson(json['search']) : null;
+    search = json['search'] != null ? Search.fromJson(json['search']) : null;
     searchBooks = json['searchBooks'] != null
         ? SearchBooks.fromJson(json['searchBooks'])
         : null;
-    bookInfo = json['bookInfo'] != null
-        ? BookInfo.fromJson(json['bookInfo'])
-        : null;
+    bookInfo =
+        json['bookInfo'] != null ? BookInfo.fromJson(json['bookInfo']) : null;
     chapter =
-    json['chapter'] != null ? Chapter.fromJson(json['chapter']) : null;
+        json['chapter'] != null ? Chapter.fromJson(json['chapter']) : null;
     chapterContent = json['chapterContent'] != null
         ? ChapterContent.fromJson(json['chapterContent'])
         : null;
@@ -55,6 +57,7 @@ class RuleBean {
     data['sourceName'] = sourceName;
     data['sourceUrl'] = sourceUrl;
     data['head'] = head;
+    data['type'] = type;
     if (recommend != null) {
       data['recommend'] = recommend!.map((v) => v.toJson()).toList();
     }
@@ -111,13 +114,13 @@ class RecommendBooks {
 
   RecommendBooks(
       {this.books,
-        this.name,
-        this.author,
-        this.cover,
-        this.intro,
-        this.category,
-        this.lastChapter,
-        this.bookUrl});
+      this.name,
+      this.author,
+      this.cover,
+      this.intro,
+      this.category,
+      this.lastChapter,
+      this.bookUrl});
 
   RecommendBooks.fromJson(Map<String, dynamic> json) {
     books = json['books'];
@@ -150,7 +153,7 @@ class Search {
   String? body;
   String? contentType;
 
-  Search({this.url, this.method, this.body,this.contentType});
+  Search({this.url, this.method, this.body, this.contentType});
 
   Search.fromJson(Map<String, dynamic> json) {
     url = json['url'];
@@ -181,12 +184,12 @@ class SearchBooks {
 
   SearchBooks(
       {this.books,
-        this.name,
-        this.author,
-        this.cover,
-        this.intro,
-        this.category,
-        this.lastChapter,
+      this.name,
+      this.author,
+      this.cover,
+      this.intro,
+      this.category,
+      this.lastChapter,
       this.bookUrl});
 
   SearchBooks.fromJson(Map<String, dynamic> json) {
@@ -226,12 +229,12 @@ class BookInfo {
 
   BookInfo(
       {this.name,
-        this.author,
-        this.cover,
-        this.intro,
-        this.category,
-        this.lastChapter,
-        this.chapterUrl,
+      this.author,
+      this.cover,
+      this.intro,
+      this.category,
+      this.lastChapter,
+      this.chapterUrl,
       this.updateTime});
 
   BookInfo.fromJson(Map<String, dynamic> json) {
@@ -265,7 +268,7 @@ class Chapter {
   String? nextPage;
   String? chapterUrl;
 
-  Chapter({this.chapterList, this.chapterName, this.nextPage,this.chapterUrl});
+  Chapter({this.chapterList, this.chapterName, this.nextPage, this.chapterUrl});
 
   Chapter.fromJson(Map<String, dynamic> json) {
     chapterList = json['chapterList'];

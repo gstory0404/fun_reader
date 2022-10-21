@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:fun_reader/manager/db/book_dao.dart';
+import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -10,9 +12,8 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 /// @Description: sqlite管理类
 
 class DBManager {
-
   ///数据库版本
-  static const int _dbVersion = 1;
+  static const int _dbVersion = 2;
 
   ///数据库名称
   static const String _dbName = "fun_novel.db";
@@ -22,15 +23,34 @@ class DBManager {
 
   static Future<void> _init() async {
     if (Platform.isAndroid || Platform.isIOS) {
-      _db = await openDatabase(join(await getDatabasesPath(), _dbName),
-          version: _dbVersion, onCreate: (db, version) async {});
+      _db = await openDatabase(
+        join(await getDatabasesPath(), _dbName),
+        version: _dbVersion,
+        onCreate: (db, version) async {
+          RuleDao().createTable();
+          BookDao().createTable();
+        },
+        onUpgrade: (db, oldVersion, newVersion) {
+          RuleDao().upgradeTable(db, oldVersion);
+          BookDao().upgradeTable(db, oldVersion);
+        },
+      );
     } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       sqfliteFfiInit();
       var factory = databaseFactoryFfi;
       _db = await factory.openDatabase(
         inMemoryDatabasePath,
-        options:
-            OpenDatabaseOptions(version: _dbVersion, onCreate: (db, version) async {}),
+        options: OpenDatabaseOptions(
+          version: _dbVersion,
+          onCreate: (db, version) async {
+            RuleDao().createTable();
+            BookDao().createTable();
+          },
+          onUpgrade: (db, oldVersion, newVersion) {
+            RuleDao().upgradeTable(db, oldVersion);
+            BookDao().upgradeTable(db, oldVersion);
+          },
+        ),
       );
     }
   }
@@ -38,7 +58,8 @@ class DBManager {
   ///判断是否存在表
   static isTableExits(String tableName) async {
     await getDatabase();
-    var res = await _db?.query("sqlite_master",where: "name = ?",whereArgs: [tableName]);
+    var res = await _db
+        ?.query("sqlite_master", where: "name = ?", whereArgs: [tableName]);
     return res != null && res.isNotEmpty;
   }
 

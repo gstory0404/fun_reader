@@ -13,9 +13,10 @@ class DBRuleBean {
   String? sourceUrl;
   String? rule;
   bool isEffect = false;
-  RuleBean? ruleBean; 
+  RuleBean? ruleBean;
+  int? type;
 
-  DBRuleBean({this.id,this.sourceName,this.sourceUrl,this.rule});
+  DBRuleBean({this.id, this.sourceName, this.sourceUrl, this.rule, this.type});
 
   DBRuleBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,6 +24,7 @@ class DBRuleBean {
     sourceUrl = json['source_url'];
     rule = json['rule'];
     isEffect = json['is_effect'] == 1;
+    type = json['type'];
     ruleBean = RuleBean.fromJson(convert.jsonDecode(rule ?? ""));
   }
 
@@ -32,6 +34,7 @@ class DBRuleBean {
     data['source_url'] = sourceUrl;
     data['rule'] = json.encode(ruleBean);
     data['is_effect'] = isEffect ? 1 : 0;
+    data['type'] = type;
     return data;
   }
 }

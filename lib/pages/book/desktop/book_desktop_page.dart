@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
+import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
 import 'package:fun_reader/pages/widgets/status_widget.dart';
@@ -152,10 +153,19 @@ class BookDesktopPage extends GetView<BookCtr> {
                                       chapterList:
                                           controller.book.value.chapterList,
                                       onChoose: (index) {
-                                        ReadPage.go(
-                                            sourceUrl: controller.sourceUrl,
-                                            bookUrl: controller.bookUrl,
-                                            chapterIndex: index);
+                                        if (controller.book.value.type ==
+                                                null ||
+                                            controller.book.value.type == 1) {
+                                          ReadPage.go(
+                                              sourceUrl: controller.sourceUrl,
+                                              bookUrl: controller.bookUrl,
+                                              chapterIndex: index);
+                                        } else {
+                                          ComicPage.go(
+                                              sourceUrl: controller.sourceUrl,
+                                              bookUrl: controller.bookUrl,
+                                              chapterIndex: index);
+                                        }
                                       },
                                     ),
                                     isScrollControlled: true);
@@ -168,10 +178,13 @@ class BookDesktopPage extends GetView<BookCtr> {
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 16),
                                       child: Obx(() => Text(
-                                        controller.book.value.lastChapter != null &&
-                                            controller.book.value.lastChapter!.isNotEmpty
-                                            ? controller.book.value.lastChapter!
-                                            : Keys.noChapter.tr,
+                                            controller.book.value.lastChapter !=
+                                                        null &&
+                                                    controller.book.value
+                                                        .lastChapter!.isNotEmpty
+                                                ? controller
+                                                    .book.value.lastChapter!
+                                                : Keys.noChapter.tr,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           )),

@@ -16,6 +16,7 @@ class RuleDao extends DBProvider {
   final _sourceUrl = "source_url";
   final _rule = "rule";
   final _isEffect = "is_effect";
+  final _type = "type";
 
   @override
   tableName() {
@@ -31,7 +32,17 @@ class RuleDao extends DBProvider {
               $_sourceUrl TEXT,
               $_rule TEXT,
               $_isEffect INTEGER
+              $_type INTEGER
               )''';
+  }
+
+  @override
+  upgradeTable(Database db, int oldVersion) async {
+    if (oldVersion < 2) {
+      var batch = db.batch();
+      batch.execute('alter table ${tableName()} add column $_type INTEGER');
+      await batch.commit();
+    }
   }
 
   ///插入单条规则
@@ -59,9 +70,9 @@ class RuleDao extends DBProvider {
   Future<List<DBRuleBean>> queryAll({bool? isEffect}) async {
     Database db = await getDB();
     late List<Map<String, dynamic>> maps;
-    if(isEffect == null){
+    if (isEffect == null) {
       maps = await db.query(_tableName);
-    }else{
+    } else {
       maps = await db.query(_tableName,
           where: "$_isEffect = ?", whereArgs: [isEffect ? 1 : 0]);
     }

@@ -31,7 +31,7 @@ class BookItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            BookCoverWidget(bookBean.cover ?? "",width:80,height:100),
+            BookCoverWidget(bookBean.cover ?? "", width: 80, height: 100),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
@@ -58,6 +58,14 @@ class BookItem extends StatelessWidget {
                     ),
                     Text(
                       bookBean.intro ?? "",
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "最新:${bookBean.lastChapter}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),

@@ -35,10 +35,10 @@ class FindPhonePage extends GetView<FindCtr> {
                 return controller.queryAllRule();
               },
               child: Obx(() => ListView.builder(
-                    itemCount: controller.rulelist.length,
+                    itemCount: controller.ruleList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return FindPhoneItem(
-                        ruleBean: controller.rulelist[index].ruleBean!,
+                        ruleBean: controller.ruleList[index].ruleBean!,
                       );
                     },
                   )),

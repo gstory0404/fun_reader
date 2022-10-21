@@ -54,10 +54,10 @@ class SourceCtr extends BaseCtr {
     ToastUtil.showLoading("");
     Directory tempDir = await getTemporaryDirectory();
     var filePath = "${tempDir.path}/rule/${DateUtil.nowTimestamp()}.json";
-    var response = await Dio()
-        .download(url, filePath, onReceiveProgress: (received, total) {
+    var response = await Dio().download(url, filePath,
+        onReceiveProgress: (received, total) {
       print("下载进度$received/$total");
-      if(received == total){
+      if (received == total) {
         ToastUtil.dismiss();
         readFile(filePath);
       }
@@ -71,7 +71,8 @@ class SourceCtr extends BaseCtr {
       allowedExtensions: ['txt', 'json'],
     );
     if (result != null && result.files.single.path != null) {
-      if(result.files.single.path!.endsWith(".txt") || result.files.single.path!.endsWith(".json")){
+      if (result.files.single.path!.endsWith(".txt") ||
+          result.files.single.path!.endsWith(".json")) {
         readFile(result.files.single.path!);
       }
     } else {
@@ -88,14 +89,15 @@ class SourceCtr extends BaseCtr {
       RuleBean bean = RuleBean.fromJson(element);
       var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
       //如果不存在就插入表中
-      if(dbBean == null){
+      if (dbBean == null) {
         DBRuleBean dbRuleBean = DBRuleBean();
         dbRuleBean.sourceUrl = bean.sourceUrl;
         dbRuleBean.sourceName = bean.sourceName;
         dbRuleBean.ruleBean = bean;
         dbRuleBean.isEffect = true;
+        dbRuleBean.type = bean.type;
         RuleDao().insert(dbRuleBean);
-      }else{
+      } else {
         //存在就更新
         dbBean.sourceUrl = bean.sourceUrl;
         dbBean.sourceName = bean.sourceName;

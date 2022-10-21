@@ -5,7 +5,7 @@ import 'package:fun_reader/entity/chapter_bean.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: 书籍详情
 
-class BookDetailBean{
+class BookDetailBean {
   int? id;
   String? sourceName;
   String? sourceUrl;
@@ -23,7 +23,8 @@ class BookDetailBean{
   int lastReadIndex = 0;
   bool isBookshelf = false;
   List<ChapterBean> chapterList = [];
-  List<String?> category =[];
+  List<String?> category = [];
+  int? type;
 
   BookDetailBean({
     id,
@@ -42,6 +43,7 @@ class BookDetailBean{
     lastReadChapter,
     lastReadUrl,
     lastReadIndex,
+    type,
   });
 
   BookDetailBean.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class BookDetailBean{
     lastReadChapter = json['last_read_chapter'];
     lastReadUrl = json['last_read_url'];
     lastReadIndex = json['last_read_index'];
+    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -81,8 +84,7 @@ class BookDetailBean{
     data['last_read_chapter'] = lastReadChapter;
     data['last_read_url'] = lastReadUrl;
     data['last_read_index'] = lastReadIndex;
+    data['type'] = type;
     return data;
   }
 }
-
-

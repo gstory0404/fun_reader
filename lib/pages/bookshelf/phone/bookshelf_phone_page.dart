@@ -3,6 +3,7 @@ import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
+import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
@@ -16,7 +17,6 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class BookShelfPhonePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,34 +32,41 @@ class BookShelfPhonePage extends StatelessWidget {
               }),
         ],
       ),
-      body: GetX<BookShelfCtr>(
-          builder: (controller) {
-            return StatusWidget(
-              loadType: controller.loadStatus.value,
-              body: RefreshIndicator(
-                onRefresh: () {
-                  return controller.getAllBooks();
-                },
-                child: ListView.builder(
-                  itemCount: controller.bookList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _listItem(context, controller.bookList[index]);
-                  },
-                ),
-              ),
-            );
-          }
-      ),
+      body: GetX<BookShelfCtr>(builder: (controller) {
+        return StatusWidget(
+          loadType: controller.loadStatus.value,
+          body: RefreshIndicator(
+            onRefresh: () {
+              return controller.getAllBooks();
+            },
+            child: ListView.builder(
+              itemCount: controller.bookList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _listItem(context, controller.bookList[index]);
+              },
+            ),
+          ),
+        );
+      }),
     );
   }
 
   _listItem(BuildContext context, BookDetailBean bookBean) {
     return InkWell(
       onTap: () {
-        ReadPage.go(
-            sourceUrl: bookBean.sourceUrl ?? "",
-            bookUrl: bookBean.bookUrl ?? "",
-            chapterIndex: bookBean.lastReadIndex);
+        //小说
+        if (bookBean.type == null || bookBean.type == 1) {
+          ReadPage.go(
+              sourceUrl: bookBean.sourceUrl ?? "",
+              bookUrl: bookBean.bookUrl ?? "",
+              chapterIndex: bookBean.lastReadIndex);
+          //漫画
+        } else {
+          ComicPage.go(
+              sourceUrl: bookBean.sourceUrl ?? "",
+              bookUrl: bookBean.bookUrl ?? "",
+              chapterIndex: bookBean.lastReadIndex);
+        }
       },
       onLongPress: () {
         Get.bottomSheet(BookShelfPhoneSheet(
@@ -87,7 +94,7 @@ class BookShelfPhonePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      bookBean.bookName ?? "",
+                      "${bookBean.bookName}",
                       style: const TextStyle(
                         fontSize: 16,
                       ),
@@ -111,8 +118,7 @@ class BookShelfPhonePage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(
-                          checkDate: bookBean.lastReadTime)}",
+                      "${Keys.lastReadTime.tr}：${DateUtil.getDateScope(checkDate: bookBean.lastReadTime)}",
                       style: const TextStyle(
                         fontSize: 12,
                       ),
@@ -120,7 +126,7 @@ class BookShelfPhonePage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "${Keys.bookSource.tr}：《${bookBean.sourceName}》",
+                      "${(bookBean.type == null || bookBean.type == 1) ? "小说" : "漫画"} · 《${bookBean.sourceName}》 ",
                       style: const TextStyle(
                         fontSize: 12,
                       ),

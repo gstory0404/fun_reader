@@ -158,6 +158,8 @@ class MyConnect extends GetConnect {
     } else {
       html = await getData(rule.sourceUrl!, rule.search!.url!, query: map);
     }
+    print("${rule.sourceUrl!}${rule.search!.url!}");
+    print(html);
     var books = XPath.html(html).query(rule.searchBooks!.books!).nodes;
     //书籍
     for (var element in books) {
@@ -191,6 +193,7 @@ class MyConnect extends GetConnect {
       book.sourceName = rule.sourceName;
       book.sourceUrl = rule.sourceUrl;
       book.bookUrl = bookUrl;
+      book.type = rule.type;
     }
     var html = await getData(rule.sourceUrl ?? "", bookUrl);
     book.bookName =
@@ -207,17 +210,21 @@ class MyConnect extends GetConnect {
             "";
     book.intro =
         XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
+    //最新章节
     book.lastChapter =
-        XPath.html(html).query(rule.bookInfo!.lastChapter ?? "").attr ?? "";
+        XPath.html(html).query(rule.bookInfo!.lastChapter ?? "").attr?.trim() ??
+            "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
     if (rule.bookInfo!.chapterUrl?.isEmpty ?? true) {
       var chapters =
           XPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
       for (var element in chapters) {
         var chapterName =
-            element.queryXPath(rule.chapter?.chapterName ?? "").attr ?? "";
+            element.queryXPath(rule.chapter?.chapterName ?? "").attr?.trim() ??
+                "";
         var chapterUrl =
-            element.queryXPath(rule.chapter?.chapterUrl ?? "").attr ?? "";
+            element.queryXPath(rule.chapter?.chapterUrl ?? "").attr?.trim() ??
+                "";
         book.chapterList
             .add(ChapterBean(chapterName: chapterName, chapterUrl: chapterUrl));
       }
@@ -225,10 +232,6 @@ class MyConnect extends GetConnect {
       var chapterAllUrl =
           XPath.html(html).query(rule.bookInfo!.chapterUrl ?? "").attr ?? "";
       book.chapterList = await getBookChapterList(rule, chapterAllUrl);
-    }
-    //最新章节
-    if (book.chapterList.isNotEmpty) {
-      book.lastChapter = book.chapterList.last.chapterName;
     }
     if (book.lastReadChapter?.isEmpty ?? false) {
       book.lastReadChapter = book.chapterList.first.chapterName;
@@ -263,7 +266,7 @@ class MyConnect extends GetConnect {
     return chapterList;
   }
 
-  ///获取章节内容
+  ///获取小说章节内容
   Future<String> getChapterContent(RuleBean rule, String chapterUrl) async {
     var content = "";
     var html = await getData(rule.sourceUrl ?? "", chapterUrl);
@@ -283,6 +286,28 @@ class MyConnect extends GetConnect {
         var nextContent = await getChapterContent(rule, nextPage);
         if (nextContent.isEmpty) {
           content = "$content$nextContent";
+        }
+      }
+    }
+    return content;
+  }
+
+  ///获取漫画章节内容
+  Future<List<String?>> getComicChapterContent(
+      RuleBean rule, String chapterUrl) async {
+    print(chapterUrl);
+    var html = await getData(rule.sourceUrl ?? "", chapterUrl);
+    // List<String?> contents =
+    //     XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
+    List<String?> content =
+        XPath.html(html).query("//*[@class=\"erPag\"]//mip-img/@src").attrs;
+    if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
+      var nextPage =
+          XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
+      if (nextPage.isNotEmpty) {
+        var nextContent = await getComicChapterContent(rule, nextPage);
+        if (nextContent.isEmpty) {
+          content.addAll(nextContent);
         }
       }
     }
