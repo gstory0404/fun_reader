@@ -14,6 +14,7 @@ import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 import 'package:xpath_selector/xpath_selector.dart';
+import 'package:xpath_selector_html_parser/xpath_selector_html_parser.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/13 15:28
@@ -107,7 +108,7 @@ class MyConnect extends GetConnect {
     List<BookBean> bookList = [];
     var html = await getData(rule.sourceUrl ?? "", path);
     var books =
-        XPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
+        HtmlXPath.html(html).query(rule.ruleBean!.recommendBooks!.books!).nodes;
     //书籍
     for (var element in books) {
       var bookUrl =
@@ -160,7 +161,7 @@ class MyConnect extends GetConnect {
     }
     print("${rule.sourceUrl!}${rule.search!.url!}");
     print(html);
-    var books = XPath.html(html).query(rule.searchBooks!.books!).nodes;
+    var books = HtmlXPath.html(html).query(rule.searchBooks!.books!).nodes;
     //书籍
     for (var element in books) {
       var bookUrl = element.queryXPath(rule.searchBooks!.bookUrl!).attr;
@@ -197,27 +198,36 @@ class MyConnect extends GetConnect {
     }
     var html = await getData(rule.sourceUrl ?? "", bookUrl);
     book.bookName =
-        XPath.html(html).query(rule.bookInfo!.name ?? "").attr?.trim() ?? "";
-    book.cover = XPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
+        HtmlXPath.html(html).query(rule.bookInfo!.name ?? "").attr?.trim() ??
+            "";
+    book.cover =
+        HtmlXPath.html(html).query(rule.bookInfo!.cover ?? "").attr ?? "";
     if (book.cover != null && !book.cover!.startsWith("http")) {
       book.cover = "${rule.sourceUrl}${book.cover}";
     }
     book.author =
-        XPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ?? "";
-    book.category = XPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
-    book.updateTime =
-        XPath.html(html).query(rule.bookInfo!.updateTime ?? "").attr?.trim() ??
+        HtmlXPath.html(html).query(rule.bookInfo!.author ?? "").attr?.trim() ??
             "";
+    book.category =
+        HtmlXPath.html(html).query(rule.bookInfo!.category ?? "").attrs;
+    book.updateTime = HtmlXPath.html(html)
+            .query(rule.bookInfo!.updateTime ?? "")
+            .attr
+            ?.trim() ??
+        "";
     book.intro =
-        XPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ?? "";
-    //最新章节
-    book.lastChapter =
-        XPath.html(html).query(rule.bookInfo!.lastChapter ?? "").attr?.trim() ??
+        HtmlXPath.html(html).query(rule.bookInfo!.intro ?? "").attr?.trim() ??
             "";
+    //最新章节
+    book.lastChapter = HtmlXPath.html(html)
+            .query(rule.bookInfo!.lastChapter ?? "")
+            .attr
+            ?.trim() ??
+        "";
     //如果章节列表 规则为空则在当前页面解析 章节列表
     if (rule.bookInfo!.chapterUrl?.isEmpty ?? true) {
       var chapters =
-          XPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
+          HtmlXPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
       for (var element in chapters) {
         var chapterName =
             element.queryXPath(rule.chapter?.chapterName ?? "").attr?.trim() ??
@@ -230,7 +240,8 @@ class MyConnect extends GetConnect {
       }
     } else {
       var chapterAllUrl =
-          XPath.html(html).query(rule.bookInfo!.chapterUrl ?? "").attr ?? "";
+          HtmlXPath.html(html).query(rule.bookInfo!.chapterUrl ?? "").attr ??
+              "";
       book.chapterList = await getBookChapterList(rule, chapterAllUrl);
     }
     if (book.lastReadChapter?.isEmpty ?? false) {
@@ -248,7 +259,7 @@ class MyConnect extends GetConnect {
     List<ChapterBean> chapterList = [];
     var html = await getData(rule.sourceUrl ?? "", chapterAllUrl);
     var chapters =
-        XPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
+        HtmlXPath.html(html).query(rule.chapter?.chapterList ?? "").nodes;
     for (var element in chapters) {
       var chapterName =
           element.queryXPath(rule.chapter!.chapterName!).attr ?? "";
@@ -258,7 +269,7 @@ class MyConnect extends GetConnect {
     }
     //如果存在下一页 就继续加载
     if (rule.chapter?.nextPage == null) {
-      var nextPage = XPath.html(html).query(rule.chapter!.nextPage!).attr;
+      var nextPage = HtmlXPath.html(html).query(rule.chapter!.nextPage!).attr;
       if (nextPage != null) {
         chapterList.addAll(await getBookChapterList(rule, nextPage));
       }
@@ -271,7 +282,7 @@ class MyConnect extends GetConnect {
     var content = "";
     var html = await getData(rule.sourceUrl ?? "", chapterUrl);
     List<String?> contents =
-        XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
+        HtmlXPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
     for (var element in contents) {
       content = "$content$element";
     }
@@ -281,7 +292,7 @@ class MyConnect extends GetConnect {
 
     if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
       var nextPage =
-          XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
+          HtmlXPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
       if (nextPage.isNotEmpty) {
         var nextContent = await getChapterContent(rule, nextPage);
         if (nextContent.isEmpty) {
@@ -300,10 +311,10 @@ class MyConnect extends GetConnect {
     // List<String?> contents =
     //     XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
     List<String?> content =
-        XPath.html(html).query("//*[@class=\"erPag\"]//mip-img/@src").attrs;
+        HtmlXPath.html(html).query("//*[@class=\"erPag\"]//mip-img/@src").attrs;
     if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
       var nextPage =
-          XPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
+          HtmlXPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
       if (nextPage.isNotEmpty) {
         var nextContent = await getComicChapterContent(rule, nextPage);
         if (nextContent.isEmpty) {

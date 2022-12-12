@@ -18,17 +18,20 @@ void main() {
   runApp(const MyApp());
 }
 
-void initServer() async{
-  Get.put(MyConnect(),permanent: true);
+void initServer() async {
+  Get.put(MyConnect(), permanent: true);
   LogUtil.init(isDebug: true);
 }
 
 void initWindow() async {
-  if(Platform.isFuchsia || Platform.isLinux || Platform.isMacOS || Platform.isWindows){
+  if (Platform.isFuchsia ||
+      Platform.isLinux ||
+      Platform.isMacOS ||
+      Platform.isWindows) {
     await windowManager.ensureInitialized();
-    windowManager.waitUntilReadyToShow().then((_) async{
+    windowManager.waitUntilReadyToShow().then((_) async {
       // 隐藏窗口标题栏
-      await windowManager.setTitleBarStyle('show');
+      await windowManager.setTitleBarStyle(TitleBarStyle.normal);
       await windowManager.setSize(const Size(800, 880));
       // await windowManager.setMaximumSize(const Size(1000, 1000));
       await windowManager.setMinimumSize(const Size(540, 880));
@@ -36,9 +39,9 @@ void initWindow() async {
       await windowManager.show();
       await windowManager.setSkipTaskbar(false);
     });
-  }else if(Platform.isAndroid){
+  } else if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
-    const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
