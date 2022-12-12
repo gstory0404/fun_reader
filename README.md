@@ -36,35 +36,35 @@
 ## 打包
 打包前需要查看文档配置[运行环境](https://docs.flutter.dev/deployment/android)
 
-### Android
+- Android
 ```shell
 flutter build apk
 ```
 
-### iOS
+- iOS
 ```shell
 flutter build ipa
 ```
 
-### Windows
+- Windows
 需要再window环境中编译
 ```shell
 flutter build windows
 ```
 
-### macOS
+- macOS
 需要再macOS环境中编译
 ```shell
 flutter build macos
 ```
 
-### linux
+- linux
 需要再linux环境中编译
 ```shell
 snap install --classic flutter
 snap install --classic code
 code --install-extension dart-code.flutter
-
+flutter build linux
 ```
 
 
