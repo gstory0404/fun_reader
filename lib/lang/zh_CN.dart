@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 
 /// @Author: gstory
@@ -56,4 +55,6 @@ const Map<String, String> zh_CN = {
   Keys.emptyTips :"暂无数据",
   Keys.errorTips :"获取数据失败，请稍后重试",
   Keys.loadingTips :"正在加载数据，请稍后",
+  Keys.novel :"小说",
+  Keys.comic :"漫画",
 };

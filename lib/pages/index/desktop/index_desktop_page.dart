@@ -5,7 +5,7 @@ import 'package:fun_reader/pages/find/find_page.dart';
 import 'package:fun_reader/pages/index/index_ctr.dart';
 import 'package:fun_reader/pages/my/my_page.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
-import 'package:fun_reader/pages/widgets/window_widget.dart';
+import 'package:fun_reader/widgets/window_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

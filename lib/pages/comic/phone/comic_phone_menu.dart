@@ -95,7 +95,7 @@ class _ComicPhoneMenuState extends State<ComicPhoneMenu>
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    comicCtr.book.value.bookName ?? "",
+                    comicCtr.book.bookName ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 20, color: Colors.white),

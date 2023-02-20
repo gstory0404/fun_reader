@@ -16,25 +16,25 @@ class CategoryCtr extends BaseCtr {
   MyConnect connect = Get.find();
 
   //分类书籍列表
-  var categoryBookList = <BookBean>[].obs;
+  var categoryBookList = <BookBean>[];
 
   DBRuleBean? rule;
 
   var sourceUrl = "";
   var path = "";
-  var name = "".obs;
+  var name = "";
 
   //下一页
   int page = 1;
 
-  var isLoading = false.obs;
+  var isLoading = false;
 
   ScrollController booksController = ScrollController();
 
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
-    name.value = Get.arguments["name"];
+    name = Get.arguments["name"];
     sourceUrl = Get.arguments["sourceUrl"];
     path = Get.arguments["path"];
     //解析规则
@@ -48,41 +48,38 @@ class CategoryCtr extends BaseCtr {
     showLoading();
     refreshData();
   }
+
   //刷新
   Future<void> refreshData() async {
-    if(rule == null){
+    if (rule == null) {
       ToastUtil.showToast("获取解析规则失败");
       Get.back();
       return;
     }
-    isLoading.value = false;
+    isLoading = false;
     page = 1;
     categoryBookList.clear();
-    categoryBookList.addAll(await connect.getCategoryBooks(rule!,path.replaceAll("&page&", "$page")));
-    if(categoryBookList.isEmpty){
+    categoryBookList.addAll(await connect.getCategoryBooks(
+        rule!, path.replaceAll("&page&", "$page")));
+    if (categoryBookList.isEmpty) {
       showEmpty();
-    }else{
+    } else {
       showMain();
     }
-    // try{
-    //   print("${rule!.sourceUrl}${path.replaceAll("&page&", "$page")}");
-    //   var respose = await Dio().get("${rule!.sourceUrl}${path.replaceAll("&page&", "$page")}");
-    //   print(respose);
-    // }catch(e){
-    //   print(e);
-    // }
-
+    update();
   }
 
   //加载更多
   Future<void> loadMore() async {
-    if(rule == null){
+    if (rule == null) {
       return;
     }
-    isLoading.value = true;
+    isLoading = true;
     page++;
-    categoryBookList.addAll(await connect.getCategoryBooks(rule!,path.replaceAll("&page&", "$page")));
-    isLoading.value = false;
+    categoryBookList.addAll(await connect.getCategoryBooks(
+        rule!, path.replaceAll("&page&", "$page")));
+    isLoading = false;
+    update();
   }
 
   @override

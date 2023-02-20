@@ -10,7 +10,6 @@ import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:sqflite/sqflite.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/11 15:41

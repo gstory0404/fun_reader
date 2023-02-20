@@ -11,8 +11,10 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class IndexPage extends BaseWidget<IndexCtr> {
-  const IndexPage({Key? key}) : super(key: key);
+class IndexPage extends BaseWidget {
+  IndexCtr ctr = Get.put(IndexCtr());
+
+  IndexPage({Key? key}) : super(key: key);
 
   static void go(){
     Get.offAllNamed(Routes.INDEX);

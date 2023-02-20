@@ -17,19 +17,20 @@ dependencies:
   path_provider: ^2.0.11
   window_manager: ^0.2.8
   vs_scrollbar: ^0.2.1
-  dropdown_button2: ^1.9.2
+  dropdown_button2: ^1.9.3
   flutter_easyloading: ^3.0.5
   scrollable_positioned_list: ^0.3.5
-  sqflite: ^2.2.2
-  sqflite_common_ffi: ^2.2.0+1
+  sqflite: ^2.2.4+1
+  sqflite_common_ffi: ^2.2.1+1
   sqlite3_flutter_libs: ^0.5.12
   path: ^1.8.2
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.17
   dio: ^4.0.6
-  file_picker: ^5.2.3
-  url_launcher: ^6.1.7
+  file_picker: ^5.2.5
+  url_launcher: ^6.1.9
   flutter_spinkit: ^5.1.0
   package_info_plus: ^3.0.2
+  file: ^6.1.4
 
 dev_dependencies:
   flutter_test:

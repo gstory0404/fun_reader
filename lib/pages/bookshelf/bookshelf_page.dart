@@ -10,8 +10,9 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class BookShelfPage extends BaseWidget<BookShelfCtr>{
-  BookShelfCtr ctr = Get.put(BookShelfCtr());
+class BookShelfPage extends BaseWidget{
+
+  final bookShelfCtr = Get.put(BookShelfCtr());
 
   @override
   Widget desktopPage(BuildContext context) {
@@ -20,7 +21,7 @@ class BookShelfPage extends BaseWidget<BookShelfCtr>{
 
   @override
   Widget phonePage(BuildContext context) {
-    return BookShelfPhonePage();
+    return const BookShelfPhonePage();
   }
 }
 

@@ -5,8 +5,8 @@ import 'package:fun_reader/pages/book/book_page.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
-import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
+import 'package:fun_reader/widgets/book_cover_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory

@@ -4,9 +4,9 @@ import 'package:fun_reader/pages/book/book_ctr.dart';
 import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
-import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/toast_util.dart';
+import 'package:fun_reader/widgets/book_cover_widget.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -20,12 +20,16 @@ class BookDesktopPage extends GetView<BookCtr> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF12aa9c),
-        title: Obx(() => Text(controller.book.value.bookName ?? "")),
+        title: GetBuilder<BookCtr>(
+          builder: (controller) {
+            return Text(controller.book.bookName ?? "");
+          },
+        ),
       ),
       backgroundColor: Colors.white,
-      body: Obx(() => StatusWidget(
-          loadType: controller.loadStatus.value,
-          body: Column(
+      body: GetBuilder<BookCtr>(
+        builder: (controller) {
+          return Column(
             children: [
               Expanded(
                 child: ListView(
@@ -41,12 +45,8 @@ class BookDesktopPage extends GetView<BookCtr> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Obx(
-                                () => BookCoverWidget(
-                                    controller.book.value.cover ?? "",
-                                    width: 90,
-                                    height: 120),
-                              ),
+                              BookCoverWidget(controller.book.cover ?? "",
+                                  width: 90, height: 120),
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
@@ -56,18 +56,16 @@ class BookDesktopPage extends GetView<BookCtr> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Obx(() => Text(
-                                            controller.book.value.bookName ??
-                                                "",
-                                            style: TextStyle(fontSize: 16),
-                                          )),
+                                      Text(
+                                        controller.book.bookName ?? "",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
                                       Container(
                                         margin: const EdgeInsets.only(top: 4),
-                                        child: Obx(() => Text(
-                                              controller.book.value.author ??
-                                                  "",
-                                              style: TextStyle(fontSize: 14),
-                                            )),
+                                        child: Text(
+                                          controller.book.author ?? "",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
                                       ),
                                       Container(
                                         margin: const EdgeInsets.only(top: 4),
@@ -75,8 +73,7 @@ class BookDesktopPage extends GetView<BookCtr> {
                                           spacing: 8.0,
                                           runSpacing: 4.0,
                                           alignment: WrapAlignment.start,
-                                          children: controller
-                                              .book.value.category
+                                          children: controller.book.category
                                               .map((element) => Container(
                                                     margin:
                                                         const EdgeInsets.only(
@@ -109,12 +106,10 @@ class BookDesktopPage extends GetView<BookCtr> {
                                       ),
                                       Container(
                                         margin: const EdgeInsets.only(top: 8),
-                                        child: Obx(() => Text(
-                                              controller
-                                                      .book.value.updateTime ??
-                                                  "",
-                                              style: TextStyle(fontSize: 14),
-                                            )),
+                                        child: Text(
+                                          controller.book.updateTime ?? "",
+                                          style: TextStyle(fontSize: 14),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -124,8 +119,7 @@ class BookDesktopPage extends GetView<BookCtr> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 30),
-                            child: Obx(
-                                () => Text(controller.book.value.intro ?? "")),
+                            child: Text(controller.book.intro ?? ""),
                           ),
                           Container(
                             margin: const EdgeInsets.only(top: 30),
@@ -144,18 +138,16 @@ class BookDesktopPage extends GetView<BookCtr> {
                             ),
                             child: InkWell(
                               onTap: () async {
-                                if (controller.book.value.chapterList.isEmpty) {
+                                if (controller.book.chapterList.isEmpty) {
                                   ToastUtil.showToast(Keys.getChapterError.tr);
                                   return;
                                 }
                                 Get.bottomSheet(
                                     ChapterPage(
-                                      chapterList:
-                                          controller.book.value.chapterList,
+                                      chapterList: controller.book.chapterList,
                                       onChoose: (index) {
-                                        if (controller.book.value.type ==
-                                                null ||
-                                            controller.book.value.type == 1) {
+                                        if (controller.book.type == null ||
+                                            controller.book.type == 1) {
                                           ReadPage.go(
                                               sourceUrl: controller.sourceUrl,
                                               bookUrl: controller.bookUrl,
@@ -177,17 +169,15 @@ class BookDesktopPage extends GetView<BookCtr> {
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(
                                           horizontal: 16),
-                                      child: Obx(() => Text(
-                                            controller.book.value.lastChapter !=
-                                                        null &&
-                                                    controller.book.value
-                                                        .lastChapter!.isNotEmpty
-                                                ? controller
-                                                    .book.value.lastChapter!
-                                                : Keys.noChapter.tr,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          )),
+                                      child: Text(
+                                        controller.book.lastChapter != null &&
+                                                controller.book.lastChapter!
+                                                    .isNotEmpty
+                                            ? controller.book.lastChapter!
+                                            : Keys.noChapter.tr,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
                                   Icon(Icons.chevron_right),
@@ -213,25 +203,23 @@ class BookDesktopPage extends GetView<BookCtr> {
                         onTap: () async {
                           controller.addBookShelf();
                         },
-                        child: Obx(
-                          () => Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: controller.book.value.isBookshelf
-                                  ? Colors.grey
-                                  : Color(0xFF12aa9c),
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(25),
-                                  bottomLeft: Radius.circular(25)),
-                            ),
-                            child: Text(
-                              controller.book.value.isBookshelf
-                                  ? Keys.hasBookshelf.tr
-                                  : Keys.addBookshelf.tr,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: controller.book.isBookshelf
+                                ? Colors.grey
+                                : Color(0xFF12aa9c),
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                bottomLeft: Radius.circular(25)),
+                          ),
+                          child: Text(
+                            controller.book.isBookshelf
+                                ? Keys.hasBookshelf.tr
+                                : Keys.addBookshelf.tr,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -244,7 +232,7 @@ class BookDesktopPage extends GetView<BookCtr> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          if (controller.book.value.chapterList.isEmpty) {
+                          if (controller.book.chapterList.isEmpty) {
                             ToastUtil.showToast(Keys.noChapter.tr);
                             return;
                           }
@@ -273,7 +261,9 @@ class BookDesktopPage extends GetView<BookCtr> {
                 ),
               )
             ],
-          ))),
+          );
+        },
+      ),
     );
   }
 }

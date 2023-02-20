@@ -13,18 +13,19 @@ class MyCtr extends BaseCtr{
   SPManager spManager = SPManager();
 
   //当前语言
-  var language = "".obs;
+  var language = "";
 
   @override
   void onInit() {
     super.onInit();
-    language.value = LanguageUtil.getLanguage();
+    language = LanguageUtil.getLanguage();
   }
 
   //选择语言
   void selectLanguage(String lan){
     LanguageUtil.setLanguage(lan);
-    language.value = lan;
+    language = lan;
+    update();
   }
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/entity/db_rule_bean.dart';
+import 'package:fun_reader/entity/search_bean.dart';
+import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/pages/base/base_ctr.dart';
@@ -16,10 +18,12 @@ class SearchCtr extends BaseCtr {
   MyConnect connect = Get.find();
 
   //分类书籍列表
-  var bookList = <BookBean>[].obs;
+  var searchBooks = <SearchBean>[];
 
-  var rule = DBRuleBean().obs;
-  var ruleList = <DBRuleBean>[].obs;
+  var ruleList = <DBRuleBean>[];
+
+  var types = [Keys.novel.tr,Keys.comic.tr];
+  int choose = 1;
 
   var inputController = TextEditingController();
 
@@ -31,41 +35,45 @@ class SearchCtr extends BaseCtr {
     queryAllRule();
   }
 
+  void changeType(String type){
+    for(int i= 0;i<types.length ;i ++){
+      if(type == types[i]){
+        choose = i + 1;
+        update();
+      }
+    }
+  }
+
   ///获取所有书源
   void queryAllRule() async {
     ruleList.clear();
     var list = await RuleDao().queryAll(isEffect: true);
     //过滤搜索规则不存在的
     for (var element in list) {
-      if(element.ruleBean?.search != null){
+      if (element.ruleBean?.search != null) {
         ruleList.add(element);
       }
     }
-    if (ruleList.isNotEmpty) {
-      rule.value = ruleList.first;
-    }else{
-      rule.value = DBRuleBean();
-    }
   }
 
-  //切换数据源
-  void changeRule(DBRuleBean bean) {
-    rule.value = bean;
-  }
-
-  Future<List<BookBean>> searchBook(String key) async {
-    if (rule.value.sourceUrl?.isEmpty ?? true) {
-      ToastUtil.showToast("请选择有效数据源");
-      return [];
+  Future<void> searchBook(String key) async {
+    if (ruleList.isEmpty) {
+      ToastUtil.showToast("暂无数据源");
+      return;
     }
-    showLoading();
-    bookList.clear();
-    bookList.addAll(await connect.getSearchBook(rule.value.ruleBean!,key)) ;
-    if(bookList.isEmpty){
-      showEmpty();
-    }else{
-      showMain();
+    searchBooks.clear();
+    for (var element in ruleList) {
+      print(element.ruleBean?.toJson());
+      if (element.ruleBean != null && ((element.type == null || element.type == 1) || element.type == choose)) {
+        connect.getSearchBook(element.ruleBean!, key).then((value) => {
+              print("${element.ruleBean?.sourceName}"),
+              if (value.isNotEmpty)
+                {
+                  searchBooks.add(SearchBean(rule: element, books: value)),
+                  update()
+                }
+            });
+      }
     }
-    return bookList;
   }
 }

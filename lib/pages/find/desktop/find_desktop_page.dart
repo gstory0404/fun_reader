@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/find/desktop/find_desktop_item.dart';
 import 'package:fun_reader/pages/find/find_ctr.dart';
-import 'package:fun_reader/pages/search/search_page.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -34,23 +33,28 @@ class FindDesktopPage extends GetView<FindCtr> {
               }),
         ],
       ),
-      body: Obx(() => StatusWidget(
-          loadType: controller.loadStatus.value,
-          body: Container(
-            child: RefreshIndicator(
-              onRefresh: () {
-                return controller.queryAllRule();
-              },
-              child: Obx(() => ListView.builder(
-                    itemCount: controller.ruleList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return FindDesktopItem(
-                        ruleBean: controller.ruleList[index].ruleBean!,
-                      );
-                    },
-                  )),
+      body: GetBuilder<FindCtr>(
+        builder: (controller) {
+          return StatusWidget(
+            loadType: controller.loadStatus,
+            body: Container(
+              child: RefreshIndicator(
+                onRefresh: () {
+                  return controller.queryAllRule();
+                },
+                child: ListView.builder(
+                  itemCount: controller.ruleList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return FindDesktopItem(
+                      ruleBean: controller.ruleList[index].ruleBean!,
+                    );
+                  },
+                ),
+              ),
             ),
-          ))),
+          );
+        },
+      ),
     );
   }
 }

@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: 漫画
 
-class ComicPage extends BaseWidget<ComicCtr> {
-  ComicCtr ctr = Get.put(ComicCtr());
+class ComicPage extends BaseWidget{
+  final ctr = Get.put(ComicCtr());
 
   static void go(
       {required String sourceUrl,

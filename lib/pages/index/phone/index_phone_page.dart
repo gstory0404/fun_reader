@@ -11,7 +11,10 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class IndexPhonePage extends GetWidget<IndexCtr> {
+class IndexPhonePage extends StatelessWidget {
+
+  IndexCtr ctr = Get.find();
+
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
       BottomNavigationBarItem(icon: const Icon(Icons.home), label: Keys.bookshelf.tr),
@@ -22,10 +25,8 @@ class IndexPhonePage extends GetWidget<IndexCtr> {
 
   Widget buildPageView() {
     return PageView(
-      controller: controller.pageController,
-      onPageChanged: (index) {
-        controller.chooseIndex.value = index;
-      },
+      controller: ctr.pageController,
+      onPageChanged: ctr.changeIndex,
       children: <Widget>[
         BookShelfPage(),
         FindPage(),
@@ -38,15 +39,17 @@ class IndexPhonePage extends GetWidget<IndexCtr> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildPageView(),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          currentIndex: controller.chooseIndex.value,
-          onTap: (index) {
-            controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.ease);
-            controller.chooseIndex.value = index;
-          },
-          items: buildBottomNavBarItems(),
-        ),
+      bottomNavigationBar: GetBuilder<IndexCtr>(
+        builder: (controller) {
+          return BottomNavigationBar(
+            currentIndex: controller.chooseIndex,
+            onTap: (index) {
+              controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+              controller.changeIndex(index);
+            },
+            items: buildBottomNavBarItems(),
+          );
+        },
       ),
     );
   }

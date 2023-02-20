@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:fun_reader/entity/book_bean.dart';
+import 'package:fun_reader/entity/search_bean.dart';
 import 'package:fun_reader/pages/search/phone/search_phone_appbar.dart';
 import 'package:fun_reader/pages/search/search_ctr.dart';
-import 'package:fun_reader/pages/widgets/book_item.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
+import 'package:fun_reader/widgets/book_item.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -11,24 +12,39 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class SearchPhonePage extends GetView<SearchCtr> {
+class SearchPhonePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SearchPhoneAppbar(),
-      body: Container(
-        child: Obx(
-          () => StatusWidget(loadType: controller.loadStatus.value, body: ListView.builder(
-            itemCount: controller.bookList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return BookItem(
-                sourceUrl: controller.rule.value.sourceUrl!,
-                bookBean: controller.bookList[index],
-              );
-            },
-          )),
-        ),
+      body: GetBuilder<SearchCtr>(
+        builder: (controller) {
+          return StatusWidget(
+            loadType: controller.loadStatus,
+            body: ListView.builder(
+              itemCount: controller.searchBooks.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _books(controller.searchBooks[index]);
+              },
+            ),
+          );
+        },
       ),
+    );
+  }
+
+  _books(SearchBean searchBean) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: searchBean.books?.length,
+      itemBuilder: (BuildContext context, int index) {
+        // print("${searchBean?.rule?.sourceUrl}${searchBean.books![index].bookUrl}");
+        return BookItem(
+          sourceUrl: searchBean.rule?.sourceUrl ?? "",
+          bookBean: searchBean.books![index],
+        );
+      },
     );
   }
 }

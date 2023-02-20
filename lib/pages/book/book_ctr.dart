@@ -22,7 +22,7 @@ class BookCtr extends BaseCtr {
   RuleBean? rule;
 
   //书籍相关参数
-  var book = BookDetailBean().obs;
+  var book = BookDetailBean();
 
   @override
   Future<void> onReady() async {
@@ -33,26 +33,27 @@ class BookCtr extends BaseCtr {
     //获取书籍
     if (rule != null && sourceUrl.isNotEmpty && bookUrl.isNotEmpty) {
       showLoading();
-      book.value = await connect.getBookDetail(rule!, bookUrl);
+      book = await connect.getBookDetail(rule!, bookUrl);
       showMain();
     }else{
       showError();
     }
+    update();
   }
 
   //添加书架
   Future<void> addBookShelf() async {
     ToastUtil.showLoading("正在加载...");
-    if (book.value.id != null) {
-      book.value = await BookDao().update(book.value
-        ..isBookshelf = !book.value.isBookshelf
+    if (book.id != null) {
+      book = await BookDao().update(book
+        ..isBookshelf = !book.isBookshelf
         ..addTime = DateUtil.nowTimestamp());
     } else {
-      book.value = await BookDao().insert(book.value
+      book = await BookDao().insert(book
         ..isBookshelf = true
         ..addTime = DateUtil.nowTimestamp());
     }
-    book.refresh();
+    update();
     //刷新书架
     BookShelfCtr bookShelfCtr = Get.find();
     bookShelfCtr.getAllBooks();

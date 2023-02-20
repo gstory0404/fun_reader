@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/my/my_ctr.dart';
-import 'package:fun_reader/pages/my/my_page.dart';
 import 'package:fun_reader/utils/language_util.dart';
 import 'package:get/get.dart';
 
@@ -29,19 +28,17 @@ class LanguageDialog {
 
   static _languageItem(String language, String languageStr) {
     MyCtr ctr = Get.find();
-    return Obx(
-      () => ListTile(
-        title: Text(
-          languageStr,
-          style: TextStyle(
-            color: ctr.language.value == language ? Colors.red : Colors.black,
-          ),
+    return ListTile(
+      title: Text(
+        languageStr,
+        style: TextStyle(
+          color: ctr.language == language ? Colors.red : Colors.black,
         ),
-        selected: ctr.language.value == language,
-        onTap: () {
-          ctr.selectLanguage(language);
-        },
       ),
+      selected: ctr.language == language,
+      onTap: () {
+        ctr.selectLanguage(language);
+      },
     );
   }
 }

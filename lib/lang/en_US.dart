@@ -55,6 +55,8 @@ const Map<String, String> en_US = {
    Keys.emptyTips :"No data",
    Keys.errorTips :"Failed to get data, please try again later",
    Keys.loadingTips :"Loading data, please wait",
+   Keys.novel :"Novel",
+   Keys.comic :"Comic",
 };
 
 

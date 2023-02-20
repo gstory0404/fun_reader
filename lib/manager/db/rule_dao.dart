@@ -1,6 +1,5 @@
 import 'package:fun_reader/entity/db_rule_bean.dart';
 import 'package:fun_reader/manager/db/dp_provider.dart';
-import 'package:fun_reader/utils/log_util.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// @Author: gstory

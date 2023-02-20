@@ -1,6 +1,5 @@
-import 'package:fun_reader/pages/widgets/status_widget.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/23 10:07
@@ -9,21 +8,21 @@ import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 
 
 abstract class BaseCtr extends GetxController{
-  var loadStatus = LoadType.main.obs;
+  var loadStatus = LoadType.main;
 
   void showLoading(){
-    loadStatus.value = LoadType.loading;
+    loadStatus = LoadType.loading;
   }
 
   void showEmpty(){
-    loadStatus.value = LoadType.empty;
+    loadStatus = LoadType.empty;
   }
 
   void showError(){
-    loadStatus.value = LoadType.error;
+    loadStatus = LoadType.error;
   }
 
   void showMain(){
-    loadStatus.value = LoadType.main;
+    loadStatus = LoadType.main;
   }
 }

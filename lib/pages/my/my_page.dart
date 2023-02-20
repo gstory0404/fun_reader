@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class MyPage extends BaseWidget<MyCtr>{
+class MyPage extends BaseWidget{
 
   MyCtr myCtr = Get.put(MyCtr());
 

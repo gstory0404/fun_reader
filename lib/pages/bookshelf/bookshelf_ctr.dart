@@ -1,8 +1,6 @@
 import 'package:fun_reader/entity/book_detail_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/pages/base/base_ctr.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
-import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -12,7 +10,7 @@ import 'package:get/get.dart';
 
 class BookShelfCtr extends BaseCtr{
   //分类书籍列表
-  var bookList = <BookDetailBean>[].obs;
+  var bookList = <BookDetailBean>[];
 
 
   @override
@@ -24,12 +22,13 @@ class BookShelfCtr extends BaseCtr{
   //获取全部书籍
   Future<void> getAllBooks()  async {
     showLoading();
-    bookList.value = await BookDao().queryAllBookShelf();
+    bookList = await BookDao().queryAllBookShelf();
     if(bookList.isEmpty){
       showEmpty();
     }else{
       showMain();
     }
+    update();
   }
 
   //移出书架

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fun_reader/pages/base/base_widget.dart';
 import 'package:fun_reader/pages/search/desktop/search_desktop_page.dart';
 import 'package:fun_reader/pages/search/phone/search_phone_page.dart';
-import 'package:fun_reader/pages/search/search_ctr.dart';
 import 'package:fun_reader/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +10,7 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述
 
-class SearchPage extends BaseWidget<SearchCtr> {
+class SearchPage extends BaseWidget {
 
   static void go(){
     Get.toNamed(Routes.SEARCH);

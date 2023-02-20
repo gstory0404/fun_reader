@@ -16,7 +16,7 @@ class IndexCtr extends BaseCtr with GetTickerProviderStateMixin{
     keepPage: true,
   );
 
-  var chooseIndex = 0.obs;
+  var chooseIndex = 0;
 
   IndexCtr();
 
@@ -24,6 +24,11 @@ class IndexCtr extends BaseCtr with GetTickerProviderStateMixin{
   void onInit() {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
+  }
+
+  void changeIndex(int index){
+    chooseIndex = index;
+    update();
   }
 
   @override

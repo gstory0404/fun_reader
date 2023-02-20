@@ -44,63 +44,57 @@ class SearchDesktopAppbar extends GetView<SearchCtr>
               ),
             ),
             Container(
-              width: 140,
+              width: 80,
               margin: const EdgeInsets.only(left: 4),
               child: DropdownButtonHideUnderline(
-                child: Obx(
-                  () => DropdownButton2(
-                    isExpanded: true,
-                    hint: Text(
-                      Keys.selectBookSource.tr,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
+                child: GetBuilder<SearchCtr>(
+                  builder: (controller) {
+                    return DropdownButton2(
+                      isExpanded: true,
+                      items: controller.types
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                          ),
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                        ),
+                      ))
+                          .toList(),
+                      value: controller.types[controller.choose - 1],
+                      onChanged: (value) {
+                        controller.changeType(value.toString());
+                      },
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down_sharp,
+                        size: 18,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    items: controller.ruleList
-                        .map((item) => DropdownMenuItem<DBRuleBean>(
-                              value: item,
-                              child: Text(
-                                item.sourceName ?? Keys.unknown.tr,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.clip,
-                                maxLines: 1,
-                              ),
-                            ))
-                        .toList(),
-                    value: controller.rule.value,
-                    onChanged: (value) {
-                      controller.changeRule(value as DBRuleBean);
-                    },
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      size: 18,
-                    ),
-                    iconSize: 12,
-                    iconEnabledColor: Colors.black26,
-                    iconDisabledColor: Colors.grey,
-                    buttonHeight: 50,
-                    buttonWidth: 160,
-                    buttonElevation: 2,
-                    itemHeight: 40,
-                    itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                    dropdownMaxHeight: 300,
-                    dropdownWidth: 260,
-                    dropdownPadding: null,
-                    dropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.white,
-                    ),
-                    dropdownElevation: 8,
-                    scrollbarRadius: const Radius.circular(20),
-                    scrollbarThickness: 6,
-                    scrollbarAlwaysShow: true,
-                    offset: const Offset(-20, 0),
-                  ),
+                      iconSize: 12,
+                      iconEnabledColor: Colors.black26,
+                      iconDisabledColor: Colors.grey,
+                      buttonHeight: 50,
+                      buttonWidth: 120,
+                      buttonElevation: 2,
+                      itemHeight: 40,
+                      itemPadding: const EdgeInsets.only(left: 14, right: 1),
+                      dropdownMaxHeight: 300,
+                      dropdownWidth: 100,
+                      dropdownPadding: null,
+                      dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.white,
+                      ),
+                      dropdownElevation: 8,
+                      scrollbarRadius: const Radius.circular(20),
+                      scrollbarThickness: 6,
+                      scrollbarAlwaysShow: true,
+                      offset: const Offset(-20, -4),
+                    );
+                  },
                 ),
               ),
             ),

@@ -8,7 +8,7 @@ import Foundation
 import package_info_plus
 import path_provider_macos
 import screen_retriever
-import shared_preferences_macos
+import shared_preferences_foundation
 import sqflite
 import sqlite3_flutter_libs
 import url_launcher_macos

@@ -4,10 +4,8 @@ import 'package:fun_reader/lang/keys.dart';
 import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
-import 'package:fun_reader/pages/search/search_page.dart';
-import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
+import 'package:fun_reader/widgets/book_cover_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -18,12 +16,14 @@ import 'package:get/get.dart';
 class BookShelfDesktopPage extends StatelessWidget {
   BookShelfCtr ctr = Get.put(BookShelfCtr());
 
+  BookShelfDesktopPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(Keys.bookshelf.tr,style: TextStyle(fontSize: 24,color: Colors.black),),
+        title: Text(Keys.bookshelf.tr,style: const TextStyle(fontSize: 24,color: Colors.black),),
         centerTitle: false,
         elevation: 0,
         actions: [
@@ -34,20 +34,21 @@ class BookShelfDesktopPage extends StatelessWidget {
               }),
         ],
       ),
-      body: Obx(() => StatusWidget(
-            loadType: ctr.loadStatus.value,
-            body: RefreshIndicator(
-              onRefresh: () {
-                return ctr.getAllBooks();
+      body: GetBuilder<BookShelfCtr>(
+        builder: (controller) {
+          return RefreshIndicator(
+            onRefresh: () {
+              return ctr.getAllBooks();
+            },
+            child: ListView.builder(
+              itemCount: ctr.bookList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _listItem(context, ctr.bookList[index]);
               },
-              child: ListView.builder(
-                itemCount: ctr.bookList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _listItem(context, ctr.bookList[index]);
-                },
-              ),
             ),
-          )),
+          );
+        },
+      ),
     );
   }
 

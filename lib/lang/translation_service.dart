@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:fun_reader/utils/language_util.dart';
 import 'package:get/get.dart';
-import 'package:fun_reader/lang/keys.dart';
 
 import 'en_US.dart';
 import 'zh_CN.dart';

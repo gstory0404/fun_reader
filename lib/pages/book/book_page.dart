@@ -11,7 +11,9 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: dart类作用描述 
 
-class BookPage extends BaseWidget<BookCtr>{
+class BookPage extends BaseWidget{
+
+  final bookCtr = Get.put(BookCtr());
 
   static void go({required String sourceUrl,required String bookUrl}){
     Get.toNamed(Routes.BOOK,

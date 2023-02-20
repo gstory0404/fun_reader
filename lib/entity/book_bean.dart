@@ -9,12 +9,12 @@ class BookBean {
 
   BookBean(
       {this.name,
-        this.author,
-        this.cover,
-        this.intro,
-        this.category,
-        this.lastChapter,
-        this.bookUrl});
+      this.author,
+      this.cover,
+      this.intro,
+      this.category,
+      this.lastChapter,
+      this.bookUrl});
 
   BookBean.fromJson(Map<String, dynamic> json) {
     name = json['name'];

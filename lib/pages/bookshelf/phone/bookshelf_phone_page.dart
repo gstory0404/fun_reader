@@ -6,9 +6,9 @@ import 'package:fun_reader/pages/bookshelf/phone/bookshelf_phone_sheet.dart';
 import 'package:fun_reader/pages/comic/comic_page.dart';
 import 'package:fun_reader/pages/read/read_page.dart';
 import 'package:fun_reader/pages/search/search_page.dart';
-import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
-import 'package:fun_reader/pages/widgets/status_widget.dart';
 import 'package:fun_reader/utils/date_util.dart';
+import 'package:fun_reader/widgets/book_cover_widget.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
 
 /// @Author: gstory
@@ -17,6 +17,9 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class BookShelfPhonePage extends StatelessWidget {
+
+  const BookShelfPhonePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +35,9 @@ class BookShelfPhonePage extends StatelessWidget {
               }),
         ],
       ),
-      body: GetX<BookShelfCtr>(builder: (controller) {
+      body: GetBuilder<BookShelfCtr>(builder: (controller) {
         return StatusWidget(
-          loadType: controller.loadStatus.value,
+          loadType: controller.loadStatus,
           body: RefreshIndicator(
             onRefresh: () {
               return controller.getAllBooks();

@@ -94,6 +94,12 @@ class Keys {
   //搜索
   static const String search = "search";
 
+  //小说
+  static const String novel = "novel";
+
+  //漫画
+  static const String comic = "comic";
+
   //书源管理
   static const String bookSourceManage = "sourceManage";
 

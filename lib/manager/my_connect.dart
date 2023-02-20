@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
@@ -11,9 +10,7 @@ import 'package:fun_reader/entity/rule_bean.dart';
 import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/utils/date_util.dart';
-import 'package:fun_reader/utils/log_util.dart';
 import 'package:get/get.dart';
-import 'package:xpath_selector/xpath_selector.dart';
 import 'package:xpath_selector_html_parser/xpath_selector_html_parser.dart';
 
 /// @Author: gstory

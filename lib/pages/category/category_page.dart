@@ -11,7 +11,9 @@ import 'package:get/get.dart';
 /// @Email gstory0404@gmail.com
 /// @Description: 分类页面
 
-class CategoryPage extends BaseWidget<CategoryCtr>{
+class CategoryPage extends BaseWidget{
+
+  final categoryCtr = Get.put(CategoryCtr());
 
   static void go({required name,required sourceUrl,required path}){
     Get.toNamed(Routes.CATRGORY, arguments: {

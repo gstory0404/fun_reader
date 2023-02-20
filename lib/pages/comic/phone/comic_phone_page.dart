@@ -26,18 +26,20 @@ class _ComicPhonePageState extends State<ComicPhonePage> {
     return Scaffold(
       drawer: Drawer(
         width: context.width * 0.8,
-        child: Obx(
-          () => ChapterPage(
-            chapterList: controller.book.value.chapterList,
-            index: controller.chapterIndex.value,
-            onChoose: (index) {
-              controller.chapterIndex.value = index;
-              controller.reloadChapter();
-              //关闭draw
-              Get.back();
-              controller.isShowMenu.value = false;
-            },
-          ),
+        child: GetBuilder<ComicCtr>(
+          builder: (controller) {
+            return ChapterPage(
+              chapterList: controller.book.chapterList,
+              index: controller.chapterIndex,
+              onChoose: (index) {
+                controller.chapterIndex = index;
+                controller.reloadChapter();
+                //关闭draw
+                Get.back();
+                controller.isShowMenu.value = false;
+              },
+            );
+          },
         ),
       ),
       body: GestureDetector(
@@ -46,30 +48,32 @@ class _ComicPhonePageState extends State<ComicPhonePage> {
         },
         child: Stack(
           children: [
-            Obx(
-              () => Container(
-                alignment: Alignment.center,
-                child: ScrollablePositionedList.builder(
-                  itemCount: controller.chapterContentList.length,
-                  itemScrollController: controller.readScrollController,
-                  itemPositionsListener: controller.readPositionsListener,
-                  itemBuilder: (context, index) {
-                    return ComicPhoneItem(
-                      content: controller.chapterContentList[index],
-                    );
-                  },
-                ),
-              ),
+            GetBuilder<ComicCtr>(
+              builder: (controller) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: ScrollablePositionedList.builder(
+                    itemCount: controller.chapterContentList.length,
+                    itemScrollController: controller.readScrollController,
+                    itemPositionsListener: controller.readPositionsListener,
+                    itemBuilder: (context, index) {
+                      return ComicPhoneItem(
+                        content: controller.chapterContentList[index],
+                      );
+                    },
+                  ),
+                );
+              },
             ),
             Builder(
               builder: (BuildContext context) {
-                return Obx(() => controller.isShowMenu.value
+                return controller.isShowMenu.value
                     ? ComicPhoneMenu(
                         openDraw: () {
                           Scaffold.of(context).openDrawer();
                         },
                       )
-                    : Container());
+                    : Container();
               },
             ),
           ],

@@ -1,32 +1,20 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/services.dart';
-import 'package:fun_reader/entity/db_rule_bean.dart';
-import 'package:fun_reader/entity/rule_bean.dart';
-import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/sp_manager.dart';
 import 'package:fun_reader/pages/index/index_page.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// @Author: gstory
-/// @CreateDate: 2022/6/7 15:32
-/// @Email gstory0404@gmail.com
-/// @Description: dart类作用描述 
-
-class WelComeCtr extends GetxController{
-
+class WelcomeCtr extends GetxController {
   Timer? _timer;
 
-  var countdown = 3.obs;
+  var countdown = 3;
 
   @override
   Future<void> onInit() async {
     super.onInit();
 
     await SPManager().init();
-    _timer = Timer.periodic(Duration(seconds: 1),(timer){
+    _timer = Timer.periodic(const Duration(seconds: 1),(timer){
       if (countdown > 0) {
         countdown--;
       } else {
@@ -43,5 +31,3 @@ class WelComeCtr extends GetxController{
     _timer = null;
   }
 }
-
-

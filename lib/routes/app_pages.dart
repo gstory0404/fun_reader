@@ -13,7 +13,7 @@ import 'package:fun_reader/pages/search/search_page.dart';
 import 'package:fun_reader/pages/source/source_ctr.dart';
 import 'package:fun_reader/pages/source/source_page.dart';
 import 'package:fun_reader/pages/welcome/welcome_ctr.dart';
-import 'package:fun_reader/pages/welcome/welcome_page.dart';
+import 'package:fun_reader/pages/welcome/welcome_view.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
@@ -29,14 +29,14 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.WELCOME,
-      page: () => const WelcomePage(),
+      page: () => WelcomePage(),
       binding: BindingsBuilder(() {
-        Get.lazyPut(() => WelComeCtr());
+        Get.lazyPut(() => WelcomeCtr());
       }),
     ),
     GetPage(
       name: Routes.INDEX,
-      page: () => const IndexPage(),
+      page: () => IndexPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut(() => IndexCtr());
       }),

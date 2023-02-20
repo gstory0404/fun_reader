@@ -18,16 +18,16 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF12aa9c),
+      backgroundColor: const Color(0xFF12aa9c),
       titleSpacing: 0,
       leading: BackButton(onPressed: () {
         Get.back();
       }),
       title: Container(
         height: 36,
-        padding: EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: Color(0xFFF2F2F2),
+          color: const Color(0xFFF2F2F2),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -43,73 +43,65 @@ class SearchPhoneAppbar extends GetView<SearchCtr>
               width: 80,
               margin: const EdgeInsets.only(left: 4),
               child: DropdownButtonHideUnderline(
-                child: Obx(
-                  () => DropdownButton2(
-                    isExpanded: true,
-                    hint: Text(
-                      Keys.selectBookSource.tr,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black12,
+                child: GetBuilder<SearchCtr>(
+                  builder: (controller) {
+                    return DropdownButton2(
+                      isExpanded: true,
+                      items: controller.types
+                          .map((item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                          ),
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                        ),
+                      ))
+                          .toList(),
+                      value: controller.types[controller.choose - 1],
+                      onChanged: (value) {
+                        controller.changeType(value.toString());
+                      },
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down_sharp,
+                        size: 18,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    items: controller.ruleList
-                        .map((item) => DropdownMenuItem<DBRuleBean>(
-                              value: item,
-                              child: Text(
-                                item.sourceName ?? Keys.unknown.tr,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black54,
-                                ),
-                                overflow: TextOverflow.clip,
-                                maxLines: 1,
-                              ),
-                            ))
-                        .toList(),
-                    value: controller.rule.value,
-                    onChanged: (value) {
-                      controller.changeRule(value as DBRuleBean);
-                    },
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      size: 18,
-                    ),
-                    iconSize: 12,
-                    iconEnabledColor: Colors.black26,
-                    iconDisabledColor: Colors.grey,
-                    buttonHeight: 50,
-                    buttonWidth: 160,
-                    buttonElevation: 2,
-                    itemHeight: 40,
-                    itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                    dropdownMaxHeight: 300,
-                    dropdownWidth: 260,
-                    dropdownPadding: null,
-                    dropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.white,
-                    ),
-                    dropdownElevation: 8,
-                    scrollbarRadius: const Radius.circular(20),
-                    scrollbarThickness: 6,
-                    scrollbarAlwaysShow: true,
-                    offset: const Offset(-20, 0),
-                  ),
+                      iconSize: 12,
+                      iconEnabledColor: Colors.black26,
+                      iconDisabledColor: Colors.grey,
+                      buttonHeight: 50,
+                      buttonWidth: 120,
+                      buttonElevation: 2,
+                      itemHeight: 40,
+                      itemPadding: const EdgeInsets.only(left: 14, right: 1),
+                      dropdownMaxHeight: 300,
+                      dropdownWidth: 100,
+                      dropdownPadding: null,
+                      dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.white,
+                      ),
+                      dropdownElevation: 8,
+                      scrollbarRadius: const Radius.circular(20),
+                      scrollbarThickness: 6,
+                      scrollbarAlwaysShow: true,
+                      offset: const Offset(-20, -4),
+                    );
+                  },
                 ),
               ),
             ),
             Container(
               width: 1,
               height: 18,
-              margin: EdgeInsets.symmetric(horizontal: 4),
-              color: Color(0xFF999999),
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              color: const Color(0xFF999999),
             ),
             Expanded(
               child: TextField(
-                // autofocus: widget.autoFocus,
-                // focusNode: _focusNode,
                 controller: controller.inputController,
                 decoration: InputDecoration(
                   isDense: true,

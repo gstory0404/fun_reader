@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_reader/entity/book_bean.dart';
 import 'package:fun_reader/pages/book/book_page.dart';
-import 'package:fun_reader/pages/widgets/book_cover_widget.dart';
+import 'package:fun_reader/widgets/book_cover_widget.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2022/6/11 11:11

@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 class FindCtr extends BaseCtr {
   MyConnect connect = Get.find();
 
-  var ruleList = <DBRuleBean>[].obs;
+  var ruleList = <DBRuleBean>[];
 
   @override
   void onInit() {
@@ -27,12 +27,13 @@ class FindCtr extends BaseCtr {
 
   Future<void> queryAllRule() async {
     showLoading();
-    ruleList.value = await RuleDao().queryAll(isEffect: true);
+    ruleList = await RuleDao().queryAll(isEffect: true);
     if (ruleList.isEmpty) {
       showEmpty();
     } else {
       showMain();
     }
+    update();
   }
 
   ///测试用例
