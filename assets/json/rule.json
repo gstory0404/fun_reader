@@ -1,0 +1,86 @@
+{
+  "sourceName": "顶点手机",
+  "sourceUrl": "https://m.dingdian6.com/",
+  "head": "",
+  "recommend": [
+    {
+      "recommendName": "全部",
+      "recommendUrl": "/category/0_&page&.html"
+    },
+    {
+      "recommendName": "玄幻奇幻",
+      "recommendUrl": "/category/1_&page&.html"
+    },
+    {
+      "recommendName": "武侠仙侠",
+      "recommendUrl": "/category/2_&page&.html"
+    },
+    {
+      "recommendName": "都市言情",
+      "recommendUrl": "/category/3_&page&.html"
+    },
+    {
+      "recommendName": "历史军事",
+      "recommendUrl": "/category/4_&page&.html"
+    },
+    {
+      "recommendName": "科幻灵异",
+      "recommendUrl": "/category/5_&page&.html"
+    },
+    {
+      "recommendName": "网游竞技",
+      "recommendUrl": "/category/6_&page&.html"
+    },
+    {
+      "recommendName": "女生频道",
+      "recommendUrl": "/category/7_&page&.html"
+    }
+  ],
+  "recommendBooks": {
+    "books": "//*[@id=\"main\"]////*[@class=\"hot_sale\"]",
+    "name": "/div[2]/a/div[1]/p[1]/text()",
+    "author": "/div[2]/a/div[1]/p[2]/text()",
+    "cover": "/div[1]/a/img/@src",
+    "intro": "/p/text()",
+    "category": "",
+    "lastChapter": "",
+    "bookUrl": "/div[1]/a/@href"
+  },
+  "search": {
+    "url": "/SearchBook.php",
+    "method": "GET",
+    "body": "{\"keyword\":\"&key&\",\"t\":\"1\"}",
+    "contentType": "text/html; charset=utf-8"
+  },
+  "searchBooks": {
+    "books": "/*[@class=\"recommend mybook\"]//*[@class=\"hot_sale\"]",
+    "name": "/a/p[1]/text()",
+    "author": "/a/p[2]/text()",
+    "cover": "",
+    "intro": "",
+    "category": "/a/p[3]/text()",
+    "lastChapter": "",
+    "bookUrl": "/a/@href"
+  },
+  "bookInfo": {
+    "name": "//*[@class=\"title\"]/text()",
+    "author": "//*[@id=\"book_detail\"]/li[1]/a/text()",
+    "cover": "//*[@id=\"thumb\"]/img/@src",
+    "intro": "//*[@class=\"review\"]/text()",
+    "category": "//*[@id=\"book_detail\"]/li[2]/text()",
+    "lastChapter": "",
+    "updateTime": "//*[@id=\"book_detail\"]/li[4]/text()",
+    "chapterUrl": "//*[@class=\"recommend\"]/h2[2]/a/@href"
+  },
+  "chapter": {
+    "chapterList": "//*[@id=\"chapterlist\"]/p[position()>1]",
+    "chapterName": "/a/text()",
+    "chapterUrl": "/a/@href",
+    "nextPage": ""
+  },
+  "chapterContent": {
+    "content": "//*[@id=\"nr1\"]/text()",
+    "nextPage": "",
+    "replaceReg": ""
+  }
+}

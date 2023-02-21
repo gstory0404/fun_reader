@@ -5,6 +5,7 @@ import 'package:fun_reader/manager/db/book_dao.dart';
 import 'package:fun_reader/manager/db/rule_dao.dart';
 import 'package:fun_reader/manager/my_connect.dart';
 import 'package:fun_reader/pages/base/base_ctr.dart';
+import 'package:fun_reader/pages/bookshelf/bookshelf_ctr.dart';
 import 'package:fun_reader/pages/read/phone/read_phone_ctr.dart';
 import 'package:fun_reader/utils/date_util.dart';
 import 'package:fun_reader/utils/toast_util.dart';
@@ -172,5 +173,24 @@ class ReadCtr extends BaseCtr {
         chapterName: chapterName,
         chapterUrl: chapterUrl,
         chapterContent: content);
+  }
+
+  //添加书架
+  Future<void> addBookShelf() async {
+    ToastUtil.showLoading("正在加载...");
+    if (book.value.id != null) {
+      book.value = await BookDao().update(book.value
+        ..isBookshelf = !book.value.isBookshelf
+        ..addTime = DateUtil.nowTimestamp());
+    } else {
+      book.value = await BookDao().insert(book.value
+        ..isBookshelf = true
+        ..addTime = DateUtil.nowTimestamp());
+    }
+    update();
+    //刷新书架
+    BookShelfCtr bookShelfCtr = Get.find();
+    bookShelfCtr.getAllBooks();
+    ToastUtil.dismiss();
   }
 }

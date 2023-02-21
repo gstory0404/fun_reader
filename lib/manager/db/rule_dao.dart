@@ -30,18 +30,19 @@ class RuleDao extends DBProvider {
               $_sourceName TEXT,
               $_sourceUrl TEXT,
               $_rule TEXT,
-              $_isEffect INTEGER
+              $_isEffect INTEGER,
               $_type INTEGER
               )''';
   }
 
   @override
   upgradeTable(Database db, int oldVersion) async {
-    if (oldVersion < 2) {
-      var batch = db.batch();
+    var batch = db.batch();
+    //更新数据库Version: 1->4
+    if (oldVersion > 0 && oldVersion < 4) {
       batch.execute('alter table ${tableName()} add column $_type INTEGER');
-      await batch.commit();
     }
+    await batch.commit();
   }
 
   ///插入单条规则

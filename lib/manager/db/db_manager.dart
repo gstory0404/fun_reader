@@ -13,7 +13,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DBManager {
   ///数据库版本
-  static const int _dbVersion = 2;
+  static const int _dbVersion = 4;
 
   ///数据库名称
   static const String _dbName = "fun_novel.db";
@@ -27,12 +27,17 @@ class DBManager {
         join(await getDatabasesPath(), _dbName),
         version: _dbVersion,
         onCreate: (db, version) async {
+          print("数据库创建===>$version");
           RuleDao().createTable();
           BookDao().createTable();
         },
         onUpgrade: (db, oldVersion, newVersion) {
+          print("数据库升级===>$oldVersion $newVersion");
           RuleDao().upgradeTable(db, oldVersion);
           BookDao().upgradeTable(db, oldVersion);
+        },
+        onDowngrade: (db, oldVersion, newVersion) {
+          print("数据库降级===>$oldVersion $newVersion");
         },
       );
     } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
@@ -52,12 +57,13 @@ class DBManager {
           },
         ),
       );
+
     }
+    print("数据库版本获取===>${await _db?.database.getVersion()}");
   }
 
   ///判断是否存在表
   static isTableExits(String tableName) async {
-    await getDatabase();
     var res = await _db
         ?.query("sqlite_master", where: "name = ?", whereArgs: [tableName]);
     return res != null && res.isNotEmpty;

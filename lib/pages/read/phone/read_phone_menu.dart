@@ -147,6 +147,37 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
       right: 0,
       child: Column(
         children: <Widget>[
+          Obx(() {
+            return readCtr.book.value.isBookshelf
+                ? Container()
+                : InkWell(
+                    onTap: () {
+                      readCtr.addBookShelf();
+                    },
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(right: 10.0, bottom: 10),
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF12aa9c),
+                          shape:
+                              BoxShape.rectangle, //可以设置角度，BoxShape.circle直接圆形
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Text(
+                          "+",
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+          }),
           Container(
             // 上边框
             decoration: BoxDecoration(
@@ -474,7 +505,7 @@ class _ReadPhoneMenuState extends State<ReadPhoneMenu>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 Text(
+                Text(
                   Keys.horizontalSpacing.tr,
                   style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),

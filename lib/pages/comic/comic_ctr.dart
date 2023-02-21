@@ -39,6 +39,8 @@ class ComicCtr extends BaseCtr {
   @override
   void onInit() {
     super.onInit();
+    showLoading();
+    // update();
     //监听垂直观看是滚动
     readPositionsListener.itemPositions.addListener(() => _checkChapter(
         readPositionsListener.itemPositions.value.toList()[0].index,
@@ -76,6 +78,7 @@ class ComicCtr extends BaseCtr {
             .add(await getChapterContent(book.chapterList[chapterIndex + 1]));
       }
       isLoad = false;
+      showMain();
       update();
     }
   }
@@ -130,8 +133,9 @@ class ComicCtr extends BaseCtr {
 
   //获取章节内容
   Future<ComicChapterContent> getChapterContent(ChapterBean chapterBean) async {
+    print(chapterBean.toJson());
     var contents = await connect.getComicChapterContent(
-        rule!.ruleBean!, chapterBean.chapterUrl ?? "");
+        rule!.ruleBean!, chapterBean.chapterUrl ?? "",[]);
     return ComicChapterContent(
       chapterName: chapterBean.chapterName ?? "",
       chapterUrl: chapterBean.chapterUrl ?? "",

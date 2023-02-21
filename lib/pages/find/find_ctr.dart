@@ -21,7 +21,6 @@ class FindCtr extends BaseCtr {
   @override
   void onInit() {
     super.onInit();
-    // _add();
     queryAllRule();
   }
 
@@ -34,30 +33,5 @@ class FindCtr extends BaseCtr {
       showMain();
     }
     update();
-  }
-
-  ///测试用例
-  Future<void> _add() async {
-    rootBundle.loadString("assets/json/rule.json").then((data) async {
-      var map = json.decode(data);
-      var bean = RuleBean.fromJson(map);
-      var dbBean = await RuleDao().query(bean.sourceUrl ?? "");
-      //如果不存在就插入表中
-      if (dbBean == null) {
-        DBRuleBean dbRuleBean = DBRuleBean();
-        dbRuleBean.sourceUrl = bean.sourceUrl;
-        dbRuleBean.sourceName = bean.sourceName;
-        dbRuleBean.ruleBean = bean;
-        dbRuleBean.isEffect = true;
-        dbRuleBean.type = bean.type;
-        RuleDao().insert(dbRuleBean);
-      } else {
-        //存在就更新
-        dbBean.sourceUrl = bean.sourceUrl;
-        dbBean.sourceName = bean.sourceName;
-        dbBean.ruleBean = bean;
-        RuleDao().update(dbBean);
-      }
-    });
   }
 }

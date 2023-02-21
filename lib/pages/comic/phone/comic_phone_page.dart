@@ -3,6 +3,7 @@ import 'package:fun_reader/pages/chapter/chapter_page.dart';
 import 'package:fun_reader/pages/comic/comic_ctr.dart';
 import 'package:fun_reader/pages/comic/phone/comic_phone_item.dart';
 import 'package:fun_reader/pages/comic/phone/comic_phone_menu.dart';
+import 'package:fun_reader/widgets/status_widget.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -50,17 +51,20 @@ class _ComicPhonePageState extends State<ComicPhonePage> {
           children: [
             GetBuilder<ComicCtr>(
               builder: (controller) {
-                return Container(
-                  alignment: Alignment.center,
-                  child: ScrollablePositionedList.builder(
-                    itemCount: controller.chapterContentList.length,
-                    itemScrollController: controller.readScrollController,
-                    itemPositionsListener: controller.readPositionsListener,
-                    itemBuilder: (context, index) {
-                      return ComicPhoneItem(
-                        content: controller.chapterContentList[index],
-                      );
-                    },
+                return StatusWidget(
+                  loadType: controller.loadStatus,
+                  body: Container(
+                    alignment: Alignment.center,
+                    child: ScrollablePositionedList.builder(
+                      itemCount: controller.chapterContentList.length,
+                      itemScrollController: controller.readScrollController,
+                      itemPositionsListener: controller.readPositionsListener,
+                      itemBuilder: (context, index) {
+                        return ComicPhoneItem(
+                          content: controller.chapterContentList[index],
+                        );
+                      },
+                    ),
                   ),
                 );
               },

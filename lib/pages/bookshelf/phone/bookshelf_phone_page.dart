@@ -86,12 +86,12 @@ class BookShelfPhonePage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            BookCoverWidget(bookBean.cover ?? "", width: 80, height: 100),
+            BookCoverWidget(bookBean.cover ?? "", width: 90, height: 130),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.only(left: 10),
-                height: 100,
+                height: 130,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,13 +128,26 @@ class BookShelfPhonePage extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      "${(bookBean.type == null || bookBean.type == 1) ? "小说" : "漫画"} · 《${bookBean.sourceName}》 ",
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Text(
+                          "${(bookBean.type == null || bookBean.type == 1) ? Keys.novel.tr : Keys.comic.tr} · ",
+                          style: TextStyle(
+                            color: bookBean.type == null || bookBean.type == 1 ? Color(0xFF12aa9c) : Colors.red,
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "《${bookBean.sourceName}》 ",
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
                     ),
                   ],
                 ),

@@ -12,13 +12,14 @@ import 'package:get/get.dart';
 /// @Description: dart类作用描述
 
 class IndexPhonePage extends StatelessWidget {
-
   IndexCtr ctr = Get.find();
 
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
-      BottomNavigationBarItem(icon: const Icon(Icons.home), label: Keys.bookshelf.tr),
-      BottomNavigationBarItem(icon: const Icon(Icons.domain), label: Keys.find.tr),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.home), label: Keys.bookshelf.tr),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.domain), label: Keys.find.tr),
       BottomNavigationBarItem(icon: const Icon(Icons.person), label: Keys.my.tr)
     ];
   }
@@ -43,8 +44,14 @@ class IndexPhonePage extends StatelessWidget {
         builder: (controller) {
           return BottomNavigationBar(
             currentIndex: controller.chooseIndex,
+            unselectedIconTheme: const IconThemeData(color: Colors.black),
+            selectedIconTheme: const IconThemeData(color: Color(0xFF12aa9c)),
+            unselectedLabelStyle: const TextStyle(color: Colors.black),
+            selectedLabelStyle: const TextStyle(color: Color(0xFF12aa9c)),
             onTap: (index) {
-              controller.pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+              controller.pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease);
               controller.changeIndex(index);
             },
             items: buildBottomNavBarItems(),

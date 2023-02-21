@@ -261,6 +261,7 @@ class MyConnect extends GetConnect {
       var chapterName =
           element.queryXPath(rule.chapter!.chapterName!).attr ?? "";
       var chapterUrl = element.queryXPath(rule.chapter!.chapterUrl!).attr;
+      print(chapterUrl);
       chapterList
           .add(ChapterBean(chapterName: chapterName, chapterUrl: chapterUrl));
     }
@@ -302,18 +303,19 @@ class MyConnect extends GetConnect {
 
   ///获取漫画章节内容
   Future<List<String?>> getComicChapterContent(
-      RuleBean rule, String chapterUrl) async {
-    print(chapterUrl);
+      RuleBean rule, String chapterUrl,List<String?> content) async {
     var html = await getData(rule.sourceUrl ?? "", chapterUrl);
-    // List<String?> contents =
-    //     XPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
-    List<String?> content =
-        HtmlXPath.html(html).query("//*[@class=\"erPag\"]//mip-img/@src").attrs;
+    List<String?> curContent =
+        HtmlXPath.html(html).query(rule.chapterContent?.content ?? "").attrs;
+    content.addAll(curContent);
     if (rule.chapterContent?.nextPage?.isNotEmpty ?? false) {
       var nextPage =
-          HtmlXPath.html(html).query(rule.chapter?.nextPage ?? "").attr ?? "";
+          HtmlXPath.html(html).query(rule.chapterContent?.nextPage ?? "").attr ?? "";
+      // var nextPage = HtmlXPath.html(html)
+      //         .query("//*[@id=\"action\"]/ul/li[3]/mip-link/@href")
+      //         .attr ?? "";
       if (nextPage.isNotEmpty) {
-        var nextContent = await getComicChapterContent(rule, nextPage);
+        var nextContent = await getComicChapterContent(rule, nextPage!,content);
         if (nextContent.isEmpty) {
           content.addAll(nextContent);
         }

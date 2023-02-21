@@ -52,12 +52,16 @@ class SourceCtr extends BaseCtr {
   ///下载文件
   Future<void> download(String url) async {
     ToastUtil.showLoading("");
+    print(url);
     Directory tempDir = await getTemporaryDirectory();
     var filePath = "${tempDir.path}/rule/${DateUtil.nowTimestamp()}.json";
     var response = await Dio().download(url, filePath,
         onReceiveProgress: (received, total) {
       print("下载进度$received/$total");
       if (received == total) {
+        ToastUtil.dismiss();
+        readFile(filePath);
+      }else if (total == -1) {
         ToastUtil.dismiss();
         readFile(filePath);
       }
